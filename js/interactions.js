@@ -73,6 +73,15 @@
         event.preventDefault();
         var popup = btn.closest('[id^="popup"]');
         if (popup) closePopup(popup);
+
+        // Пункты мобильного меню (popup-nav-mob) — обычные ссылки на секции
+        // (href="#program" и т.п.), а не просто кнопки закрытия: после закрытия
+        // попапа докручиваем страницу к нужной секции.
+        var href = btn.getAttribute('href');
+        if (href && href.length > 1 && href.charAt(0) === '#') {
+          var target = document.querySelector(href);
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
     });
 
@@ -80,6 +89,21 @@
     // отдельного элемента-подложки — .container занимает всю площадь попапа,
     // поэтому "клик снаружи" неотличим от клика по контенту. Закрытие — по
     // кнопке "закрыть"/"закрываем" (data-popup-close) и по Escape.
+    //
+    // Исключение — popup-program на мобильной версии (≤479px): там
+    // .popup_right_side_program скрыт (см. CSS), и над карточкой
+    // .popup_left_side_program-copy остаётся настоящая пустая зона — клик по
+    // ней бьёт именно в .popup_content_wrapper, а не в дочерний элемент,
+    // поэтому здесь клик снаружи однозначно отличим от клика по контенту.
+    var programWrapper = document.querySelector('#popup-program .popup_content_wrapper');
+    if (programWrapper) {
+      programWrapper.addEventListener('click', function (event) {
+        if (event.target !== programWrapper) return;
+        if (!window.matchMedia('(max-width: 479px)').matches) return;
+        closePopup(document.getElementById('popup-program'));
+      });
+    }
+
     document.addEventListener('keydown', function (event) {
       if (event.key !== 'Escape') return;
       document.querySelectorAll('[id^="popup"]').forEach(function (popup) {

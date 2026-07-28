@@ -2284,6 +2284,7 @@ img {
   align-items: center;
   width: 56.44rem;
   display: flex;
+  cursor: pointer;
 }
 
 .program_cart_img_wrapper {
@@ -2405,6 +2406,7 @@ img {
   align-items: center;
   width: 56.44rem;
   display: flex;
+  cursor: pointer;
 }
 
 .program_cart_img_wrapper-2 {
@@ -5511,7 +5513,17 @@ img {
   .popup_line {
     width: 5.94rem;
     height: .38rem;
-    bottom: 42.13em;
+    bottom: 42.13rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* popup-program: карточка popup_left_side_program-copy (44.94rem) выше, чем
+     popup_left_side у остальных попапов (41.13rem) — общий bottom из .popup_line
+     утапливал линию под верхний край карточки. Нужный отступ — 1rem от её
+     верха: 44.94rem (высота карточки) + 1rem. */
+  .popup_line.popup_line-program {
+    bottom: 45.94rem;
   }
 
   .popup_content_mob_wrapper {
@@ -5728,4 +5740,9 @@ img {
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
+}
+
+.scroll-target {
+  /* navbar is fixed with top:1.25rem + height:3rem, plus 2rem breathing room */
+  scroll-margin-top: 6.25rem;
 }
