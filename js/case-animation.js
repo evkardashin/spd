@@ -1,0 +1,110 @@
+(function () {
+  'use strict';
+
+  // Предохранитель: что бы ни случилось, блок не должен остаться скрытым навсегда.
+  var safetyTimer = setTimeout(function () {
+    if (window.__caseReveal) window.__caseReveal();
+  }, 6000);
+
+  function done() {
+    clearTimeout(safetyTimer);
+    if (window.__caseReveal) window.__caseReveal();
+  }
+
+  if (typeof window.gsap === 'undefined' || typeof window.IntersectionObserver === 'undefined') {
+    done();
+    return;
+  }
+
+  try {
+    var gsap = window.gsap;
+    var section = document.querySelector('.case_section');
+    if (!section) { done(); return; }
+
+    var heading = section.querySelectorAll('[data-case-el="heading"]');
+    var cards = Array.prototype.slice.call(section.querySelectorAll('[data-case-el="card"]'));
+    var cta = section.querySelector('[data-case-el="cta"]');
+
+    // У декоративных иконок в CSS свой угол наклона — если анимировать все разом
+    // к rotate:0, GSAP перезапишет инлайн-стилем и наклон навсегда потеряется.
+    // Значения взяты из css/fff-9072af.webflow.css.
+    var iconConfigs = [
+      { el: section.querySelector('.scream_img_wrapper'), finalRotate: -11.527 },
+      { el: section.querySelector('.brush_img_wrapper'), finalRotate: 28.411 },
+      { el: section.querySelector('.heart_img_wrapper-2'), finalRotate: 15.919 }
+    ].filter(function (c) { return c.el; });
+
+    // Карточки лежат в CSS-гриде 2 колонки × 3 ряда (.case_grid наследует
+    // grid-template-columns: 1fr 1fr от .w-layout-grid), поэтому каждые 2 подряд
+    // идущих элемента — визуальный ряд. Появляются по рядам: сначала первый, потом
+    // второй и т.д.
+    var ROW_SIZE = 2;
+    var rows = [];
+    for (var i = 0; i < cards.length; i += ROW_SIZE) {
+      rows.push(cards.slice(i, i + ROW_SIZE));
+    }
+
+    function play() {
+      var tl = gsap.timeline({ defaults: { ease: 'power3.out' }, onComplete: done });
+
+      gsap.set(heading, { opacity: 0, y: 26 });
+      iconConfigs.forEach(function (c) {
+        gsap.set(c.el, { opacity: 0, scale: 0.5, rotate: c.finalRotate - 25 });
+      });
+      gsap.set(cards, { opacity: 0, y: 34, scale: 0.92, rotate: -3 });
+
+      // У каждой карточки два варианта фонового фото — десктопное (.case_img_wrapper)
+      // и мобильное (.case_img_wrapper-mob), скрытое/показанное через CSS-медиазапрос.
+      // Анимируем оба (скрытое не даёт визуального эффекта, но код проще и одинаков
+      // для обеих раскладок).
+      var cardPhotos = cards.map(function (card) {
+        return card.querySelectorAll('.case_img_wrapper > img, .case_img_wrapper-mob > img');
+      });
+      cardPhotos.forEach(function (imgs) {
+        gsap.set(imgs, { borderRadius: '30%' });
+      });
+
+      tl.to(heading, { opacity: 1, y: 0, duration: 0.7, stagger: 0.08 });
+      iconConfigs.forEach(function (c, i) {
+        tl.to(c.el, {
+          opacity: 1, scale: 1, rotate: c.finalRotate, duration: 0.8, ease: 'back.out(2.4)'
+        }, i === 0 ? '-=0.45' : '<0.1');
+      });
+
+      rows.forEach(function (row, i) {
+        var position = i === 0 ? '-=0.25' : '-=0.7';
+        tl.to(row, {
+          opacity: 1, y: 0, scale: 1, rotate: 0, duration: 0.85, stagger: 0.12, ease: 'back.out(1.8)'
+        }, position);
+
+        var rowStart = i * ROW_SIZE;
+        var photos = [];
+        for (var j = rowStart; j < rowStart + ROW_SIZE && j < cardPhotos.length; j++) {
+          photos.push(cardPhotos[j]);
+        }
+        photos.forEach(function (imgs) {
+          // Плавный ease без баунса: у back.out есть перелёт значения — на пике он
+          // утянул бы border-radius ниже 0 (браузер обрежет до квадрата) и вернул
+          // обратно, что выглядело бы как случайный "мигающий" угол.
+          tl.to(imgs, { borderRadius: '0px', duration: 0.85, ease: 'power2.out' }, '<');
+        });
+      });
+
+      if (cta) {
+        tl.to(cta, { opacity: 1, y: 0, scale: 1, rotate: 0, duration: 0.75, ease: 'back.out(2.2)' }, '-=0.35');
+      }
+    }
+
+    var observer = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        obs.disconnect();
+        play();
+      });
+    }, { threshold: 0 });
+
+    observer.observe(section);
+  } catch (err) {
+    done();
+  }
+})();
