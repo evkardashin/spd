@@ -186,15 +186,34 @@ html { font-size: 1rem; }
               </a>
               <div class="text_small text_align-center color_black-40 mb-24 width-317" data-hero-el="caption">наши студенты работают во всех топовых бигтехах</div>
               <div class="partners_wrapper">
-                <div class="indrive_wrapper" data-hero-el="logo"><img src="images/indrive.svg" loading="lazy" alt="" class="image-2"></div>
-                <div class="ya_wrapper" data-hero-el="logo"><img src="images/ya.svg" loading="lazy" alt=""></div>
-                <div class="vk_wrapper" data-hero-el="logo"><img src="images/vk.svg" loading="lazy" alt=""></div>
-                <div class="avito_wrapper" data-hero-el="logo"><img src="images/avito.svg" loading="lazy" alt=""></div>
-                <div class="samokat_wrapper" data-hero-el="logo"><img src="images/samo.svg" loading="lazy" alt=""></div>
-                <div class="sber_wrapper" data-hero-el="logo"><img src="images/sber.svg" loading="lazy" alt=""></div>
-                <div class="tbank_wrappper" data-hero-el="logo"><img src="images/tbank.svg" loading="lazy" alt=""></div>
-                <div class="ozon_wrapper" data-hero-el="logo"><img src="images/ozon.svg" loading="lazy" alt=""></div>
-                <div class="raf_wrapper" data-hero-el="logo"><img src="images/raf.svg" loading="lazy" alt=""></div>
+                <div class="partners_track_group">
+                  <div class="partners_track">
+                    <div class="indrive_wrapper" data-hero-el="logo"><img src="images/indrive.svg" loading="lazy" alt="" class="image-2"></div>
+                    <div class="ya_wrapper" data-hero-el="logo"><img src="images/ya.svg" loading="lazy" alt=""></div>
+                    <div class="vk_wrapper" data-hero-el="logo"><img src="images/vk.svg" loading="lazy" alt=""></div>
+                    <div class="avito_wrapper" data-hero-el="logo"><img src="images/avito.svg" loading="lazy" alt=""></div>
+                    <div class="samokat_wrapper" data-hero-el="logo"><img src="images/samo.svg" loading="lazy" alt=""></div>
+                    <div class="sber_wrapper" data-hero-el="logo"><img src="images/sber.svg" loading="lazy" alt=""></div>
+                    <div class="tbank_wrappper" data-hero-el="logo"><img src="images/tbank.svg" loading="lazy" alt=""></div>
+                    <div class="ozon_wrapper" data-hero-el="logo"><img src="images/ozon.svg" loading="lazy" alt=""></div>
+                    <div class="raf_wrapper" data-hero-el="logo"><img src="images/raf.svg" loading="lazy" alt=""></div>
+                  </div>
+                  <!-- Дубль набора логотипов — только для бесшовной бегущей строки на
+                       мобилке (см. .partners_track_group в CSS, ≤479px). На десктопе/планшете
+                       скрыт (display:none), в вёрстку не участвует и скринридерами
+                       пропускается (aria-hidden). -->
+                  <div class="partners_track" data-partners-dup aria-hidden="true">
+                    <div class="indrive_wrapper" data-hero-el="logo"><img src="images/indrive.svg" loading="lazy" alt="" class="image-2"></div>
+                    <div class="ya_wrapper" data-hero-el="logo"><img src="images/ya.svg" loading="lazy" alt=""></div>
+                    <div class="vk_wrapper" data-hero-el="logo"><img src="images/vk.svg" loading="lazy" alt=""></div>
+                    <div class="avito_wrapper" data-hero-el="logo"><img src="images/avito.svg" loading="lazy" alt=""></div>
+                    <div class="samokat_wrapper" data-hero-el="logo"><img src="images/samo.svg" loading="lazy" alt=""></div>
+                    <div class="sber_wrapper" data-hero-el="logo"><img src="images/sber.svg" loading="lazy" alt=""></div>
+                    <div class="tbank_wrappper" data-hero-el="logo"><img src="images/tbank.svg" loading="lazy" alt=""></div>
+                    <div class="ozon_wrapper" data-hero-el="logo"><img src="images/ozon.svg" loading="lazy" alt=""></div>
+                    <div class="raf_wrapper" data-hero-el="logo"><img src="images/raf.svg" loading="lazy" alt=""></div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="hero_img-wrapper" data-hero-el="desktop-img"><img src="images/hero-img.avif" loading="lazy" sizes="(max-width: 2000px) 100vw, 2000px" srcset="images/3bd079077d14152bd0c789f67e9510f3_hero-img-p-500.avif 500w, images/3bd079077d14152bd0c789f67e9510f3_hero-img-p-800.avif 800w, images/3bd079077d14152bd0c789f67e9510f3_hero-img-p-1080.avif 1080w, images/3bd079077d14152bd0c789f67e9510f3_hero-img-p-1600.avif 1600w, images/hero-img.avif 2000w" alt="" class="image-3"></div>
@@ -1468,7 +1487,7 @@ html { font-size: 1rem; }
       </div>
     </div>
     <!-- Мобильное меню (открывается кнопкой "менюшка" в шапке) -->
-    <div id="popup-nav-mob" class="popup_nav_mob">
+    <div id="popup-nav-mob" class="popup_nav_mob" data-popup-animate="slide-up" data-popup-slide-from="top">
       <div class="container">
         <div class="popup_content_mob_wrapper">
           <div class="popup_mob_bg">
@@ -1522,6 +1541,7 @@ html { font-size: 1rem; }
   <!-- jQuery и js/webflow.js больше не нужны: вся интерактивность (FAQ-аккордеон, попапы)
        переписана на чистый JS в js/interactions.js -->
   <script src="js/interactions.js" defer></script>
+  <script src="js/partners-marquee.js" defer></script>
   <script src="js/gsap.min.js" defer onerror="window.__heroReveal && window.__heroReveal(); window.__storiesReveal && window.__storiesReveal(); window.__mentorReveal && window.__mentorReveal(); window.__caseReveal && window.__caseReveal(); window.__moveReveal && window.__moveReveal(); window.__workshopReveal && window.__workshopReveal(); window.__programReveal && window.__programReveal(); window.__skillReveal && window.__skillReveal(); window.__faqReveal && window.__faqReveal(); window.__rateReveal && window.__rateReveal(); window.__consultationReveal && window.__consultationReveal()"></script>
   <script src="js/hero-animation.js" defer onerror="window.__heroReveal && window.__heroReveal()"></script>
   <script src="js/stories-animation.js" defer onerror="window.__storiesReveal && window.__storiesReveal()"></script>

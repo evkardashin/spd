@@ -352,6 +352,20 @@ img {
   display: flex;
 }
 
+/* .partners_track_group/.partners_track существуют только ради бесшовной
+   бегущей строки на мобилке (см. @media max-width:479px ниже). На десктопе/
+   планшете они прозрачны для лэйаута (display:contents) — логотипы первого
+   набора остаются прямыми flex-детьми .partners_wrapper и wrap'ятся как
+   раньше, а дублирующий набор (data-partners-dup) скрыт целиком. */
+.partners_track_group,
+.partners_track {
+  display: contents;
+}
+
+.partners_track[data-partners-dup] {
+  display: none;
+}
+
 .hero_heading-wrapper {
   grid-column-gap: 1.5rem;
   grid-row-gap: 1.5rem;
@@ -3257,7 +3271,7 @@ img {
 
 .popup_program_cart_text.width-206 {
   width: 12.88rem;
-  bottom: 2rem;
+  bottom: 1.5rem;
 }
 
 .popup_program_close_btn {
@@ -3434,12 +3448,38 @@ img {
   }
 
   .partners_wrapper {
-    grid-column-gap: 2.5rem;
-    grid-row-gap: 2.5rem;
     flex-flow: row;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     width: 100%;
+    overflow: hidden;
+  }
+
+  /* Бесшовная бегущая строка: .partners_wrapper — окно (overflow:hidden),
+     .partners_track_group — "сцена" естественной ширины (оба набора логотипов
+     подряд), едет через translateX(-50%). Так как второй .partners_track —
+     точная копия первого (включая padding-right, играющий роль замыкающего
+     зазора между наборами), -50% всегда приходится ровно на начало дубля —
+     свою собственную ширину CSS не считает вручную, поэтому загадочных чисел
+     тут нет и вёрстка не боится изменения размеров логотипов. */
+  .partners_track_group {
+    display: flex;
+    flex: none;
+    width: max-content;
+    animation: partners-marquee 24s linear infinite;
+  }
+
+  .partners_track {
+    display: flex;
+    align-items: center;
+    flex: none;
+    grid-column-gap: 2.5rem;
+    grid-row-gap: 2.5rem;
+    padding-right: 2.5rem;
+  }
+
+  .partners_track[data-partners-dup] {
+    display: flex;
   }
 
   .hero_heading-wrapper.mb-48 {
@@ -4547,8 +4587,8 @@ img {
 
   .rate_carts_wrapper {
     width: auto;
-    padding-top: 0;
-    padding-bottom: 0;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
     padding-left: 1rem;
   }
 
@@ -5530,7 +5570,7 @@ img {
 
   .popup_content_mob_wrapper {
     justify-content: center;
-    align-items: flex-end;
+    align-items: flex-start;
     width: 100%;
     height: 100%;
     position: relative;

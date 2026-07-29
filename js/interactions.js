@@ -132,50 +132,62 @@
     if (!playSlideAnimation(popup, 'out', finish)) finish();
   }
 
-  // Попапы с data-popup-animate="slide-up" (#popup-testimonial, #popup-program)
-  // выезжают снизу экрана: сам попап (тёмная подложка) появляется мгновенно
-  // через display, а .popup_line/лист(-ы) снизу уезжают трансформом — это не
-  // требует anti-flicker-класса на <html>, как у секций на скролле (см.
-  // комментарий в <head>), потому что попап и так display:none по умолчанию.
-  // Если GSAP не загрузился — попап остаётся мгновенным (as-is поведение),
-  // см. return false ниже.
+  // Попапы с data-popup-animate="slide-up" (#popup-testimonial, #popup-program,
+  // #popup-nav-mob) выезжают с края экрана: сам попап (тёмная подложка)
+  // появляется мгновенно через display, а .popup_line/лист(-ы) уезжают
+  // трансформом — это не требует anti-flicker-класса на <html>, как у секций
+  // на скролле (см. комментарий в <head>), потому что попап и так
+  // display:none по умолчанию. Если GSAP не загрузился — попап остаётся
+  // мгновенным (as-is поведение), см. return false ниже.
   //
-  // Селектор листов через [class*=...] — потому что у popup-program классы с
-  // суффиксом (.popup_left_side_program-copy, .popup_right_side_program), а у
-  // popup-testimonial — без него (.popup_left_side, .popup_right_side).
+  // Селектор листов через [class*=...] — у каждого попапа своё имя класса
+  // листа: .popup_left_side/.popup_right_side (testimonial),
+  // .popup_left_side_program-copy/.popup_right_side_program (program),
+  // .popup_mob_bg (nav-mob). Ручка тоже называется по-разному:
+  // .popup_line (testimonial/program) или .popup_line-copy (nav-mob).
+  //
+  // По умолчанию лист доковано снизу и въезжает оттуда (yPercent 100 → 0).
+  // #popup-nav-mob — редкое исключение: панель доковано сверху (см. CSS
+  // .popup_content_mob_wrapper), поэтому у него data-popup-slide-from="top" —
+  // это просто меняет знак дистанции на противоположный (-100 вместо 100),
+  // сама механика анимации общая.
   function playSlideAnimation(popup, direction, onComplete) {
     if (popup.getAttribute('data-popup-animate') !== 'slide-up') return false;
     if (typeof window.gsap === 'undefined') return false;
 
     var gsap = window.gsap;
-    var line = popup.querySelector('.popup_line');
+    var line = popup.querySelector('.popup_line, .popup_line-copy');
     var sheets = Array.prototype.slice.call(
-      popup.querySelectorAll('[class*="popup_left_side"], [class*="popup_right_side"]')
+      popup.querySelectorAll('[class*="popup_left_side"], [class*="popup_right_side"], .popup_mob_bg')
     );
     if (!sheets.length) return false;
 
     var panels = (line ? [line] : []).concat(sheets);
     gsap.killTweensOf(panels);
 
-    // У .popup_line своя абсолютная позиция (это "ручка" над листом, не
+    var fromTop = popup.getAttribute('data-popup-slide-from') === 'top';
+    var offscreenYPercent = fromTop ? -100 : 100;
+
+    // У .popup_line своя абсолютная позиция (это "ручка" рядом с листом, не
     // flex-элемент), а её собственная высота — 0.5rem, поэтому yPercent от неё
-    // самой почти незаметен. Сдвигаем её на ту же дистанцию, что и лист снизу,
+    // самой почти незаметен. Сдвигаем её на ту же дистанцию, что и лист,
     // измеренную в моменте открытия — так она едет вместе с листом что на
     // десктопе, что в мобильной раскладке (там правая панель скрыта через
     // display:none, offsetHeight = 0 и не участвует в подсчёте максимума).
     var travel = Math.max.apply(null, sheets.map(function (el) { return el.offsetHeight; }).concat([300]));
+    var lineOffset = fromTop ? -travel : travel;
 
     if (direction === 'in') {
-      gsap.set(sheets, { yPercent: 100 });
-      if (line) gsap.set(line, { y: travel });
+      gsap.set(sheets, { yPercent: offscreenYPercent });
+      if (line) gsap.set(line, { y: lineOffset });
 
       var tlIn = gsap.timeline({ defaults: { ease: 'power3.out' } });
       tlIn.to(sheets, { yPercent: 0, duration: 0.5, stagger: 0.05 }, 0);
       if (line) tlIn.to(line, { y: 0, duration: 0.5 }, 0.05);
     } else {
       var tlOut = gsap.timeline({ defaults: { ease: 'power2.in' }, onComplete: onComplete });
-      tlOut.to(sheets, { yPercent: 100, duration: 0.32 }, 0);
-      if (line) tlOut.to(line, { y: travel, duration: 0.32 }, 0);
+      tlOut.to(sheets, { yPercent: offscreenYPercent, duration: 0.32 }, 0);
+      if (line) tlOut.to(line, { y: lineOffset, duration: 0.32 }, 0);
     }
 
     return true;
