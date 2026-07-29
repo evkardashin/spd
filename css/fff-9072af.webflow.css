@@ -15,6 +15,19 @@
   --white-opacity-40: #fff6;
 }
 
+/* Переходы по якорным ссылкам навбара (#program, #mentor, #workshop, #case и
+   т.п.) — плавный скролл вместо мгновенного прыжка. prefers-reduced-motion
+   отключает его для тех, кто просил систему избегать анимаций. */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 .w-layout-grid {
   grid-row-gap: 16px;
   grid-column-gap: 16px;
