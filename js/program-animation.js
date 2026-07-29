@@ -69,7 +69,17 @@
         gsap.set(c.el, { opacity: 0, scale: 0.5, rotate: c.finalRotate - 25 });
       });
 
-      var trigger = group.heading[0] || icons[0].el;
+      // heading-3 отдаёт под одним data-атрибутом сразу десктопный и мобильный
+      // варианты заголовка (.pdf_heading_wrapper / .pdf_heading_wrapper-mob) —
+      // в DOM первым идёт десктопный. Если взять его триггером на мобилке, где
+      // он display:none, у него нет layout-бокса, и IntersectionObserver
+      // никогда не отдаст isIntersecting:true — вся группа (включая видимый
+      // мобильный заголовок и иконки) так и останется с opacity:0. Поэтому
+      // берём первый РЕАЛЬНО отрендеренный элемент (offsetParent !== null).
+      var visibleHeading = Array.prototype.filter.call(group.heading, function (el) {
+        return el.offsetParent !== null;
+      })[0];
+      var trigger = visibleHeading || group.heading[0] || icons[0].el;
       var obs = new IntersectionObserver(function (entries, o) {
         entries.forEach(function (entry) {
           if (!entry.isIntersecting) return;
