@@ -90,19 +90,21 @@
     // поэтому "клик снаружи" неотличим от клика по контенту. Закрытие — по
     // кнопке "закрыть"/"закрываем" (data-popup-close) и по Escape.
     //
-    // Исключение — popup-program на мобильной версии (≤479px): там
-    // .popup_right_side_program скрыт (см. CSS), и над карточкой
-    // .popup_left_side_program-copy остаётся настоящая пустая зона — клик по
-    // ней бьёт именно в .popup_content_wrapper, а не в дочерний элемент,
-    // поэтому здесь клик снаружи однозначно отличим от клика по контенту.
-    var programWrapper = document.querySelector('#popup-program .popup_content_wrapper');
-    if (programWrapper) {
-      programWrapper.addEventListener('click', function (event) {
-        if (event.target !== programWrapper) return;
+    // Исключение — popup-program и popup-testimonial на мобильной версии
+    // (≤479px): там правая панель (.popup_right_side_program /
+    // .popup_right_side) скрыта (см. CSS), и над листом снизу остаётся
+    // настоящая пустая зона — клик по ней бьёт именно в .popup_content_wrapper,
+    // а не в дочерний элемент, поэтому здесь клик снаружи однозначно отличим
+    // от клика по контенту.
+    ['popup-program', 'popup-testimonial'].forEach(function (id) {
+      var wrapper = document.querySelector('#' + id + ' .popup_content_wrapper');
+      if (!wrapper) return;
+      wrapper.addEventListener('click', function (event) {
+        if (event.target !== wrapper) return;
         if (!window.matchMedia('(max-width: 479px)').matches) return;
-        closePopup(document.getElementById('popup-program'));
+        closePopup(document.getElementById(id));
       });
-    }
+    });
 
     document.addEventListener('keydown', function (event) {
       if (event.key !== 'Escape') return;
@@ -119,11 +121,64 @@
   function openPopup(popup) {
     popup.style.display = 'flex';
     lockScroll();
+    playSlideAnimation(popup, 'in');
   }
 
   function closePopup(popup) {
-    popup.style.display = 'none';
-    if (!document.querySelector('[id^="popup"][style*="flex"]')) unlockScroll();
+    var finish = function () {
+      popup.style.display = 'none';
+      if (!document.querySelector('[id^="popup"][style*="flex"]')) unlockScroll();
+    };
+    if (!playSlideAnimation(popup, 'out', finish)) finish();
+  }
+
+  // Попапы с data-popup-animate="slide-up" (#popup-testimonial, #popup-program)
+  // выезжают снизу экрана: сам попап (тёмная подложка) появляется мгновенно
+  // через display, а .popup_line/лист(-ы) снизу уезжают трансформом — это не
+  // требует anti-flicker-класса на <html>, как у секций на скролле (см.
+  // комментарий в <head>), потому что попап и так display:none по умолчанию.
+  // Если GSAP не загрузился — попап остаётся мгновенным (as-is поведение),
+  // см. return false ниже.
+  //
+  // Селектор листов через [class*=...] — потому что у popup-program классы с
+  // суффиксом (.popup_left_side_program-copy, .popup_right_side_program), а у
+  // popup-testimonial — без него (.popup_left_side, .popup_right_side).
+  function playSlideAnimation(popup, direction, onComplete) {
+    if (popup.getAttribute('data-popup-animate') !== 'slide-up') return false;
+    if (typeof window.gsap === 'undefined') return false;
+
+    var gsap = window.gsap;
+    var line = popup.querySelector('.popup_line');
+    var sheets = Array.prototype.slice.call(
+      popup.querySelectorAll('[class*="popup_left_side"], [class*="popup_right_side"]')
+    );
+    if (!sheets.length) return false;
+
+    var panels = (line ? [line] : []).concat(sheets);
+    gsap.killTweensOf(panels);
+
+    // У .popup_line своя абсолютная позиция (это "ручка" над листом, не
+    // flex-элемент), а её собственная высота — 0.5rem, поэтому yPercent от неё
+    // самой почти незаметен. Сдвигаем её на ту же дистанцию, что и лист снизу,
+    // измеренную в моменте открытия — так она едет вместе с листом что на
+    // десктопе, что в мобильной раскладке (там правая панель скрыта через
+    // display:none, offsetHeight = 0 и не участвует в подсчёте максимума).
+    var travel = Math.max.apply(null, sheets.map(function (el) { return el.offsetHeight; }).concat([300]));
+
+    if (direction === 'in') {
+      gsap.set(sheets, { yPercent: 100 });
+      if (line) gsap.set(line, { y: travel });
+
+      var tlIn = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      tlIn.to(sheets, { yPercent: 0, duration: 0.5, stagger: 0.05 }, 0);
+      if (line) tlIn.to(line, { y: 0, duration: 0.5 }, 0.05);
+    } else {
+      var tlOut = gsap.timeline({ defaults: { ease: 'power2.in' }, onComplete: onComplete });
+      tlOut.to(sheets, { yPercent: 100, duration: 0.32 }, 0);
+      if (line) tlOut.to(line, { y: travel, duration: 0.32 }, 0);
+    }
+
+    return true;
   }
 
   function lockScroll() {

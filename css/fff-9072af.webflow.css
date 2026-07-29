@@ -2730,6 +2730,7 @@ img {
 
 .text_18_px {
   color: var(--black);
+  font-variation-settings: "slnt" 0, "CNTR" 0;
   letter-spacing: -.01rem;
   text-transform: lowercase;
   font-size: 1.13rem;
@@ -4876,6 +4877,7 @@ img {
 
   .program_carts_wrapper.mb-527 {
     max-width: 21.44rem;
+    grid-row-gap: 0.5rem;
     margin-bottom: 8.75rem;
   }
 
@@ -5514,8 +5516,8 @@ img {
     width: 5.94rem;
     height: .38rem;
     bottom: 42.13rem;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0%;
+    right: 0%;
   }
 
   /* popup-program: карточка popup_left_side_program-copy (44.94rem) выше, чем
@@ -5523,7 +5525,7 @@ img {
      утапливал линию под верхний край карточки. Нужный отступ — 1rem от её
      верха: 44.94rem (высота карточки) + 1rem. */
   .popup_line.popup_line-program {
-    bottom: 45.94rem;
+    bottom: 41.94rem;
   }
 
   .popup_content_mob_wrapper {
@@ -5557,7 +5559,7 @@ img {
     background-size: cover;
     width: 20.44rem;
     height: 27.38rem;
-    display: none;
+    display: block;
   }
 
   .embed-vid {
@@ -5682,7 +5684,7 @@ img {
 
   .popup_left_side_program-copy {
     width: 23.44rem;
-    height: 44.94rem;
+    height: 41.13rem;
     padding-top: 1rem;
     padding-left: 1rem;
     padding-right: 1rem;
