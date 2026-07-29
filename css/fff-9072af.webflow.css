@@ -3339,6 +3339,16 @@ img {
   }
 }
 
+@keyframes partners-marquee {
+  from {
+    transform: translateX(0%);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 @media screen and (max-width: 479px) {
   .navbar {
     z-index: 998;
