@@ -95,19 +95,18 @@
       // заниженной. Поэтому меряем сами и анимируем к готовым числам.
       var padTop = getComputedStyle(list).paddingTop;
       var padBottom = getComputedStyle(list).paddingBottom;
-      // +1px запас: getBoundingClientRect иногда округляет высоту вниз на
-      // суб-пиксель. Если анимировать ровно к такому чуть заниженному числу,
-      // а потом снять overflow:hidden — последний обрезанный пиксель текста
-      // "допрыгивает" в момент снятия, и это выглядит как рывок в конце.
-      var fullHeight = Math.ceil(list.getBoundingClientRect().height) + 1;
+      var fullHeight = list.getBoundingClientRect().height;
 
       gsap.set(list, { height: 0, paddingTop: 0, paddingBottom: 0, overflow: 'hidden' });
       gsap.set(content, { opacity: 0, y: 12 });
 
-      // overflow:hidden больше не снимаем по onComplete вообще — списку
-      // (текстовый блок) не нужно, чтобы что-то вылезало за его границы,
-      // а вот снятие само по себе было источником того же рывка (см. выше).
-      var tl = gsap.timeline();
+      var tl = gsap.timeline({
+        onComplete: function () {
+          // height:auto (а не фиксированный px) — чтобы список не обрезался,
+          // если после анимации сменится ширина/перенос строк текста.
+          gsap.set(list, { height: 'auto', clearProps: 'overflow' });
+        }
+      });
       tl.to(list, {
         height: fullHeight, paddingTop: padTop, paddingBottom: padBottom,
         duration: 0.45, ease: 'power3.out'
