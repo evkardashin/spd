@@ -1232,6 +1232,14 @@ img {
   display: flex;
 }
 
+/* .carts_swiper_track — обвязка для Swiper (container>wrapper>slides), нужна
+   только мобильному свайперу в @media (max-width:479px), см. js/carts-swiper.js.
+   На десктопе/планшете прозрачна для лэйаута — карточки остаются прямыми
+   flex-детьми .consultation_carts_wrapper/.rate_carts_wrapper, как раньше. */
+.carts_swiper_track {
+  display: contents;
+}
+
 .consultation_carts_wrapper.mb-20 {
   margin-bottom: 1.25rem;
 }
@@ -4006,15 +4014,29 @@ img {
   }
 
   .consultation_carts_wrapper.mb-20 {
-    grid-column-gap: .5rem;
-    grid-row-gap: .5rem;
     flex-flow: row;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    width: 100%;
     margin-bottom: 1.5rem;
     padding-top: 0;
     padding-bottom: 0;
     padding-left: 1rem;
+    overflow: hidden;
+  }
+
+  /* Swiper сам ставит transform на .carts_swiper_track (это его wrapperEl) —
+     здесь только базовый флекс-ряд и промежутки между карточками, которые
+     раньше давал grid-column-gap на .consultation_carts_wrapper.mb-20 (сам
+     Swiper про CSS-гэпы не знает, ширину зазора передаём через spaceBetween
+     в js/carts-swiper.js). */
+  .carts_swiper_track {
+    display: flex;
+    align-items: center;
+  }
+
+  .carts_swiper_track .consultation_cart_wrapper {
+    flex-shrink: 0;
   }
 
   .consultation_cart_wrapper._1 {
@@ -4067,31 +4089,6 @@ img {
     width: 10.5rem;
     height: 13rem;
     transform: none;
-  }
-
-  /* Мобильный свайпер: карточки не переносятся по строкам, а идут в один ряд со
-     свайпом влево через нативный overflow-x + scroll-snap (без JS-библиотек и без
-     "бесконечной" карусели — ровно столько карточек, сколько есть в разметке). */
-  .consultation_carts_wrapper.mb-20 {
-    /* См. комментарий у .rate_carts_wrapper — та же причина (родитель flex-column
-       с align-items:center сжимает width:auto по контенту, а не по вьюпорту). */
-    width: 100%;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding-right: 1rem;
-  }
-
-  .consultation_carts_wrapper.mb-20::-webkit-scrollbar {
-    display: none;
-  }
-
-  .consultation_cart_wrapper {
-    flex: none;
-    scroll-snap-align: start;
   }
 
   .cosultation_cart_text_wrapper {
@@ -4614,10 +4611,16 @@ img {
   }
 
   .rate_carts_wrapper {
-    width: auto;
+    width: 100%;
+    justify-content: flex-start;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     padding-left: 1rem;
+    overflow: hidden;
+  }
+
+  .carts_swiper_track .rate_cart_wrapper {
+    flex-shrink: 0;
   }
 
   .rate_cart_wrapper._1 {
@@ -4656,32 +4659,6 @@ img {
     width: 10.5rem;
     height: 13rem;
     bottom: 0;
-  }
-
-  /* Мобильный свайпер: см. комментарий у .consultation_carts_wrapper.mb-20 выше —
-     тот же принцип, свой набор правил, т.к. это отдельная секция/классы. */
-  .rate_carts_wrapper {
-    /* Родитель — flex-column с align-items:center, поэтому при width:auto ребёнок
-       сжимается по контенту (по сумме карточек), а не по ширине родителя, и
-       overflow-x было нечего обрезать/скроллить. Явный width:100% фиксирует ширину
-       строки по вьюпорту, а карточки внутри уже настоящим образом переполняют её. */
-    width: 100%;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding-right: 1rem;
-  }
-
-  .rate_carts_wrapper::-webkit-scrollbar {
-    display: none;
-  }
-
-  .rate_cart_wrapper {
-    flex: none;
-    scroll-snap-align: start;
   }
 
   .rate_cart_wrapper._5 {

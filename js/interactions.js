@@ -52,16 +52,33 @@
   function setDropdownState(toggle, list, open) {
     if (list.classList.contains('w--open') === open) return;
     toggle.classList.toggle('w--open', open);
-    list.classList.toggle('w--open', open);
-    animateDropdown(list, open);
+
+    // .dropdown-list.w--open на мобилке даёт свой (меньший) padding — если
+    // снять класс со списка СРАЗУ, до начала анимации закрытия, паддинг
+    // мгновенно скачком вернётся к базовому значению за кадр до того, как
+    // GSAP успеет зафиксировать стартовые числа для твина, и текст дёрнется.
+    // Поэтому при закрытии класс снимаем только в onComplete анимации —
+    // на открытии, наоборот, ставим сразу: измерение целевых paddingTop/
+    // paddingBottom в animateDropdown должно опираться уже на open-состояние.
+    if (open) {
+      list.classList.add('w--open');
+      animateDropdown(list, true);
+    } else {
+      animateDropdown(list, false, function () {
+        list.classList.remove('w--open');
+      });
+    }
   }
 
   // Плавное раскрытие FAQ-аккордеона — по образцу остальных reveal-анимаций на
   // сайте (fade + небольшой сдвиг по Y, power3.out). Без GSAP просто остаёмся
   // на мгновенном CSS-переключении через .w-dropdown-list.w--open{display:block}
   // (см. css/webflow.css) — .w--open уже выставлен выше, так что фоллбэк рабочий.
-  function animateDropdown(list, open) {
-    if (typeof window.gsap === 'undefined') return;
+  function animateDropdown(list, open, onSettled) {
+    if (typeof window.gsap === 'undefined') {
+      if (onSettled) onSettled();
+      return;
+    }
     var gsap = window.gsap;
     var content = list.querySelector('.dropdown_list_text_wrapper') || list;
 
@@ -104,6 +121,7 @@
           list.style.display = 'none';
           gsap.set(list, { clearProps: 'height,paddingTop,paddingBottom,overflow' });
           gsap.set(content, { clearProps: 'opacity,transform' });
+          if (onSettled) onSettled();
         }
       });
       tlClose.to(content, { opacity: 0, y: 8, duration: 0.2, ease: 'power2.in' }, 0);
