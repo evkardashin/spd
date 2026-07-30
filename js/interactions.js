@@ -50,8 +50,65 @@
   }
 
   function setDropdownState(toggle, list, open) {
+    if (list.classList.contains('w--open') === open) return;
     toggle.classList.toggle('w--open', open);
     list.classList.toggle('w--open', open);
+    animateDropdown(list, open);
+  }
+
+  // Плавное раскрытие FAQ-аккордеона — по образцу остальных reveal-анимаций на
+  // сайте (fade + небольшой сдвиг по Y, power3.out). Без GSAP просто остаёмся
+  // на мгновенном CSS-переключении через .w-dropdown-list.w--open{display:block}
+  // (см. css/webflow.css) — .w--open уже выставлен выше, так что фоллбэк рабочий.
+  function animateDropdown(list, open) {
+    if (typeof window.gsap === 'undefined') return;
+    var gsap = window.gsap;
+    var content = list.querySelector('.dropdown_list_text_wrapper') || list;
+
+    gsap.killTweensOf(list);
+    gsap.killTweensOf(content);
+
+    if (open) {
+      list.style.display = 'block';
+
+      // Высоту и паддинги (у .dropdown-list задан padding-bottom) меряем в их
+      // естественном, ещё не схлопнутом состоянии — GSAP не умеет корректно
+      // домерить height:'auto', если в этом же твине одновременно едет и
+      // padding: на первом кадре паддинг ещё 0, и авто-высота посчитается
+      // заниженной. Поэтому меряем сами и анимируем к готовым числам.
+      var padTop = getComputedStyle(list).paddingTop;
+      var padBottom = getComputedStyle(list).paddingBottom;
+      var fullHeight = list.getBoundingClientRect().height;
+
+      gsap.set(list, { height: 0, paddingTop: 0, paddingBottom: 0, overflow: 'hidden' });
+      gsap.set(content, { opacity: 0, y: 12 });
+
+      var tl = gsap.timeline({
+        onComplete: function () {
+          // height:auto (а не фиксированный px) — чтобы список не обрезался,
+          // если после анимации сменится ширина/перенос строк текста.
+          gsap.set(list, { height: 'auto', clearProps: 'overflow' });
+        }
+      });
+      tl.to(list, {
+        height: fullHeight, paddingTop: padTop, paddingBottom: padBottom,
+        duration: 0.45, ease: 'power3.out'
+      });
+      tl.to(content, { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' }, '-=0.25');
+    } else {
+      var currentHeight = list.getBoundingClientRect().height;
+      gsap.set(list, { height: currentHeight, overflow: 'hidden' });
+
+      var tlClose = gsap.timeline({
+        onComplete: function () {
+          list.style.display = 'none';
+          gsap.set(list, { clearProps: 'height,paddingTop,paddingBottom,overflow' });
+          gsap.set(content, { clearProps: 'opacity,transform' });
+        }
+      });
+      tlClose.to(content, { opacity: 0, y: 8, duration: 0.2, ease: 'power2.in' }, 0);
+      tlClose.to(list, { height: 0, paddingTop: 0, paddingBottom: 0, duration: 0.35, ease: 'power2.in' }, 0);
+    }
   }
 
   /* ---------- 2. Попапы ---------- */
@@ -105,6 +162,20 @@
         closePopup(document.getElementById(id));
       });
     });
+
+    // popup-nav-mob — та же идея, но зона "снаружи" шире: там ещё есть
+    // .popup_line-copy (ручка) рядом с панелью, а не только пустой фон
+    // обёртки, поэтому здесь удобнее проверять "клик НЕ внутри .popup_mob_bg",
+    // а не строгое равенство target === wrapper.
+    (function () {
+      var navMobWrapper = document.querySelector('#popup-nav-mob .popup_content_mob_wrapper');
+      if (!navMobWrapper) return;
+      navMobWrapper.addEventListener('click', function (event) {
+        if (event.target.closest('.popup_mob_bg')) return;
+        if (!window.matchMedia('(max-width: 479px)').matches) return;
+        closePopup(document.getElementById('popup-nav-mob'));
+      });
+    })();
 
     document.addEventListener('keydown', function (event) {
       if (event.key !== 'Escape') return;
