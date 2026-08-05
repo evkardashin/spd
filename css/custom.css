@@ -1,0 +1,30 @@
+@media (hover: hover) and (pointer: fine){
+/* мовемент карточек  */
+    .consultation_cart_wrapper{
+        transition: transform .35s ease;
+    }
+
+    .consultation_cart_wrapper:hover{
+        transform: scale(1.05);
+        transform: translateY(-15px);
+    }
+
+    .rate_cart_wrapper{
+        transition: transform .35s ease;
+    }
+
+    .rate_cart_wrapper:hover{
+        transform: scale(1.05);
+        transform: translateY(-15px);
+    }
+
+    .program_blank_wrapper {
+        transition: transform .35s ease !important;
+    }
+
+    .program_blank_wrapper:hover{
+        transform: scale(1.05) !important ;
+        transform: translateY(-15px) !important ;
+    }
+
+}
