@@ -18,13 +18,13 @@
         transform: translateY(-15px);
     }
 
-    .program_blank_wrapper {
+    /* .program_blank_wrapper {
         transition: transform .35s ease !important;
     }
 
     .program_blank_wrapper:hover{
         transform: scale(1.05) !important ;
         transform: translateY(-15px) !important ;
-    }
+    } */
 
 }
