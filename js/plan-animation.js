@@ -23,21 +23,26 @@
 
     var heading = section.querySelectorAll('[data-plan-el="heading"]');
     var cta = section.querySelector('[data-plan-el="cta"]');
+    var visual = section.querySelector('[data-plan-el="visual"]');
     var cards = Array.prototype.slice.call(section.querySelectorAll('[data-plan-el="card"]'));
 
-    // У карточек в CSS свой угол наклона (.rotate-9: _1 = 9deg, _2/_3 = -9deg) —
-    // если анимировать все разом к rotate:0, GSAP перезапишет инлайн-стилем и
-    // наклон навсегда потеряется. Значения взяты из css/fff-9072af.webflow.css.
+    // У карточек свои углы наклона, причём мобильная композиция использует
+    // отдельные значения. Возвращаем каждую к её брейкпоинтному углу, иначе
+    // GSAP перезапишет CSS-повороты единым десктопным вариантом.
+    var isMobile = window.matchMedia('(max-width: 479px)').matches;
     var cardConfigs = [
-      { el: cards[0], finalRotate: 9 },
-      { el: cards[1], finalRotate: -9 },
-      { el: cards[2], finalRotate: -9 }
+      { el: cards[0], finalRotate: isMobile ? -9 : 9, fromX: -90, fromY: 24 },
+      { el: cards[1], finalRotate: isMobile ? 9 : -9, fromX: 0, fromY: 54 },
+      { el: cards[2], finalRotate: isMobile ? 2 : -9, fromX: 90, fromY: 24 }
     ].filter(function (c) { return c.el; });
 
     gsap.set(heading, { opacity: 0, y: 26 });
     if (cta) gsap.set(cta, { opacity: 0, y: 22, scale: 0.88, rotate: -4 });
+    if (visual) gsap.set(visual, { opacity: 0, scale: 0.82, rotate: -2 });
     cardConfigs.forEach(function (c) {
-      gsap.set(c.el, { opacity: 0, y: 34, scale: 0.9, rotate: c.finalRotate - 20 });
+      gsap.set(c.el, {
+        opacity: 0, x: c.fromX, y: c.fromY, scale: 0.88, rotate: c.finalRotate - 20
+      });
     });
 
     var observer = new IntersectionObserver(function (entries, obs) {
@@ -48,13 +53,19 @@
         var tl = gsap.timeline({ defaults: { ease: 'power3.out' }, onComplete: done });
 
         tl.to(heading, { opacity: 1, y: 0, duration: 0.7, stagger: 0.08 });
+        if (visual) {
+          tl.to(visual, {
+            opacity: 1, scale: 1, rotate: 0, duration: 1, ease: 'back.out(1.45)'
+          }, '-=0.35');
+        }
         if (cta) {
-          tl.to(cta, { opacity: 1, y: 0, scale: 1, rotate: 0, duration: 0.75, ease: 'back.out(2.2)' }, '-=0.45');
+          tl.to(cta, { opacity: 1, y: 0, scale: 1, rotate: 0, duration: 0.75, ease: 'back.out(2.2)' }, '-=0.65');
         }
         cardConfigs.forEach(function (c, i) {
           tl.to(c.el, {
-            opacity: 1, y: 0, scale: 1, rotate: c.finalRotate, duration: 0.85, ease: 'back.out(1.8)'
-          }, i === 0 ? '-=0.3' : '<0.1');
+            opacity: 1, x: 0, y: 0, scale: 1, rotate: c.finalRotate,
+            duration: 0.9, ease: 'back.out(1.65)'
+          }, i === 0 ? '-=0.4' : '<0.12');
         });
       });
     }, { threshold: 0 });

@@ -81,9 +81,14 @@
     }
     var gsap = window.gsap;
     var content = list.querySelector('.dropdown_list_text_wrapper') || list;
+    var card = list.closest('.faq_item');
 
     gsap.killTweensOf(list);
     gsap.killTweensOf(content);
+    if (card) {
+      gsap.killTweensOf(card);
+      gsap.set(card, { scaleX: 1, scaleY: 1, transformOrigin: '50% 0%' });
+    }
 
     if (open) {
       list.style.display = 'block';
@@ -112,6 +117,24 @@
         duration: 0.45, ease: 'power3.out'
       });
       tl.to(content, { opacity: 1, y: 0, duration: 0.35, ease: 'power2.out' }, '-=0.25');
+
+      // После начала раскрытия вся карточка делает один заметный, но аккуратный
+      // вдох: немного расширяется по горизонтали и сильнее по вертикали, затем
+      // с одним мягким overshoot возвращается к исходному размеру.
+      if (card) {
+        tl.to(card, {
+          scaleX: 1.025,
+          scaleY: 1.045,
+          duration: 0.22,
+          ease: 'power2.out'
+        }, 0.12);
+        tl.to(card, {
+          scaleX: 1,
+          scaleY: 1,
+          duration: 0.42,
+          ease: 'back.out(1.9)'
+        }, '>');
+      }
     } else {
       var currentHeight = list.getBoundingClientRect().height;
       gsap.set(list, { height: currentHeight, overflow: 'hidden' });

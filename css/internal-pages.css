@@ -1,0 +1,404 @@
+@font-face {
+  font-family: Onweer;
+  src: url('../fonts/Onweer-Var_Combined_FuFo_v01.ttf') format('truetype');
+  font-display: swap;
+  font-style: normal;
+  font-weight: 100 900;
+}
+
+:root {
+  --black: #000;
+  --white: #fff;
+  --paper: #f5f5f5;
+  --pink: #ff14ff;
+  --yellow: #ffe600;
+  --blue: #302cff;
+  --orange: #ff7518;
+  --radius: 2rem;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scrollbar-width: none; }
+html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0; height: 0; }
+body {
+  margin: 0;
+  color: var(--black);
+  background: var(--white);
+  font-family: Onweer, Impact, sans-serif;
+  line-height: 1.45;
+  scrollbar-width: none;
+}
+a { color: inherit; }
+img { display: block; max-width: 100%; }
+
+.scroll_progress { position: fixed; z-index: 10000; inset: 0 0 auto; height: 6px; pointer-events: none; }
+.scroll_progress_bar { width: 100%; height: 100%; background: var(--yellow); transform: scaleX(0); transform-origin: left; will-change: transform; }
+
+.site-header {
+  position: fixed;
+  z-index: 9000;
+  inset: 1.25rem 1.25rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  pointer-events: none;
+}
+.site-header a, .site-header button { pointer-events: auto; }
+.brand, .nav-pill, .header-cta, .menu-button {
+  min-height: 3rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(245,245,245,.92);
+  backdrop-filter: blur(14px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: .8rem 1.35rem;
+  text-decoration: none;
+  color: var(--black);
+  font-family: Onweer, Impact, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  transition: transform .25s ease, background .25s ease;
+}
+.brand { gap: .75rem; padding-inline: 1.15rem 1.45rem; }
+.brand-mark { font-size: 1.25rem; }
+.brand-name { text-transform: uppercase; }
+.header-nav, .header-actions { display: flex; align-items: center; gap: .5rem; }
+.header-cta { background: var(--pink); color: var(--white); }
+.site-header a:hover { transform: translateY(-2px); }
+.menu-button { display: none; background: var(--pink); color: var(--white); cursor: pointer; }
+.mobile-menu { display: none; }
+
+.page-shell { overflow: clip; }
+.page-hero {
+  min-height: 34rem;
+  padding: 9rem 2rem 3rem;
+  display: flex;
+  align-items: flex-end;
+}
+.page-hero-inner {
+  position: relative;
+  width: min(100%, 116rem);
+  min-height: 25rem;
+  margin: 0 auto;
+  padding: 3rem;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, #ff14ff 0%, #cb5efe 38%, #302cff 100%);
+  color: var(--white);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.page-hero-inner::before, .page-hero-inner::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: var(--yellow);
+  mix-blend-mode: screen;
+  opacity: .92;
+}
+.page-hero-inner::before { width: 15rem; height: 15rem; right: 7%; top: -7rem; }
+.page-hero-inner::after { width: 7rem; height: 7rem; right: 28%; bottom: -3rem; }
+.page-kicker { position: relative; z-index: 1; font-family: Onweer, Impact, sans-serif; font-size: 1.1rem; text-transform: uppercase; }
+.page-title {
+  position: relative;
+  z-index: 1;
+  max-width: 76rem;
+  margin: 2rem 0 1.25rem;
+  font-family: Onweer, Impact, sans-serif;
+  font-variation-settings: 'wdth' 60;
+  font-size: clamp(4rem, 8vw, 9rem);
+  font-weight: 800;
+  line-height: .84;
+  letter-spacing: -.045em;
+  text-transform: uppercase;
+}
+.page-lead { position: relative; z-index: 1; max-width: 48rem; margin: 0; font-size: 1.25rem; }
+
+/* Служебные страницы используют тот же приём, что заголовочные секции главной:
+   чистый белый фон, крупная чёрная типографика и короткая подпись. */
+.page-hero:not(.grade-hero) {
+  min-height: 0;
+  padding-top: 10rem;
+  padding-bottom: 4rem;
+}
+.page-hero:not(.grade-hero) .page-hero-inner {
+  min-height: 30rem;
+  padding: 3rem 0;
+  background: transparent;
+  color: var(--black);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: visible;
+}
+.page-hero:not(.grade-hero) .page-hero-inner::before,
+.page-hero:not(.grade-hero) .page-hero-inner::after {
+  display: none;
+}
+.page-hero:not(.grade-hero) .page-kicker {
+  margin-bottom: 2rem;
+  color: var(--black-opacity-40, rgba(0, 0, 0, .4));
+}
+.page-hero:not(.grade-hero) .page-title {
+  max-width: 108rem;
+  margin: 0 auto 2rem;
+  font-size: clamp(5rem, 9vw, 10.5rem);
+  line-height: .88;
+  letter-spacing: -.004em;
+}
+.page-hero:not(.grade-hero) .page-lead {
+  margin-inline: auto;
+  color: var(--black-opacity-40, rgba(0, 0, 0, .4));
+}
+
+.document-layout {
+  width: min(100% - 4rem, 100rem);
+  margin: 0 auto;
+  padding: 3rem 0 9rem;
+  display: grid;
+  grid-template-columns: 18rem minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+.document-toc {
+  position: sticky;
+  top: 6rem;
+  max-height: calc(100vh - 8rem);
+  overflow: auto;
+  padding: 1.25rem;
+  border-radius: 1.5rem;
+  background: var(--yellow);
+}
+.toc-label { margin: 0 0 1rem; font-family: Onweer, Impact, sans-serif; font-size: 1.5rem; text-transform: uppercase; }
+.toc-list { display: flex; flex-direction: column; gap: .45rem; }
+.toc-link { padding: .45rem .6rem; border-radius: .65rem; text-decoration: none; font-size: .84rem; line-height: 1.2; }
+.toc-link:hover, .toc-link.is-active { background: var(--black); color: var(--white); }
+.document-content { display: flex; flex-direction: column; gap: 1rem; min-width: 0; }
+.legal-card {
+  scroll-margin-top: 6rem;
+  padding: 2.25rem;
+  border-radius: 1.75rem;
+  background: var(--paper);
+  font-size: 1rem;
+  overflow-wrap: anywhere;
+  text-align: left;
+}
+.legal-card:nth-child(3n + 2) { background: #fff0fa; }
+.legal-card:nth-child(3n) { background: #f0efff; }
+.legal-card p { margin: 0 0 .75rem; }
+.legal-card br { content: ''; display: block; margin-bottom: .55rem; }
+.legal-card strong { font-weight: 700; }
+.legal-card .legal-subheading, .legal-card-title {
+  display: block;
+  margin: 0 0 1.15rem;
+  font-family: Onweer, Impact, sans-serif;
+  font-variation-settings: 'wdth' 60;
+  font-size: clamp(1.75rem, 3vw, 3rem);
+  line-height: .95;
+  letter-spacing: -.02em;
+  text-transform: uppercase;
+  text-align: left;
+}
+.legal-card p, .legal-card li, .info-table { text-align: left; }
+.legal-card a { color: #241dff; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.info-table { width: 100%; border-collapse: collapse; }
+.info-table td { padding: 1rem 0; border-bottom: 1px solid rgba(0,0,0,.15); vertical-align: top; }
+.info-table td:first-child { width: 42%; padding-right: 1.5rem; font-weight: 700; }
+
+.grade-page { background: var(--paper); }
+.grade-hero { padding: 8rem 2rem 1rem; }
+.grade-hero .page-hero-inner {
+  min-height: 50rem;
+  padding: 0;
+  border-radius: 3rem;
+  background: var(--white);
+  color: var(--black);
+  display: grid;
+  grid-template-columns: minmax(20rem, .78fr) minmax(0, 1.22fr);
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: "heading art" "description art";
+  gap: 0;
+  overflow: hidden;
+}
+.grade-hero .page-hero-inner::before,
+.grade-hero .page-hero-inner::after { display: none; }
+.grade-heading {
+  grid-area: heading;
+  padding: 4rem 4rem 2rem;
+  align-self: start;
+}
+.grade-heading .page-kicker { margin-bottom: 1.5rem; color: var(--black-opacity-40); }
+.grade-heading .page-title {
+  margin: 0;
+  max-width: 24rem;
+  color: var(--black);
+  font-size: clamp(5rem, 6vw, 8rem);
+  line-height: .82;
+  letter-spacing: -.004em;
+}
+.grade-description {
+  grid-area: description;
+  align-self: end;
+  max-width: 29rem;
+  margin: 0;
+  padding: 1.5rem 4rem 3rem;
+  font-size: clamp(1.25rem, 1.65vw, 2rem);
+  line-height: 1.12;
+}
+.primary-button, .secondary-button {
+  min-height: 4rem;
+  padding: 1rem 1.7rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .6rem;
+  font-family: Onweer, Impact, sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform .25s ease;
+}
+.primary-button { background: var(--yellow); color: var(--black); }
+.secondary-button { background: var(--white); color: var(--black); }
+.primary-button:hover, .secondary-button:hover { transform: scale(1.035) rotate(-1deg); }
+.grade-art-stage {
+  grid-area: art;
+  position: relative;
+  min-height: 50rem;
+  margin: 0;
+  padding: 3rem;
+  border-radius: 3rem;
+  background: #dedede;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 6rem minmax(0, 1fr);
+  gap: 2rem;
+  align-items: stretch;
+}
+.grade-scale, .grade-scale img { display: block; width: 100%; height: 100%; }
+.grade-scale img { object-fit: contain; }
+.grade-art { align-self: center; width: 100%; max-height: 44rem; object-fit: contain; }
+.grade-test-cta { width: min(100% - 4rem, 116rem); margin: 0 auto; padding: 1rem 0 8rem; }
+.grade-test-cta-inner { padding: 3rem; border-radius: 3rem; background: var(--white); }
+.grade-test-cta a {
+  min-height: 18rem;
+  border-radius: 2.5rem;
+  background: var(--black);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Onweer, Impact, sans-serif;
+  font-size: clamp(3rem, 5vw, 6rem);
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background .25s ease, color .25s ease, transform .25s ease;
+}
+.grade-test-cta a:hover { background: var(--pink); transform: scale(.995); }
+.grade-benefits { width: min(100% - 4rem, 100rem); margin: 0 auto; padding: 2rem 0 8rem; }
+.section-title { margin: 0 0 2rem; font-family: Onweer, Impact, sans-serif; font-size: clamp(3rem, 6vw, 6rem); line-height: .9; text-transform: uppercase; }
+.benefit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.benefit-card { min-height: 18rem; padding: 2rem; border-radius: 1.75rem; display: flex; flex-direction: column; justify-content: space-between; background: var(--paper); }
+.benefit-card:nth-child(2) { background: var(--yellow); transform: rotate(1.5deg); }
+.benefit-card:nth-child(3) { background: var(--blue); color: var(--white); transform: rotate(-1.5deg); }
+.benefit-number { font-family: Onweer, Impact, sans-serif; font-size: 4rem; line-height: 1; }
+.benefit-card h2 { margin: 0; font-family: Onweer, Impact, sans-serif; font-size: 2.3rem; line-height: .95; text-transform: uppercase; }
+.grade-final { margin-top: 5rem; padding: 3rem; border-radius: 2rem; background: var(--black); color: var(--white); display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+.grade-final h2 { max-width: 55rem; margin: 0; font-family: Onweer, Impact, sans-serif; font-size: clamp(3rem, 6vw, 6rem); line-height: .88; text-transform: uppercase; }
+
+.contact-grid { width: min(100% - 4rem, 100rem); margin: 0 auto; padding: 2rem 0 9rem; display: grid; grid-template-columns: 1.2fr .8fr; gap: 1rem; }
+.contact-card { min-height: 22rem; padding: 2.5rem; border-radius: 2rem; background: var(--yellow); display: flex; flex-direction: column; justify-content: space-between; }
+.contact-card:nth-child(2) { background: var(--black); color: var(--white); }
+.contact-card h2 { margin: 0; font-family: Onweer, Impact, sans-serif; font-size: clamp(2.5rem, 5vw, 5rem); line-height: .9; text-transform: uppercase; }
+.contact-link { font-size: clamp(1.4rem, 3vw, 2.5rem); overflow-wrap: anywhere; }
+
+.internal-footer { margin: 0 1.25rem 1.25rem; padding: 2rem; border-radius: 2rem; background: var(--black); color: var(--white); overflow: hidden; }
+.footer-top, .footer-bottom { display: flex; justify-content: space-between; gap: 2rem; align-items: flex-start; }
+.footer-title { margin: 5rem 0 4rem; font-family: Onweer, Impact, sans-serif; font-size: clamp(4rem, 10vw, 11rem); line-height: .78; letter-spacing: -.04em; text-align: center; text-transform: uppercase; }
+.footer-links { max-width: 52rem; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .55rem; }
+.footer-links a { padding: .7rem 1rem; border: 1px solid rgba(255,255,255,.28); border-radius: 999px; text-decoration: none; }
+.footer-links a:hover { background: var(--yellow); border-color: var(--yellow); color: var(--black); }
+.footer-note { max-width: 32rem; text-align: right; }
+
+html.has-js [data-reveal] { opacity: 0; transform: translateY(2rem); transition: opacity .7s ease, transform .8s cubic-bezier(.16,1,.3,1); }
+html.has-js [data-reveal].is-visible { opacity: 1; transform: none; }
+
+@media (max-width: 900px) {
+  .site-header { inset: 1rem 1rem auto; }
+  .brand-name, .header-nav, .header-actions { display: none; }
+  .menu-button { display: inline-flex; }
+  .mobile-menu { position: fixed; z-index: 8999; inset: 0; padding: 6rem 1rem 1rem; background: var(--pink); flex-direction: column; gap: .5rem; }
+  .mobile-menu.is-open { display: flex; }
+  .mobile-menu a { padding: 1rem 1.25rem; border-radius: 1rem; background: var(--white); font-family: Onweer, Impact, sans-serif; font-size: 1.8rem; text-transform: uppercase; text-decoration: none; }
+  .page-hero { min-height: 0; padding: 7rem 1rem 1rem; }
+  .page-hero-inner { min-height: 31rem; padding: 2rem 1.25rem; border-radius: 1.5rem; }
+  .page-title { font-size: clamp(3.6rem, 17vw, 6.5rem); overflow-wrap: anywhere; }
+  .page-lead { font-size: 1rem; }
+  .page-hero:not(.grade-hero) { padding: 7rem 1rem 2rem; }
+  .page-hero:not(.grade-hero) .page-hero-inner { min-height: 24rem; padding: 2rem 0; }
+  .page-hero:not(.grade-hero) .page-kicker { margin-bottom: 1.5rem; }
+  .page-hero:not(.grade-hero) .page-title {
+    margin-bottom: 1.5rem;
+    font-size: clamp(3.25rem, 14vw, 5.5rem);
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .document-layout { width: calc(100% - 2rem); grid-template-columns: 1fr; padding: 1rem 0 6rem; }
+  .document-toc { position: relative; top: 0; max-height: none; }
+  .toc-list { display: grid; grid-template-columns: 1fr 1fr; }
+  .legal-card { padding: 1.35rem; border-radius: 1.25rem; font-size: .94rem; }
+  .legal-card .legal-subheading, .legal-card-title { font-size: 2rem; }
+  .info-table, .info-table tbody, .info-table tr, .info-table td { display: block; width: 100%; }
+  .info-table td:first-child { width: 100%; padding-bottom: .25rem; border-bottom: 0; }
+  .info-table td:last-child { padding-top: 0; }
+  .grade-hero { padding: 5.25rem 1rem 1rem; }
+  .grade-hero .page-hero-inner {
+    min-height: 0;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    grid-template-areas: "heading" "art" "description";
+    border-radius: 2rem;
+  }
+  .grade-heading { padding: 2rem 1.5rem 1rem; }
+  .grade-heading .page-kicker { margin-bottom: 1rem; }
+  .grade-heading .page-title { max-width: 20rem; font-size: clamp(4.25rem, 18vw, 6rem); }
+  .grade-art-stage {
+    min-height: 0;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 1.5rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 1rem;
+  }
+  .grade-scale { height: auto; }
+  .grade-scale img { height: auto; object-fit: contain; }
+  .grade-art { max-height: 17rem; justify-self: center; }
+  .grade-description { max-width: 20rem; padding: 1.25rem 1.5rem 2rem; font-size: 1.4rem; line-height: 1.12; }
+  .grade-test-cta { width: calc(100% - 2rem); padding: 0 0 5rem; }
+  .grade-test-cta-inner { padding: 1rem; border-radius: 2rem; }
+  .grade-test-cta a { min-height: 11rem; border-radius: 1.5rem; font-size: 2.25rem; white-space: nowrap; }
+  .grade-benefits { width: calc(100% - 2rem); padding-bottom: 5rem; }
+  .benefit-grid { grid-template-columns: 1fr; }
+  .benefit-card { min-height: 14rem; }
+  .grade-final { padding: 1.5rem; flex-direction: column; align-items: flex-start; }
+  .contact-grid { width: calc(100% - 2rem); grid-template-columns: 1fr; padding-bottom: 6rem; }
+  .contact-card { min-height: 17rem; padding: 1.5rem; }
+  .internal-footer { margin: 0 .5rem .5rem; padding: 1.25rem; border-radius: 1.5rem; }
+  .footer-top, .footer-bottom { flex-direction: column; }
+  .footer-links { justify-content: flex-start; }
+  .footer-title { margin: 4rem 0; text-align: left; }
+  .footer-note { text-align: left; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  html.has-js [data-reveal] { opacity: 1; transform: none; transition: none; }
+}

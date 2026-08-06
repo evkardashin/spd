@@ -24,10 +24,17 @@
     // комментарий в js/workshop-animation.js) — дальше каждая карточка следит за собой
     // через свой собственный IntersectionObserver-триггер.
     gsap.set(heading, { opacity: 0, y: 26 });
-    cards.forEach(function (card) {
+    cards.forEach(function (card, index) {
       // Радиус (36px, задан в CSS) лежит на самой .faq_item — это текстовая карточка
       // с overflow:hidden, а не картинка, поэтому морфим радиус прямо на ней.
-      gsap.set(card, { opacity: 0, y: 40, scale: 0.92, borderRadius: '46%' });
+      gsap.set(card, {
+        opacity: 0,
+        x: index % 2 === 0 ? -38 : 38,
+        y: 12,
+        scale: 0.96,
+        rotate: index % 2 === 0 ? -1.2 : 1.2,
+        borderRadius: '46%'
+      });
     });
 
     revealAllNow();
@@ -58,7 +65,10 @@
         var delay = playOrder * 0.12;
         playOrder += 1;
         var tl = gsap.timeline({ defaults: { ease: 'power3.out' }, delay: delay });
-        tl.to(card, { opacity: 1, y: 0, scale: 1, duration: 0.85, ease: 'back.out(1.7)' });
+        tl.to(card, {
+          opacity: 1, x: 0, y: 0, scale: 1, rotate: 0,
+          duration: 0.8, ease: 'power3.out'
+        });
         // Плавный ease без баунса — иначе перелёт back.out утянет радиус за 0
         // (видимый "квадратный" мигающий угол на пике пружины).
         tl.to(card, { borderRadius: '36px', duration: 0.85, ease: 'power2.out' }, '<');
