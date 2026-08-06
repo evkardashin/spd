@@ -42,6 +42,7 @@
     html.faq-anim [data-faq-el] { opacity: 0; }
     html.rate-anim [data-rate-el] { opacity: 0; }
     html.consultation-anim [data-consultation-el] { opacity: 0; }
+    html.footer-anim [data-footer-el] { opacity: 0; }
   </style>
   <script>
     window.__heroReveal = function () {
@@ -96,6 +97,10 @@
       document.documentElement.classList.remove('consultation-anim');
       window.__consultationReveal = function () {};
     };
+    window.__footerReveal = function () {
+      document.documentElement.classList.remove('footer-anim');
+      window.__footerReveal = function () {};
+    };
     (function () {
       try {
         document.documentElement.classList.add('hero-anim');
@@ -111,11 +116,13 @@
         document.documentElement.classList.add('faq-anim');
         document.documentElement.classList.add('rate-anim');
         document.documentElement.classList.add('consultation-anim');
+        document.documentElement.classList.add('footer-anim');
       } catch (e) {}
     })();
   </script>
-  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
-  <link href="images/webclip.png" rel="apple-touch-icon">
+  <link href="images/favicon.ico" rel="icon" type="image/x-icon" sizes="32x32" media="(prefers-color-scheme: light)">
+  <link href="images/favicon-dark.ico" rel="icon" type="image/x-icon" sizes="32x32" media="(prefers-color-scheme: dark)">
+  <link href="images/webclip.png" rel="apple-touch-icon" sizes="180x180">
   <style>
 .plus_wrapper, .minus_wrapper {
   transition: transform 0.3s ease, opacity 0.3s ease;
@@ -126,6 +133,9 @@
 </style>
 </head>
 <body class="body">
+  <div class="scroll_progress" aria-hidden="true">
+    <div class="scroll_progress_bar"></div>
+  </div>
   <div class="styles_global w-embed">
     <style>
 html { font-size: 1rem; }
@@ -163,10 +173,10 @@ html { font-size: 1rem; }
             <a href="#" class="nav_btn_pink_menu w-inline-block" data-popup-open="popup-nav-mob">
               <div class="nav_text_btn white">менюшка</div>
             </a>
-            <a href="#" class="nav_btn_pink display-none w-inline-block">
+            <a href="uznai-grade/" class="nav_btn_pink display-none w-inline-block">
               <div class="nav_text_btn white">тест на грейдик</div>
             </a>
-            <a href="#" class="nav_btn backdrop-none w-inline-block">
+            <a href="anketa/Анкета.html" class="nav_btn backdrop-none w-inline-block">
               <div class="nav_text_btn">записаться на ассессмент</div>
             </a>
           </div>
@@ -228,10 +238,10 @@ html { font-size: 1rem; }
               </div>
               <div class="hero_img_mob-3" data-hero-el="mob-img-3"><img src="images/Rectangle-2087328974.avif" loading="lazy" sizes="(max-width: 597px) 100vw, 597px" srcset="images/Rectangle-2087328974-p-500.avif 500w, images/Rectangle-2087328974.avif 597w" alt="" class="image-3"></div>
               <div class="hero_btn_wrapper" data-hero-el="mob-cta">
-                <a href="#" class="nav_btn-copy backdrop-none w-inline-block">
+                <a href="anketa/Анкета.html" class="nav_btn-copy backdrop-none w-inline-block">
                   <div class="hero_btn">записаться на ассессмент</div>
                 </a>
-                <a href="#" class="nav_btn_pink w-inline-block">
+                <a href="uznai-grade/" class="nav_btn_pink w-inline-block">
                   <div class="hero_btn_text white">тест на грейдик</div>
                 </a>
               </div>
@@ -383,12 +393,12 @@ html { font-size: 1rem; }
                 <h3 class="plan_cart_text width-104">Уйдёте с письменным планом на 3–6 месяцев</h3>
               </div>
             </div>
-            <div class="plan_test_wrapper"><img src="images/plan-test.avif" loading="lazy" sizes="(max-width: 2912px) 100vw, 2912px" srcset="images/plan-test-p-500.avif 500w, images/plan-test-p-800.avif 800w, images/plan-test-p-1080.avif 1080w, images/plan-test-p-1600.avif 1600w, images/plan-test-p-2000.avif 2000w, images/plan-test.avif 2912w" alt="" class="image-3 display-none"><img src="images/test.avif" loading="lazy" sizes="100vw" srcset="images/test-p-500.avif 500w, images/test-p-800.avif 800w, images/test-p-1080.avif 1080w, images/test-p-1600.avif 1600w, images/test.avif 2008w" alt="" class="plan_test_img_mob"></div>
+            <div class="plan_test_wrapper" data-plan-el="visual"><img src="images/plan-test.avif" loading="lazy" sizes="(max-width: 2912px) 100vw, 2912px" srcset="images/plan-test-p-500.avif 500w, images/plan-test-p-800.avif 800w, images/plan-test-p-1080.avif 1080w, images/plan-test-p-1600.avif 1600w, images/plan-test-p-2000.avif 2000w, images/plan-test.avif 2912w" alt="" class="image-3 display-none"><img src="images/test.avif" loading="lazy" sizes="100vw" srcset="images/test-p-500.avif 500w, images/test-p-800.avif 800w, images/test-p-1080.avif 1080w, images/test-p-1600.avif 1600w, images/test.avif 2008w" alt="" class="plan_test_img_mob"></div>
             <div class="plan_heading_wrapper">
               <h2 class="plan_heading white" data-plan-el="heading">Хотите получить персональный план?</h2>
               <div class="text_small white" data-plan-el="heading">40 минут с экспертом<br>из бигтеха бесплатно</div>
             </div>
-            <a href="#" class="btn_main width-612 height-194 absolute w-inline-block" data-plan-el="cta">
+            <a href="anketa/Анкета.html" class="btn_main width-612 height-194 absolute w-inline-block" data-plan-el="cta">
               <div class="btn_main_text">Записаться на разбор навыков</div>
             </a>
             <div class="plan_description_wrapper">
@@ -552,7 +562,7 @@ html { font-size: 1rem; }
                 </div>
               </div>
             </div>
-            <div class="mentor_call_wrapper">
+            <div class="mentor_call_wrapper" data-mentor-el="call">
               <div class="call_left_side">
                 <div class="circle_img_wrapper"><img src="images/camera.svg" loading="lazy" alt="" class="image-3"></div>
                 <div class="circle_img_wrapper"><img src="images/mic.svg" loading="lazy" alt="" class="image-3"></div>
@@ -576,14 +586,14 @@ html { font-size: 1rem; }
             </div>
             <div class="consultation_carts_wrapper mb-20">
               <div class="carts_swiper_track">
-              <div class="consultation_cart_wrapper _1"><img src="images/blue-bg.avif" loading="lazy" sizes="100vw" srcset="images/blue-bg-p-500.avif 500w, images/blue-bg.avif 740w" alt="" class="image-3 display-none">
+              <div class="consultation_cart_wrapper _1" data-consultation-el="card"><img src="images/blue-bg.avif" loading="lazy" sizes="100vw" srcset="images/blue-bg-p-500.avif 500w, images/blue-bg.avif 740w" alt="" class="image-3 display-none">
                 <div class="cosultation_cart_text_wrapper">
                   <div class="consultation_cart_text_top">поможем собрать резюме и портфель</div>
                   <h3 class="consultation_cart_text_bot">резюме и портфель</h3>
                 </div>
                 <div class="bag-white_img_wrapper"><img src="images/bag-white.svg" loading="lazy" alt="" class="image-3"></div>
               </div>
-              <div class="consultation_cart_wrapper _2"><img src="images/gradient-bg.avif" loading="lazy" alt="" class="image-3 display-none">
+              <div class="consultation_cart_wrapper _2" data-consultation-el="card"><img src="images/gradient-bg.avif" loading="lazy" alt="" class="image-3 display-none">
                 <div class="cosultation_cart_text_wrapper">
                   <div class="consultation_cart_text_top">разбираем кейсы до деталей</div>
                   <h3 class="consultation_cart_text_bot">ревью кейсов</h3>
@@ -592,13 +602,13 @@ html { font-size: 1rem; }
                 <div class="zavod_img_wrapper"><img src="images/zavod.avif" loading="lazy" sizes="100vw" srcset="images/zavod-p-500.avif 500w, images/zavod.avif 538w" alt="" class="image-3"></div>
                 <div class="iphone_img_wrapper"><img src="images/iphone16.avif" loading="lazy" alt="" class="image-3"></div>
               </div>
-              <div class="consultation_cart_wrapper _3"><img src="images/chel-bg.avif" loading="lazy" sizes="100vw" srcset="images/chel-bg-p-500.avif 500w, images/chel-bg.avif 740w" alt="" class="image-3 display-none">
+              <div class="consultation_cart_wrapper _3" data-consultation-el="card"><img src="images/chel-bg.avif" loading="lazy" sizes="100vw" srcset="images/chel-bg-p-500.avif 500w, images/chel-bg.avif 740w" alt="" class="image-3 display-none">
                 <div class="cosultation_cart_text_wrapper">
                   <div class="consultation_cart_text_top">тренируем решение задач в реальном времени</div>
                   <h3 class="consultation_cart_text_bot">вайтборд челлендж</h3>
                 </div>
               </div>
-              <div class="consultation_cart_wrapper _4"><img src="images/green-bg.avif" loading="lazy" sizes="100vw" srcset="images/green-bg-p-500.avif 500w, images/green-bg.avif 740w" alt="" class="image-3 display-none">
+              <div class="consultation_cart_wrapper _4" data-consultation-el="card"><img src="images/green-bg.avif" loading="lazy" sizes="100vw" srcset="images/green-bg-p-500.avif 500w, images/green-bg.avif 740w" alt="" class="image-3 display-none">
                 <div class="cosultation_cart_text_wrapper">
                   <div class="consultation_cart_text_top display-none">cмотрим на тестовые глазами нанимающего</div>
                   <div class="consultation_cart_text_top">тестовые глазами нанимающего</div>
@@ -606,7 +616,7 @@ html { font-size: 1rem; }
                 </div>
                 <div class="paper_img_wrapper"><img src="images/paper.svg" loading="lazy" alt="" class="image-3"></div>
               </div>
-              <div class="consultation_cart_wrapper _5"><img src="images/cheli-bg.avif" loading="lazy" sizes="100vw" srcset="images/cheli-bg-p-500.avif 500w, images/cheli-bg.avif 740w" alt="" class="image-3 display-none">
+              <div class="consultation_cart_wrapper _5" data-consultation-el="card"><img src="images/cheli-bg.avif" loading="lazy" sizes="100vw" srcset="images/cheli-bg-p-500.avif 500w, images/cheli-bg.avif 740w" alt="" class="image-3 display-none">
                 <div class="cosultation_cart_text_wrapper">
                   <div class="consultation_cart_text_top">проводим мок-собеседования с фидбеком</div>
                   <h3 class="consultation_cart_text_bot">cобес</h3>
@@ -614,7 +624,7 @@ html { font-size: 1rem; }
               </div>
               </div>
             </div>
-            <div class="div-block-3">
+            <div class="div-block-3" data-consultation-el="subheading">
               <h3 class="text_like_h1">помощь на всех этапах</h3>
             </div>
           </div>
@@ -818,20 +828,23 @@ html { font-size: 1rem; }
         <div class="container">
           <div class="program_padding">
             <div class="program_content_wrapper">
-              <div class="program_heading_wrapper mb-40">
-                <h2 class="text_large color-white" data-program-el="heading-1">наша программка </h2>
-                <h3 class="text_like_h1 color-white width-335" data-program-el="heading-1">продуктовый дизайн</h3>
-              </div>
-              <div class="program_img_wrapper mb-24">
-                <div class="chel_img_wrapper" data-program-el="icon-1"><img src="images/chel.svg" loading="lazy" alt="" class="image-3"></div>
-                <div class="first_img_wrapper" data-program-el="icon-1"><img src="images/1.svg" loading="lazy" alt="" class="image-3"></div>
-                <div class="brush-white_img_wrapper" data-program-el="icon-1"><img src="images/brush-white.svg" loading="lazy" alt="" class="image-3"></div>
-              </div>
-              <div class="program_description_wrapper mb-56" data-program-el="heading-1">
-                <div class="text_like_h1 color-white">модуль</div>
-                <div class="text_small color-white width-379">за 48 недель вы пройдёте путь, который джун проходит 3-5 лет<br></div>
-              </div>
-              <div class="program_carts_wrapper mb-527">
+              <div class="program_intro_stack">
+                <div class="program_intro_sticky">
+                <div class="program_heading_wrapper mb-40">
+                  <h2 class="text_large color-white" data-program-el="heading-1">наша программка </h2>
+                  <h3 class="text_like_h1 color-white width-335" data-program-el="heading-1">продуктовый дизайн</h3>
+                </div>
+                <div class="program_img_wrapper mb-24">
+                  <div class="chel_img_wrapper" data-program-el="icon-1"><img src="images/chel.svg" loading="lazy" alt="" class="image-3"></div>
+                  <div class="first_img_wrapper" data-program-el="icon-1"><img src="images/1.svg" loading="lazy" alt="" class="image-3"></div>
+                  <div class="brush-white_img_wrapper" data-program-el="icon-1"><img src="images/brush-white.svg" loading="lazy" alt="" class="image-3"></div>
+                </div>
+                <div class="program_description_wrapper mb-56" data-program-el="heading-1">
+                  <div class="text_like_h1 color-white">модуль</div>
+                  <div class="text_small color-white width-379">за 48 недель вы пройдёте путь, который джун проходит 3-5 лет<br></div>
+                </div>
+                </div>
+                <div class="program_carts_wrapper mb-527">
                 <div class="program_cart_wrapper" data-program-el="cards-1" data-popup-open="popup-program">
                   <div class="program_cart_img_wrapper">
                     <div class="suitcase_img_wrapper"><img src="images/case-img.avif" loading="lazy" alt="" class="image-3"></div>
@@ -905,6 +918,7 @@ html { font-size: 1rem; }
                       </div>
                     </div>
                   </div>
+                </div>
                 </div>
               </div>
               <div class="offer_heading_wrapper mb-40">
@@ -1080,7 +1094,7 @@ html { font-size: 1rem; }
 </style>
                 </div>
               </div>
-              <a href="#" class="btn_main w-inline-block" data-program-el="cta-4">
+              <a href="anketa/Анкета.html" class="btn_main w-inline-block" data-program-el="cta-4">
                 <div class="btn_main_text">оставить заявку</div>
               </a>
             </div>
@@ -1114,33 +1128,33 @@ html { font-size: 1rem; }
             </h2>
             <div class="rate_carts_wrapper">
               <div class="carts_swiper_track">
-              <div class="rate_cart_wrapper _1"><img src="images/red-bg.avif" loading="lazy" sizes="100vw" srcset="images/red-bg-p-500.avif 500w, images/red-bg.avif 740w" alt="" class="image-3 display-none">
+              <div class="rate_cart_wrapper _1" data-rate-el="card"><img src="images/red-bg.avif" loading="lazy" sizes="100vw" srcset="images/red-bg-p-500.avif 500w, images/red-bg.avif 740w" alt="" class="image-3 display-none">
                 <div class="cosultation_cart_text_wrapper">
                   <div class="consultation_cart_text_top">из-за каких ошибок в портфолио</div>
                   <h3 class="consultation_cart_text_bot width-252">вы получаете отказы или игнор</h3>
                 </div>
                 <div class="dead-paper_img_wrapper"><img src="images/dead_paper.svg" loading="lazy" alt="" class="image-3"></div>
               </div>
-              <div class="rate_cart_wrapper _2"><img src="images/girl-bg.avif" loading="lazy" sizes="100vw" srcset="images/girl-bg-p-500.avif 500w, images/girl-bg.avif 740w" alt="" class="image-3 display-none">
+              <div class="rate_cart_wrapper _2" data-rate-el="card"><img src="images/girl-bg.avif" loading="lazy" sizes="100vw" srcset="images/girl-bg-p-500.avif 500w, images/girl-bg.avif 740w" alt="" class="image-3 display-none">
                 <div class="cosultation_cart_text_wrapper">
                   <div class="consultation_cart_text_top">какой у вас сейчас</div>
                   <h3 class="consultation_cart_text_bot width-154">грейд ДИЗАЙНЕРА</h3>
                 </div>
               </div>
-              <div class="rate_cart_wrapper _3"><img src="images/orange-bg.avif" loading="lazy" sizes="100vw" srcset="images/orange-bg-p-500.avif 500w, images/orange-bg.avif 740w" alt="" class="image-3 display-none">
+              <div class="rate_cart_wrapper _3" data-rate-el="card"><img src="images/orange-bg.avif" loading="lazy" sizes="100vw" srcset="images/orange-bg-p-500.avif 500w, images/orange-bg.avif 740w" alt="" class="image-3 display-none">
                 <div class="cosultation_cart_text_wrapper">
                   <div class="consultation_cart_text_top">где ваши пробелы</div>
                   <h3 class="consultation_cart_text_bot width-219">в продуктовом подходе</h3>
                 </div>
                 <div class="hdmi_img_wrapper"><img src="images/hdmi.svg" loading="lazy" alt="" class="image-3"></div>
               </div>
-              <div class="rate_cart_wrapper _4"><img src="images/cat-bg.avif" loading="lazy" sizes="100vw" srcset="images/cat-bg-p-500.avif 500w, images/cat-bg.avif 740w" alt="" class="image-3 display-none">
+              <div class="rate_cart_wrapper _4" data-rate-el="card"><img src="images/cat-bg.avif" loading="lazy" sizes="100vw" srcset="images/cat-bg-p-500.avif 500w, images/cat-bg.avif 740w" alt="" class="image-3 display-none">
                 <div class="cosultation_cart_text_wrapper">
                   <div class="consultation_cart_text_top width-278">что прокачать в первую очередь</div>
                   <h3 class="consultation_cart_text_bot width-252">чтобы вас позвали на собес</h3>
                 </div>
               </div>
-              <div class="rate_cart_wrapper _5"><img src="images/blue-bg_2.avif" loading="lazy" sizes="100vw" srcset="images/blue-bg_2-p-500.avif 500w, images/blue-bg_2.avif 740w" alt="" class="image-3 display-none">
+              <div class="rate_cart_wrapper _5" data-rate-el="card"><img src="images/blue-bg_2.avif" loading="lazy" sizes="100vw" srcset="images/blue-bg_2-p-500.avif 500w, images/blue-bg_2.avif 740w" alt="" class="image-3 display-none">
                 <div class="cosultation_cart_text_wrapper">
                   <div class="consultation_cart_text_top">тестовые</div>
                   <h3 class="consultation_cart_text_bot width-252">вы сейчас 100% завалите и почему</h3>
@@ -1159,7 +1173,7 @@ html { font-size: 1rem; }
           <div class="skill_content_wrapper">
             <div class="skill_img_wrapper">
               <div class="skill_bg_wrapper"><img src="images/skill-bg.avif" loading="lazy" sizes="100vw" srcset="images/skill-bg-p-500.avif 500w, images/skill-bg-p-800.avif 800w, images/skill-bg-p-1080.avif 1080w, images/skill-bg-p-1600.avif 1600w, images/skill-bg.avif 2400w" alt="" class="image-3 display-none">
-                <a href="#" class="btn_main absolute w-inline-block" data-skill-el="cta">
+                <a href="anketa/Анкета.html" class="btn_main absolute w-inline-block" data-skill-el="cta">
                   <div class="btn_main_text">Записаться на разбор навыков</div>
                 </a>
                 <h2 class="text_like_h1 width-517 absolute" data-skill-el="heading">Ваш результат после разбора навыков</h2>
@@ -1313,30 +1327,31 @@ html { font-size: 1rem; }
       <div class="container">
         <div class="footer_padding">
           <div class="footer_content_wrapper">
-            <div class="footer_content_top mb-240">
+            <div class="footer_content_top mb-240" data-footer-el="top">
               <div class="footer_text">© formfactor 2023–2052<br></div>
               <div class="footer_link_wrapper">
-                <a href="#" class="footer_link">публичная оферта</a>
-                <a href="#" class="footer_link">сведения об обр. организации</a>
-                <a href="#" class="footer_link">оферта подписки</a>
-                <a href="#" class="footer_link">политика конфиденциальности</a>
+                <a href="oferta/" class="footer_link">публичная оферта</a>
+                <a href="svedeniya/" class="footer_link">сведения об обр. организации</a>
+                <a href="oferta-sub/" class="footer_link">оферта подписки</a>
+                <a href="privacy/" class="footer_link">политика конфиденциальности</a>
+                <a href="contacts/" class="footer_link">контакты</a>
               </div>
             </div>
-            <div class="school_img_wrapper mb-17"><img src="images/school.svg" loading="lazy" alt=""></div>
-            <div class="footer_btn_wrapper mb-108">
+            <div class="school_img_wrapper mb-17" data-footer-el="title"><img src="images/school.svg" loading="lazy" alt=""></div>
+            <div class="footer_btn_wrapper mb-108" data-footer-el="cta">
               <a href="#" class="btn_main w-inline-block">
                 <div class="btn_main_text">скачать программу</div>
               </a>
             </div>
-            <div class="footer_content_bot">
+            <div class="footer_content_bot" data-footer-el="bottom">
               <div class="footer_text">обр. лицензия № Л035-01265-18/02025868</div>
               <div class="footer_text">представь, дизайн — это грядка. я прохожу с нею рядом.<br>я поливаю как надо, ты знаешь формулу этого яда</div>
             </div>
-            <div class="nemo_img_wrapper"><img src="images/nemo.avif" loading="lazy" alt="" class="image-3"></div>
-            <div class="ezh_img_wrapper"><img src="images/ezh.avif" loading="lazy" sizes="100vw" srcset="images/ezh-p-500.avif 500w, images/ezh-p-800.avif 800w, images/ezh.avif 845w" alt="" class="image-3"></div>
-            <div class="chaynik_img_wrapper"><img src="images/chaynik.png" loading="lazy" alt="" class="image-3"></div>
-            <div class="rabbit_img_wrapper"><img src="images/rabbit.avif" loading="lazy" sizes="100vw" srcset="images/rabbit-p-500.avif 500w, images/rabbit.avif 602w" alt="" class="image-3"></div>
-            <div class="stop_img_wrapper"><img src="images/stop.avif" loading="lazy" alt="" class="image-3"></div>
+            <div class="nemo_img_wrapper" data-footer-el="decor"><img src="images/nemo.avif" loading="lazy" alt="" class="image-3"></div>
+            <div class="ezh_img_wrapper" data-footer-el="decor"><img src="images/ezh.avif" loading="lazy" sizes="100vw" srcset="images/ezh-p-500.avif 500w, images/ezh-p-800.avif 800w, images/ezh.avif 845w" alt="" class="image-3"></div>
+            <div class="chaynik_img_wrapper" data-footer-el="decor"><img src="images/chaynik.png" loading="lazy" alt="" class="image-3"></div>
+            <div class="rabbit_img_wrapper" data-footer-el="decor"><img src="images/rabbit.avif" loading="lazy" sizes="100vw" srcset="images/rabbit-p-500.avif 500w, images/rabbit.avif 602w" alt="" class="image-3"></div>
+            <div class="stop_img_wrapper" data-footer-el="decor"><img src="images/stop.avif" loading="lazy" alt="" class="image-3"></div>
           </div>
         </div>
       </div>
@@ -1345,36 +1360,37 @@ html { font-size: 1rem; }
       <div class="container">
         <div class="footer_mob_padding">
           <div class="footer_mob_content_wrapper">
-            <div class="footer_mob_btn_wrapper">
+            <div class="footer_mob_btn_wrapper" data-footer-el="cta">
               <a href="#" class="btn_main w-inline-block">
                 <div class="btn_main_text">скачать программу</div>
               </a>
             </div>
-            <div class="footer_mob_content_top">
+            <div class="footer_mob_content_top" data-footer-el="top">
               <div class="footer_text">© formfactor <br>2023–2052</div>
               <div class="footer_text witdth-162">обр. лицензия № Л035-01265-18/02025868</div>
             </div>
-            <div class="footer_mob_img_wrapper"><img src="images/text.svg" loading="lazy" alt="" class="image-3"></div>
-            <div class="footer_mob_content_bot">
+            <div class="footer_mob_img_wrapper" data-footer-el="title"><img src="images/text.svg" loading="lazy" alt="" class="image-3"></div>
+            <div class="footer_mob_content_bot" data-footer-el="bottom">
               <div class="footer_mob_text_wrapper">
                 <div class="footer_text width-282 text_align_center">представь, дизайн — это грядка. я прохожу<br>c нею рядом. я поливаю как надо, ты знаешь формулу этого яда<br></div>
               </div>
               <div class="footer_mob_link_wrapper">
                 <div class="footer_link_left_side">
-                  <a href="#" class="footer_link">политика конфиденциальности</a>
-                  <a href="#" class="footer_link">оферта подписки</a>
+                  <a href="privacy/" class="footer_link">политика конфиденциальности</a>
+                  <a href="oferta-sub/" class="footer_link">оферта подписки</a>
+                  <a href="contacts/" class="footer_link">контакты</a>
                 </div>
                 <div class="footer_link_right_side">
-                  <a href="#" class="footer_link text_align_right">сведения об обр. организации</a>
-                  <a href="#" class="footer_link">публичная оферта</a>
+                  <a href="svedeniya/" class="footer_link text_align_right">сведения об обр. организации</a>
+                  <a href="oferta/" class="footer_link">публичная оферта</a>
                 </div>
               </div>
             </div>
-            <div class="nemo_img_wrapper"><img src="images/nemo.avif" loading="lazy" alt="" class="image-3"></div>
-            <div class="ezh_img_wrapper"><img src="images/ezh.avif" loading="lazy" sizes="100vw" srcset="images/ezh-p-500.avif 500w, images/ezh-p-800.avif 800w, images/ezh.avif 845w" alt="" class="image-3"></div>
-            <div class="chaynik_img_wrapper"><img src="images/chaynik.png" loading="lazy" alt="" class="image-3"></div>
-            <div class="stop_img_wrapper"><img src="images/stop.avif" loading="lazy" alt="" class="image-3"></div>
-            <div class="rabbit_img_wrapper"><img src="images/rabbit.avif" loading="lazy" sizes="100vw" srcset="images/rabbit-p-500.avif 500w, images/rabbit.avif 602w" alt="" class="image-3"></div>
+            <div class="nemo_img_wrapper" data-footer-el="decor"><img src="images/nemo.avif" loading="lazy" alt="" class="image-3"></div>
+            <div class="ezh_img_wrapper" data-footer-el="decor"><img src="images/ezh.avif" loading="lazy" sizes="100vw" srcset="images/ezh-p-500.avif 500w, images/ezh-p-800.avif 800w, images/ezh.avif 845w" alt="" class="image-3"></div>
+            <div class="chaynik_img_wrapper" data-footer-el="decor"><img src="images/chaynik.png" loading="lazy" alt="" class="image-3"></div>
+            <div class="stop_img_wrapper" data-footer-el="decor"><img src="images/stop.avif" loading="lazy" alt="" class="image-3"></div>
+            <div class="rabbit_img_wrapper" data-footer-el="decor"><img src="images/rabbit.avif" loading="lazy" sizes="100vw" srcset="images/rabbit-p-500.avif 500w, images/rabbit.avif 602w" alt="" class="image-3"></div>
           </div>
         </div>
       </div>
@@ -1532,10 +1548,10 @@ html { font-size: 1rem; }
             </a>
           </div>
           <div class="popup_transparent_btn_bot">
-            <a href="#" class="nav_btn-copy backdrop-none w-inline-block">
+            <a href="anketa/Анкета.html" class="nav_btn-copy backdrop-none w-inline-block">
               <div class="hero_btn">записаться на ассессмент</div>
             </a>
-            <a href="#" class="nav_btn_pink w-inline-block">
+            <a href="uznai-grade/" class="nav_btn_pink w-inline-block">
               <div class="hero_btn_text white">тест на грейдик</div>
             </a>
           </div>
@@ -1545,11 +1561,12 @@ html { font-size: 1rem; }
   </div>
   <!-- jQuery и js/webflow.js больше не нужны: вся интерактивность (FAQ-аккордеон, попапы)
        переписана на чистый JS в js/interactions.js -->
+  <script src="js/scroll-progress.js" defer></script>
   <script src="js/interactions.js" defer></script>
   <script src="js/partners-marquee.js" defer></script>
   <script src="js/swiper.min.js" defer></script>
   <script src="js/carts-swiper.js" defer></script>
-  <script src="js/gsap.min.js" defer onerror="window.__heroReveal && window.__heroReveal(); window.__storiesReveal && window.__storiesReveal(); window.__mentorReveal && window.__mentorReveal(); window.__caseReveal && window.__caseReveal(); window.__moveReveal && window.__moveReveal(); window.__workshopReveal && window.__workshopReveal(); window.__programReveal && window.__programReveal(); window.__skillReveal && window.__skillReveal(); window.__faqReveal && window.__faqReveal(); window.__rateReveal && window.__rateReveal(); window.__consultationReveal && window.__consultationReveal()"></script>
+  <script src="js/gsap.min.js" defer onerror="window.__heroReveal && window.__heroReveal(); window.__storiesReveal && window.__storiesReveal(); window.__mentorReveal && window.__mentorReveal(); window.__caseReveal && window.__caseReveal(); window.__moveReveal && window.__moveReveal(); window.__workshopReveal && window.__workshopReveal(); window.__programReveal && window.__programReveal(); window.__skillReveal && window.__skillReveal(); window.__faqReveal && window.__faqReveal(); window.__rateReveal && window.__rateReveal(); window.__consultationReveal && window.__consultationReveal(); window.__footerReveal && window.__footerReveal()"></script>
   <script src="js/hero-animation.js" defer onerror="window.__heroReveal && window.__heroReveal()"></script>
   <script src="js/stories-animation.js" defer onerror="window.__storiesReveal && window.__storiesReveal()"></script>
   <script src="js/mentor-animation.js" defer onerror="window.__mentorReveal && window.__mentorReveal()"></script>
@@ -1565,5 +1582,6 @@ html { font-size: 1rem; }
   <script src="js/faq-animation.js" defer onerror="window.__faqReveal && window.__faqReveal()"></script>
   <script src="js/rate-animation.js" defer onerror="window.__rateReveal && window.__rateReveal()"></script>
   <script src="js/consultation-animation.js" defer onerror="window.__consultationReveal && window.__consultationReveal()"></script>
+  <script src="js/footer-animation.js" defer onerror="window.__footerReveal && window.__footerReveal()"></script>
 </body>
 </html>

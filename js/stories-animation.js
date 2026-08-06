@@ -26,22 +26,29 @@
     var rows = section.querySelectorAll('[data-stories-el="row"]');
     var cta = section.querySelector('[data-stories-el="cta"]');
 
+    gsap.set(heading, { opacity: 0, y: 26 });
+    gsap.set(icons, { opacity: 0, scale: 0.5, rotate: -25 });
+    rows.forEach(function (row, index) {
+      gsap.set(row, {
+        opacity: 0,
+        x: index % 2 === 0 ? -64 : 64,
+        y: 18,
+        scale: 0.97
+      });
+    });
+    if (cta) gsap.set(cta, { opacity: 0, y: 20, scale: 0.88, rotate: -4 });
+
+    var rowImages = [];
+    rows.forEach(function (row) {
+      var imgs = row.querySelectorAll('img, video');
+      if (imgs.length) {
+        gsap.set(imgs, { borderRadius: '32%' });
+        rowImages.push(imgs);
+      }
+    });
+
     function play() {
       var tl = gsap.timeline({ defaults: { ease: 'power3.out' }, onComplete: done });
-
-      gsap.set(heading, { opacity: 0, y: 26 });
-      gsap.set(icons, { opacity: 0, scale: 0.5, rotate: -25 });
-      gsap.set(rows, { opacity: 0, y: 34, scale: 0.96 });
-      if (cta) gsap.set(cta, { opacity: 0, y: 20, scale: 0.88, rotate: -4 });
-
-      var rowImages = [];
-      rows.forEach(function (row) {
-        var imgs = row.querySelectorAll('img, video');
-        if (imgs.length) {
-          gsap.set(imgs, { borderRadius: '32%' });
-          rowImages.push(imgs);
-        }
-      });
 
       tl.to(heading, { opacity: 1, y: 0, duration: 0.7, stagger: 0.08 });
 
@@ -55,7 +62,9 @@
       // мгновение стал бы острым, см. такой же приём в hero-animation.js).
       rows.forEach(function (row, i) {
         var position = i === 0 ? '-=0.25' : '-=0.75';
-        tl.to(row, { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: 'back.out(1.9)' }, position);
+        tl.to(row, {
+          opacity: 1, x: 0, y: 0, scale: 1, duration: 0.85, ease: 'power3.out'
+        }, position);
         if (rowImages[i]) {
           tl.to(rowImages[i], { borderRadius: '0px', duration: 0.8, ease: 'power2.out' }, '<');
         }

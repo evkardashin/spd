@@ -31,13 +31,16 @@
       { el: section.querySelector('.man_img_wrapper'), finalRotate: -17.747 }
     ].filter(function (c) { return c.el; });
 
+    // Начальное состояние задаём сразу, а не при входе секции в экран. Иначе
+    // safety-таймер мог снять CSS-антифликер раньше скролла пользователя:
+    // иконки становились видимыми, затем play() снова прятал их перед анимацией.
+    gsap.set(heading, { opacity: 0, y: 26 });
+    iconConfigs.forEach(function (c) {
+      gsap.set(c.el, { opacity: 0, scale: 0.5, rotate: c.finalRotate - 25 });
+    });
+
     function play() {
       var tl = gsap.timeline({ defaults: { ease: 'power3.out' }, onComplete: done });
-
-      gsap.set(heading, { opacity: 0, y: 26 });
-      iconConfigs.forEach(function (c) {
-        gsap.set(c.el, { opacity: 0, scale: 0.5, rotate: c.finalRotate - 25 });
-      });
 
       tl.to(heading, { opacity: 1, y: 0, duration: 0.7 });
       iconConfigs.forEach(function (c, i) {

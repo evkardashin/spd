@@ -44,25 +44,32 @@
       rows.push(cards.slice(i, i + ROW_SIZE));
     }
 
+    gsap.set(heading, { opacity: 0, y: 26 });
+    iconConfigs.forEach(function (c) {
+      gsap.set(c.el, { opacity: 0, scale: 0.5, rotate: c.finalRotate - 25 });
+    });
+    cards.forEach(function (card, index) {
+      var isLeft = index % ROW_SIZE === 0;
+      gsap.set(card, {
+        opacity: 0,
+        x: isLeft ? -76 : 76,
+        y: 20,
+        scale: 0.92,
+        rotate: isLeft ? -5 : 5
+      });
+    });
+    if (cta) gsap.set(cta, { opacity: 0, y: 22, scale: 0.88, rotate: -4 });
+
+    // У каждой карточки два варианта фонового фото — десктопное и мобильное.
+    var cardPhotos = cards.map(function (card) {
+      return card.querySelectorAll('.case_img_wrapper > img, .case_img_wrapper-mob > img');
+    });
+    cardPhotos.forEach(function (imgs) {
+      gsap.set(imgs, { borderRadius: '30%' });
+    });
+
     function play() {
       var tl = gsap.timeline({ defaults: { ease: 'power3.out' }, onComplete: done });
-
-      gsap.set(heading, { opacity: 0, y: 26 });
-      iconConfigs.forEach(function (c) {
-        gsap.set(c.el, { opacity: 0, scale: 0.5, rotate: c.finalRotate - 25 });
-      });
-      gsap.set(cards, { opacity: 0, y: 34, scale: 0.92, rotate: -3 });
-
-      // У каждой карточки два варианта фонового фото — десктопное (.case_img_wrapper)
-      // и мобильное (.case_img_wrapper-mob), скрытое/показанное через CSS-медиазапрос.
-      // Анимируем оба (скрытое не даёт визуального эффекта, но код проще и одинаков
-      // для обеих раскладок).
-      var cardPhotos = cards.map(function (card) {
-        return card.querySelectorAll('.case_img_wrapper > img, .case_img_wrapper-mob > img');
-      });
-      cardPhotos.forEach(function (imgs) {
-        gsap.set(imgs, { borderRadius: '30%' });
-      });
 
       tl.to(heading, { opacity: 1, y: 0, duration: 0.7, stagger: 0.08 });
       iconConfigs.forEach(function (c, i) {
@@ -74,7 +81,8 @@
       rows.forEach(function (row, i) {
         var position = i === 0 ? '-=0.25' : '-=0.7';
         tl.to(row, {
-          opacity: 1, y: 0, scale: 1, rotate: 0, duration: 0.85, stagger: 0.12, ease: 'back.out(1.8)'
+          opacity: 1, x: 0, y: 0, scale: 1, rotate: 0,
+          duration: 0.9, stagger: { each: 0.1, from: 'edges' }, ease: 'back.out(1.6)'
         }, position);
 
         var rowStart = i * ROW_SIZE;

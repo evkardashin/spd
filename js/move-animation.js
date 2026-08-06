@@ -44,21 +44,20 @@
       })
       .filter(Boolean);
 
+    gsap.set(heading, { opacity: 0, y: 26 });
+    gsap.set(icons, { opacity: 0, scale: 0.5, rotate: -25 });
+    scatterEls.forEach(function (item) {
+      gsap.set(item.el, {
+        opacity: 0,
+        x: item.cfg.fromX,
+        y: item.cfg.fromY,
+        rotate: item.cfg.finalRotate + item.cfg.spin,
+        scale: 0.55
+      });
+    });
+
     function play() {
       var tl = gsap.timeline({ defaults: { ease: 'power3.out' }, onComplete: done });
-
-      gsap.set(heading, { opacity: 0, y: 26 });
-      gsap.set(icons, { opacity: 0, scale: 0.5, rotate: -25 });
-
-      scatterEls.forEach(function (item) {
-        gsap.set(item.el, {
-          opacity: 0,
-          x: item.cfg.fromX,
-          y: item.cfg.fromY,
-          rotate: item.cfg.finalRotate + item.cfg.spin,
-          scale: 0.55
-        });
-      });
 
       tl.to(heading, { opacity: 1, y: 0, duration: 0.7, stagger: 0.08 });
       tl.to(icons, {

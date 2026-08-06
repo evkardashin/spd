@@ -96,53 +96,291 @@
       obs.observe(trigger);
     });
 
-    // ---- 2. program_carts_wrapper (5 карточек, вертикальный стек) -------------------
-    // Как воркшопы: каждая своя, появляется когда до неё долистали. Радиус здесь у
-    // .program_cart_img_wrapper (обёртка с overflow:hidden), а не у самой картинки.
+    // ---- 2–3. Две фазы программы и две одинаково анимированные группы карточек ----
+    var introStack = section.querySelector('.program_intro_stack');
+    var introSticky = section.querySelector('.program_intro_sticky');
+    var cardsWrapper1 = section.querySelector('.program_carts_wrapper.mb-527');
+    var cardsWrapper2 = section.querySelector('.program_carts_wrapper-2.mb-220');
     var cards1 = Array.prototype.slice.call(section.querySelectorAll('[data-program-el="cards-1"]'));
-    cards1.forEach(function (card) {
-      gsap.set(card, { opacity: 0, y: 50, scale: 0.92 });
-      var wrap = card.querySelector('.program_cart_img_wrapper');
-      if (wrap) gsap.set(wrap, { borderRadius: '46%' });
-    });
-    if (cards1.length) {
-      var obs1 = new IntersectionObserver(function (entries, o) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          var card = entry.target;
-          o.unobserve(card);
-          var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-          tl.to(card, { opacity: 1, y: 0, scale: 1, duration: 0.85, ease: 'back.out(1.7)' });
-          var wrap = card.querySelector('.program_cart_img_wrapper');
-          // Плавный ease без баунса — иначе перелёт back.out утянет радиус за 0
-          // (видимый "квадратный" мигающий угол на пике пружины).
-          if (wrap) tl.to(wrap, { borderRadius: '20px', duration: 0.85, ease: 'power2.out' }, '<');
-        });
-      }, { threshold: 0 });
-      cards1.forEach(function (c) { obs1.observe(c); });
+    var cards2 = Array.prototype.slice.call(section.querySelectorAll('[data-program-el="cards-2"]'));
+    var phaseDesign = null;
+    var phaseOffer = null;
+
+    function buildProgramPhases() {
+      if (!introStack || !introSticky || !cardsWrapper2) return;
+
+      var designTitle = introSticky.querySelector('.program_heading_wrapper h3');
+      var designImage = introSticky.querySelector('.program_img_wrapper');
+      var designDescription = introSticky.querySelector('.program_description_wrapper');
+      var offerHeading = section.querySelector('.offer_heading_wrapper');
+      var offerImage = offerHeading && offerHeading.nextElementSibling;
+      var offerDescription = offerImage && offerImage.nextElementSibling;
+      if (!designTitle || !designImage || !designDescription || !offerHeading ||
+          !offerImage || !offerDescription) return;
+
+      var stage = document.createElement('div');
+      stage.className = 'program_phase_stage';
+      phaseDesign = document.createElement('div');
+      phaseDesign.className = 'program_phase program_phase_design';
+      phaseOffer = document.createElement('div');
+      phaseOffer.className = 'program_phase program_phase_offer';
+      phaseOffer.setAttribute('aria-hidden', 'true');
+
+      phaseDesign.appendChild(designTitle);
+      phaseDesign.appendChild(designImage);
+      phaseDesign.appendChild(designDescription);
+      phaseOffer.appendChild(offerHeading);
+      phaseOffer.appendChild(offerImage);
+      phaseOffer.appendChild(offerDescription);
+      stage.appendChild(phaseDesign);
+      stage.appendChild(phaseOffer);
+      introSticky.appendChild(stage);
+
+      introStack.appendChild(cardsWrapper2);
+      var runway = document.createElement('div');
+      runway.className = 'program_offer_runway';
+      runway.setAttribute('aria-hidden', 'true');
+      introStack.appendChild(runway);
+      introStack.classList.add('has-offer-phase');
     }
 
-    // ---- 3. program_carts_wrapper-2 (2 карточки, вертикальный стек) -----------------
-    // Здесь радиус задан прямо на img (.border-24), а не на обёртке.
-    var cards2 = Array.prototype.slice.call(section.querySelectorAll('[data-program-el="cards-2"]'));
-    cards2.forEach(function (card) {
-      gsap.set(card, { opacity: 0, y: 50, scale: 0.92 });
-      var img = card.querySelector('.program_cart_img_wrapper-2 img');
-      if (img) gsap.set(img, { borderRadius: '50%' });
-    });
-    if (cards2.length) {
-      var obs2 = new IntersectionObserver(function (entries, o) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          var card = entry.target;
-          o.unobserve(card);
-          var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-          tl.to(card, { opacity: 1, y: 0, scale: 1, duration: 0.85, ease: 'back.out(1.7)' });
-          var img = card.querySelector('.program_cart_img_wrapper-2 img');
-          if (img) tl.to(img, { borderRadius: '24px', duration: 0.85, ease: 'power2.out' }, '<');
+    buildProgramPhases();
+
+    function initProgramCards(cards, wrapper) {
+      if (!cards.length || !wrapper) return null;
+      var cardStep = 1;
+      var ticking = false;
+
+      function getLayoutTop(element) {
+        var top = 0;
+        var current = element;
+        while (current) {
+          top += current.offsetTop || 0;
+          current = current.offsetParent;
+        }
+        return top;
+      }
+
+      wrapper.classList.add('program_scroll_cards');
+      gsap.killTweensOf(cards);
+      gsap.set(cards, { clearProps: 'transform' });
+      cards.forEach(function (card, index) {
+        card.classList.add('program_scroll_card');
+        card.style.setProperty('--program-card-z', index + 2);
+        card.style.opacity = '1';
+        var info = card.querySelector('.program_cart_info_wrapper, .program_cart_info_wrapper-2');
+        if (info) info.classList.add('program_scroll_info');
+      });
+
+      function measure() {
+        if (cards.length > 1) {
+          cardStep = Math.max(1, getLayoutTop(cards[1]) - getLayoutTop(cards[0]));
+        } else {
+          cardStep = Math.max(1, cards[0].offsetHeight);
+        }
+      }
+
+      function render() {
+        ticking = false;
+        var activationPoint = window.pageYOffset + window.innerHeight * 0.72;
+        var firstCardCenter = getLayoutTop(cards[0]) + cards[0].offsetHeight / 2;
+        var progress = (activationPoint - firstCardCenter) / cardStep;
+        progress = Math.max(0, Math.min(cards.length - 1, progress));
+        var visualOffset = 0;
+        var closestDistance = Infinity;
+        var activeIndex = 0;
+
+        cards.forEach(function (card, index) {
+          var scale = Math.max(0.6, 1 - Math.abs(index - progress) * 0.1);
+          card.style.setProperty('--program-card-scale', scale.toFixed(4));
+          card.style.setProperty('--program-card-offset-y', visualOffset.toFixed(2) + 'px');
+          var visualCenter = getLayoutTop(card) + visualOffset + card.offsetHeight * scale / 2;
+          var distance = Math.abs(activationPoint - visualCenter);
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            activeIndex = index;
+          }
+          visualOffset -= card.offsetHeight * (1 - scale);
         });
-      }, { threshold: 0 });
-      cards2.forEach(function (c) { obs2.observe(c); });
+
+        cards.forEach(function (card, index) {
+          card.classList.toggle('is-active', index === activeIndex);
+        });
+      }
+
+      function requestRender() {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(render);
+      }
+
+      measure();
+      render();
+      window.addEventListener('scroll', requestRender, { passive: true });
+      window.addEventListener('resize', function () { measure(); requestRender(); });
+      window.addEventListener('load', function () { measure(); requestRender(); });
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function () { measure(); requestRender(); });
+      }
+      return { measure: measure, render: requestRender };
+    }
+
+    var cardsAnimation1 = initProgramCards(cards1, cardsWrapper1);
+    var cardsAnimation2 = initProgramCards(cards2, cardsWrapper2);
+
+    if (phaseDesign && phaseOffer && cards1.length) {
+      var phaseTicking = false;
+      function renderPhaseSwitch() {
+        phaseTicking = false;
+        var lastCardRect = cards1[cards1.length - 1].getBoundingClientRect();
+        var activationLine = window.innerHeight * 0.72;
+        var fadeDistance = Math.max(180, window.innerHeight * 0.24);
+        var raw = (activationLine - lastCardRect.bottom) / fadeDistance;
+        var progress = Math.max(0, Math.min(1, raw));
+        var eased = progress * progress * (3 - 2 * progress);
+
+        phaseDesign.style.opacity = (1 - eased).toFixed(4);
+        phaseDesign.style.transform = 'translateY(' + (-24 * eased).toFixed(2) + 'px)';
+        phaseOffer.style.opacity = eased.toFixed(4);
+        phaseOffer.style.transform = 'translateY(' + (24 * (1 - eased)).toFixed(2) + 'px)';
+        phaseDesign.style.pointerEvents = eased < 0.5 ? 'auto' : 'none';
+        phaseOffer.style.pointerEvents = eased >= 0.5 ? 'auto' : 'none';
+        phaseDesign.setAttribute('aria-hidden', eased >= 0.5 ? 'true' : 'false');
+        phaseOffer.setAttribute('aria-hidden', eased >= 0.5 ? 'false' : 'true');
+      }
+
+      function requestPhaseSwitch() {
+        if (phaseTicking) return;
+        phaseTicking = true;
+        window.requestAnimationFrame(renderPhaseSwitch);
+      }
+
+      renderPhaseSwitch();
+      window.addEventListener('scroll', requestPhaseSwitch, { passive: true });
+      window.addEventListener('resize', requestPhaseSwitch);
+      window.addEventListener('load', requestPhaseSwitch);
+    }
+
+    // Sticky снимается ровно тогда, когда последняя карточка трудоустройства
+    // полностью проходит нижнюю границу постоянного заголовка «наша программка».
+    if (introStack && introSticky && cards2.length) {
+      var persistentTitle = introSticky.querySelector('.program_heading_wrapper h2');
+      var lastOfferCard = cards2[cards2.length - 1];
+      var releaseTicking = false;
+      var isIntroReleased = false;
+      var releaseScrollY = 0;
+      var releaseRunway = 0;
+      var followingGrid = section.querySelector('.program_cart_grid');
+      var offerDescription = phaseOffer && phaseOffer.querySelector('.program_description_wrapper');
+      var followingGapAligned = false;
+
+      // The runway is needed to keep the intro sticky until the final offer card
+      // passes the persistent title. It must not, however, become visible empty
+      // space before the following card grid. Once the final offer card is active,
+      // its end position is stable, so pull the next grid forward to leave 120px
+      // below the visible offer description at the exact release point.
+      function alignFollowingGrid() {
+        if (followingGapAligned || !followingGrid || !offerDescription ||
+            !lastOfferCard.classList.contains('is-active')) return;
+
+        var finalCardScale = parseFloat(
+          window.getComputedStyle(lastOfferCard).getPropertyValue('--program-card-scale')
+        );
+        if (!isFinite(finalCardScale) || finalCardScale < 0.999) return;
+
+        var titleBottom = persistentTitle.getBoundingClientRect().bottom;
+        var descriptionBottom = offerDescription.getBoundingClientRect().bottom;
+        var lastCardDocumentBottom = lastOfferCard.getBoundingClientRect().bottom + window.pageYOffset;
+        var releaseDocumentY = lastCardDocumentBottom - titleBottom;
+        var desiredGridDocumentTop = releaseDocumentY + descriptionBottom + 120;
+        var currentGridDocumentTop = followingGrid.getBoundingClientRect().top + window.pageYOffset;
+        var currentMarginBottom = parseFloat(window.getComputedStyle(introStack).marginBottom) || 0;
+
+        introStack.style.marginBottom =
+          (currentMarginBottom + desiredGridDocumentTop - currentGridDocumentTop).toFixed(2) + 'px';
+        followingGapAligned = true;
+      }
+
+      function measureReleaseRunway() {
+        if (!persistentTitle) return;
+        releaseRunway = Math.max(
+          0,
+          introSticky.offsetHeight - persistentTitle.offsetHeight + window.innerHeight * 0.62
+        );
+        introStack.style.setProperty('--program-offer-runway', releaseRunway + 'px');
+      }
+
+      function releaseIntro() {
+        var stackRect = introStack.getBoundingClientRect();
+        var introRect = introSticky.getBoundingClientRect();
+        var topInsideStack = introRect.top - stackRect.top;
+        introStack.style.paddingTop = introSticky.offsetHeight + 'px';
+        introSticky.style.top = topInsideStack.toFixed(2) + 'px';
+        introSticky.classList.add('is-released');
+
+        // Correct the last sub-pixel/scroll-frame difference at the real release
+        // frame so the visible gap is exactly 120px.
+        if (followingGrid && offerDescription) {
+          var releasedGap = followingGrid.getBoundingClientRect().top -
+            offerDescription.getBoundingClientRect().bottom;
+          var releasedMargin = parseFloat(window.getComputedStyle(introStack).marginBottom) || 0;
+          introStack.style.marginBottom =
+            (releasedMargin + 120 - releasedGap).toFixed(2) + 'px';
+        }
+
+        releaseScrollY = window.pageYOffset;
+        isIntroReleased = true;
+      }
+
+      function restoreIntro() {
+        introSticky.classList.remove('is-released');
+        introSticky.style.removeProperty('top');
+        introStack.style.removeProperty('padding-top');
+        isIntroReleased = false;
+      }
+
+      function renderIntroRelease() {
+        releaseTicking = false;
+        if (!persistentTitle) return;
+
+        alignFollowingGrid();
+
+        if (isIntroReleased) {
+          if (window.pageYOffset < releaseScrollY) restoreIntro();
+          return;
+        }
+
+        var titleBottom = persistentTitle.getBoundingClientRect().bottom;
+        var lastCardBottom = lastOfferCard.getBoundingClientRect().bottom;
+        if (lastCardBottom <= titleBottom) releaseIntro();
+      }
+
+      function requestIntroRelease() {
+        if (releaseTicking) return;
+        releaseTicking = true;
+        window.requestAnimationFrame(renderIntroRelease);
+      }
+
+      measureReleaseRunway();
+      renderIntroRelease();
+      window.addEventListener('scroll', requestIntroRelease, { passive: true });
+      window.addEventListener('resize', function () {
+        restoreIntro();
+        introStack.style.removeProperty('margin-bottom');
+        followingGapAligned = false;
+        measureReleaseRunway();
+        requestIntroRelease();
+      });
+      window.addEventListener('load', function () {
+        measureReleaseRunway();
+        requestIntroRelease();
+      });
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function () {
+          measureReleaseRunway();
+          requestIntroRelease();
+        });
+      }
     }
 
     // ---- 4. program_cart_grid (6 карточек, сетка 3×2) -------------------------------

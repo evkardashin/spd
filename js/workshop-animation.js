@@ -49,8 +49,14 @@
     iconConfigs.forEach(function (c) {
       gsap.set(c.el, { opacity: 0, scale: 0.5, rotate: c.finalRotate - 25 });
     });
-    cards.forEach(function (card) {
-      gsap.set(card, { opacity: 0, y: 60, scale: 0.92 });
+    cards.forEach(function (card, index) {
+      gsap.set(card, {
+        opacity: 0,
+        x: index % 2 === 0 ? -70 : 70,
+        y: 36,
+        scale: 0.94,
+        rotate: index % 2 === 0 ? -2.5 : 2.5
+      });
       var photo = card.querySelector('.workshop_bg_wrapper > img');
       if (photo) gsap.set(photo, { borderRadius: '26%' });
     });
@@ -79,7 +85,10 @@
         obs.unobserve(card);
 
         var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-        tl.to(card, { opacity: 1, y: 0, scale: 1, duration: 0.9, ease: 'back.out(1.7)' });
+        tl.to(card, {
+          opacity: 1, x: 0, y: 0, scale: 1, rotate: 0,
+          duration: 0.95, ease: 'back.out(1.5)'
+        });
 
         var photo = card.querySelector('.workshop_bg_wrapper > img');
         if (photo) {
