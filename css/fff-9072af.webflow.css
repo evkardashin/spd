@@ -3218,6 +3218,26 @@ img {
   inset: auto;
 }
 
+/* Скролл внутри листов попапов (появляется, когда контент не помещается в
+   ограниченную по высоте окна область, см. .popup_left_side и т.д. выше) —
+   полоса скрыта тем же способом, что у html/body в начале файла. */
+.popup_left_side,
+.popup_right_side,
+.popup_left_side_program-copy,
+.popup_right_side_program {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.popup_left_side::-webkit-scrollbar,
+.popup_right_side::-webkit-scrollbar,
+.popup_left_side_program-copy::-webkit-scrollbar,
+.popup_right_side_program::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
 .popup_close_btn {
   z-index: 5;
   background-color: var(--white-opacity-40);
@@ -3295,7 +3315,13 @@ img {
   margin-left: auto;
   margin-right: auto;
   position: absolute;
-  bottom: 59.4rem;
+  /* 59.4rem держит ручку на 1.4625rem/23.4px выше листа при его номинальной
+     высоте (57.94rem). Но лист ограничен по высоте окна
+     (max-height: calc(100% - 9.5625rem), см. .popup_left_side выше) — на
+     низких окнах он ниже номинала, а фиксированный bottom оставлял ручку
+     задранной над ним. min() подхватывает те же 9.5625rem, чтобы ручка
+     всегда шла впритык к фактическому, а не номинальному верху листа. */
+  bottom: min(59.4rem, calc(100% - 8.1rem));
   left: 54.5rem;
 }
 
@@ -5781,7 +5807,11 @@ img {
   .popup_line {
     width: 5.94rem;
     height: .38rem;
-    bottom: 42.13rem;
+    /* Тот же приём, что и в десктопной .popup_line: лист ограничен по высоте
+       окна (max-height: calc(100% - 5.8125rem), см. .popup_left_side в этом
+       блоке), min() подтягивает ручку к фактическому верху листа, если он
+       ниже номинальных 41.13rem. */
+    bottom: min(42.13rem, calc(100% - 4.8125rem));
     left: 0%;
     right: 0%;
   }
@@ -5791,7 +5821,7 @@ img {
      утапливал линию под верхний край карточки. Нужный отступ — 1rem от её
      верха: 44.94rem (высота карточки) + 1rem. */
   .popup_line.popup_line-program {
-    bottom: 41.94rem;
+    bottom: min(41.94rem, calc(100% - 5.0025rem));
   }
 
   .popup_content_mob_wrapper {
