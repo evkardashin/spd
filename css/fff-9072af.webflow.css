@@ -351,6 +351,13 @@ img {
   display: inline-flex;
 }
 
+/* Кнопка "Смотреть все 120 историй" (единственный .btn_main на странице) —
+   скрыта по запросу и на десктопе, и на мобилке. Правило без @media,
+   т.к. мобильный брейкпоинт .btn_main переопределяет только padding. */
+.btn_main.display-none {
+  display: none;
+}
+
 .btn_main.mb-70 {
   margin-bottom: 4.38rem;
 }
