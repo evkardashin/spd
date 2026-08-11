@@ -188,18 +188,19 @@
     // поэтому "клик снаружи" неотличим от клика по контенту. Закрытие — по
     // кнопке "закрыть"/"закрываем" (data-popup-close) и по Escape.
     //
-    // Исключение — popup-program и popup-testimonial на мобильной версии
-    // (≤479px): там правая панель (.popup_right_side_program /
-    // .popup_right_side) скрыта (см. CSS), и над листом снизу остаётся
-    // настоящая пустая зона — клик по ней бьёт именно в .popup_content_wrapper,
-    // а не в дочерний элемент, поэтому здесь клик снаружи однозначно отличим
-    // от клика по контенту.
+    // Исключение — popup-program и popup-testimonial: лист(-ы) в них прижаты
+    // к низу (.popup_content_wrapper — align-items: flex-end), а сам wrapper
+    // растянут на всю высоту попапа, поэтому над листом всегда остаётся
+    // пустая зона — клик по ней бьёт именно в .popup_content_wrapper, а не в
+    // дочерний элемент, и однозначно отличим от клика по контенту. На
+    // мобилке (≤479px) правая панель (.popup_right_side_program /
+    // .popup_right_side) вдобавок скрыта (см. CSS), так что пустая зона
+    // расширяется ещё и вправо от листа — работает тем же обработчиком.
     ['popup-program', 'popup-testimonial'].forEach(function (id) {
       var wrapper = document.querySelector('#' + id + ' .popup_content_wrapper');
       if (!wrapper) return;
       wrapper.addEventListener('click', function (event) {
         if (event.target !== wrapper) return;
-        if (!window.matchMedia('(max-width: 479px)').matches) return;
         closePopup(document.getElementById(id));
       });
     });

@@ -3190,9 +3190,15 @@ img {
   flex: none;
   width: 45.75rem;
   height: 57.94rem;
-  max-height: 57.94rem;
+  /* 57.94rem = 927px в макете (Figma 821:281, канвас 1920×1080) — рассчитан
+     на отступ 9.5625rem/153px сверху. На более низких окнах эта высота не
+     помещается, поэтому лист ограничен доступным местом, а содержимое,
+     которое не влезает, скроллится (см. .popup_left_side::-webkit-scrollbar
+     ниже — сам скролл скрыт, как и везде на сайте). */
+  max-height: calc(100% - 9.5625rem);
   padding-top: 2rem;
   padding-left: 2rem;
+  overflow-y: auto;
   position: relative;
   inset: auto;
 }
@@ -3206,6 +3212,8 @@ img {
   border-top-right-radius: 48px;
   width: 73.75rem;
   height: 57.94rem;
+  max-height: calc(100% - 9.5625rem);
+  overflow-y: auto;
   position: relative;
   inset: auto;
 }
@@ -3361,9 +3369,11 @@ img {
   border-top-right-radius: 48px;
   width: 73.75rem;
   height: 57.94rem;
+  max-height: calc(100% - 9.5625rem);
   padding-top: 7rem;
   padding-left: 2rem;
   padding-right: 2rem;
+  overflow-y: auto;
   position: relative;
   inset: auto;
 }
@@ -3513,9 +3523,10 @@ img {
   flex: none;
   width: 45.75rem;
   height: 57.94rem;
-  max-height: 57.94rem;
+  max-height: calc(100% - 9.5625rem);
   padding-top: 2rem;
   padding-left: 2rem;
+  overflow-y: auto;
   position: relative;
   inset: auto;
 }
@@ -5736,8 +5747,12 @@ img {
   .popup_left_side {
     width: 23.44rem;
     height: 41.13rem;
+    /* 5.8125rem/93px — отступ сверху из мобильного макета (Figma 476:9667,
+       375×812): лист прижат к низу, а то, что не влезает по высоте, — скроллится. */
+    max-height: calc(100% - 5.8125rem);
     padding-top: 1.5rem;
     padding-left: 1.5rem;
+    overflow-y: auto;
   }
 
   .popup_right_side {
@@ -5747,7 +5762,7 @@ img {
   .popup_text_wrapper {
     grid-column-gap: 1.5rem;
     grid-row-gap: 1.5rem;
-    margin-bottom: 2.31rem;
+    margin-bottom: 1.31rem;
   }
 
   .popup_img-wrapper {
@@ -5936,9 +5951,11 @@ img {
   .popup_left_side_program-copy {
     width: 23.44rem;
     height: 41.13rem;
+    max-height: calc(100% - 5.8125rem);
     padding-top: 1rem;
     padding-left: 1rem;
     padding-right: 1rem;
+    overflow-y: auto;
   }
 
   .popup_program_grid_mob {
