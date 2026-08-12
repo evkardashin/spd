@@ -364,7 +364,16 @@
       btn.addEventListener('click', function () {
         var current = popup.getAttribute('data-program-page') || PROGRAM_PAGE_ORDER[0];
         var next = PROGRAM_PAGE_ORDER[(PROGRAM_PAGE_ORDER.indexOf(current) + 1) % PROGRAM_PAGE_ORDER.length];
-        setProgramPage(popup, next, true);
+        setProgramPage(popup, next, true, 'next');
+      });
+    });
+
+    popup.querySelectorAll('[data-program-prev]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var current = popup.getAttribute('data-program-page') || PROGRAM_PAGE_ORDER[0];
+        var idx = PROGRAM_PAGE_ORDER.indexOf(current);
+        var prev = PROGRAM_PAGE_ORDER[(idx - 1 + PROGRAM_PAGE_ORDER.length) % PROGRAM_PAGE_ORDER.length];
+        setProgramPage(popup, prev, true, 'prev');
       });
     });
   }
@@ -421,7 +430,10 @@
     return html;
   }
 
-  function setProgramPage(popup, pageKey, animate) {
+  // direction: 'next' (по умолчанию) — старое уезжает вверх, новое въезжает
+  // снизу; 'prev' — зеркально (старое вниз, новое сверху), чтобы "назад"
+  // визуально ехал в обратную сторону от "дальше".
+  function setProgramPage(popup, pageKey, animate, direction) {
     var data = getProgramPageData(pageKey);
     if (!data) return;
 
@@ -493,30 +505,38 @@
       }
     });
 
-    queueProgramSwap(master, cleanups, leftBoundary, '.popup_program_page_left_inner', buildLeftHTML);
-    queueProgramSwap(master, cleanups, cardsMobBoundary, '.popup_program_grid_mob', buildCardsHTML);
-    queueProgramSwap(master, cleanups, cardsDesktopBoundary, '.popup_program_grid', buildCardsHTML);
+    queueProgramSwap(master, cleanups, leftBoundary, '.popup_program_page_left_inner', buildLeftHTML, direction);
+    queueProgramSwap(master, cleanups, cardsMobBoundary, '.popup_program_grid_mob', buildCardsHTML, direction);
+    queueProgramSwap(master, cleanups, cardsDesktopBoundary, '.popup_program_grid', buildCardsHTML, direction);
   }
 
   // Добавляет в общий timeline анимацию одного блока: снимок текущего
-  // содержимого (oldClone) уезжает вверх, новое содержимое (уже
-  // отрендеренное в inner) въезжает снизу, а граница (boundaryEl,
-  // overflow:hidden) параллельно тянет высоту от старой к новой — так
-  // содержимое всегда подрезано по своей рамке, а не по краю листа.
+  // содержимого (oldClone) уезжает в одну сторону, новое содержимое (уже
+  // отрендеренное в inner) въезжает с противоположной — направление зависит
+  // от direction ('next': старое вверх, новое снизу; 'prev': зеркально).
+  //
+  // Высота границы (boundaryEl) НЕ анимируется — раньше она тянулась
+  // отдельным твинном от oldHeight к newHeight одновременно со сдвигом, и
+  // эти два движения ехали не совсем синхронно (разный эффективный "путь"
+  // при разнице высот) — из-за этого подрезка overflow:hidden моргала, и
+  // анимация выглядела дёргано, особенно у "назад". Вместо этого высота
+  // сразу (без анимации) выставляется в max(oldHeight, newHeight) — это
+  // просто пустая область в цвет фона (см. ниже), её не видно — и едет
+  // только сам контент, ровно и одинаково для "дальше"/"назад"/карточек.
+  // После анимации cleanups снимают инлайн-height, обёртка сама садится на
+  // естественную (новую) высоту — незаметно, там всё равно был пустой фон.
   //
   // У старой и новой страницы почти всегда разная высота (заголовок и
   // описание — разной длины), поэтому пока оба слоя едут, они на
   // мгновение перекрываются по вертикали — это нормально для "конвейера".
-  // Проблема была в том, что у текста (бейдж/заголовок/описание) нет
-  // непрозрачного фона, и в зоне перекрытия старый и новый текст
-  // просвечивали друг сквозь друга. Красим оба слоя в цвет листа
-  // (var(--white)) на время анимации и кладём старый слой ВЫШЕ нового
-  // (z-index) — тогда в зоне перекрытия виден только один слой, без
-  // наложения, а не полупрозрачная "двойная экспозиция". У карточек то
-  // же самое перекрытие есть, но не было заметно — у каждой карточки уже
-  // был свой непрозрачный фон; красим и их для единообразия и на случай
-  // будущих карточек без фонового изображения.
-  function queueProgramSwap(master, cleanups, boundaryEl, innerSelector, buildInnerHTML) {
+  // Раньше это перекрытие было заметно текстом-сквозь-текст: у бейджа/
+  // заголовка/описания нет непрозрачного фона. Красим оба слоя в цвет
+  // листа (var(--white)) на время анимации и кладём старый слой ВЫШЕ
+  // нового (z-index) — тогда в зоне перекрытия виден только один слой. У
+  // карточек то же самое перекрытие есть, но не было заметно — у каждой
+  // карточки уже был свой непрозрачный фон; красим и их для единообразия и
+  // на случай будущих карточек без фонового изображения.
+  function queueProgramSwap(master, cleanups, boundaryEl, innerSelector, buildInnerHTML, direction) {
     var gsap = window.gsap;
     var inner = boundaryEl.querySelector(innerSelector);
     if (!inner) return;
@@ -527,25 +547,38 @@
 
     inner.innerHTML = buildInnerHTML();
     var newHeight = inner.scrollHeight;
+    var travel = Math.max(oldHeight, newHeight);
 
-    gsap.set(boundaryEl, { height: oldHeight });
+    // 'prev' — зеркально: старое уезжает вниз, новое въезжает сверху (было
+    // наоборот у "дальше"). Считаем сдвиг в пикселях (y), а не в yPercent —
+    // yPercent берёт проценты от высоты СВОЕГО ЖЕ элемента, а у старого и
+    // нового блока высоты почти всегда разные (заголовок/описание/число
+    // карточек отличаются). Из-за этого слои ехали с разной скоростью и в
+    // середине анимации реально пересекались в одних и тех же пикселях —
+    // это и было "наслоение", отдельно от прозрачности фона (её уже
+    // чинили). Когда оба слоя едут на одно и то же расстояние (travel —
+    // высота большего из них), старый всегда успевает полностью уйти
+    // ровно к тому моменту, когда новый его сменяет — наложиться им негде.
+    var oldExit = direction === 'prev' ? travel : -travel;
+    var newEnter = direction === 'prev' ? -travel : travel;
+
+    gsap.set(boundaryEl, { height: travel });
     gsap.set(oldClone, {
       position: 'absolute', top: 0, left: 0, right: 0, zIndex: 2,
       backgroundColor: 'var(--white)'
     });
     gsap.set(inner, {
-      position: 'absolute', top: 0, left: 0, right: 0, zIndex: 1, yPercent: 100,
+      position: 'absolute', top: 0, left: 0, right: 0, zIndex: 1, y: newEnter,
       backgroundColor: 'var(--white)'
     });
 
-    master.to(boundaryEl, { height: newHeight }, 0);
-    master.to(oldClone, { yPercent: -100 }, 0);
-    master.to(inner, { yPercent: 0 }, 0);
+    master.to(oldClone, { y: oldExit }, 0);
+    master.to(inner, { y: 0 }, 0);
 
     cleanups.push(function () {
       oldClone.remove();
       gsap.set(boundaryEl, { clearProps: 'height' });
-      gsap.set(inner, { clearProps: 'position,top,left,right,yPercent,zIndex,backgroundColor' });
+      gsap.set(inner, { clearProps: 'position,top,left,right,y,zIndex,backgroundColor' });
     });
   }
 

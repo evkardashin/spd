@@ -3231,7 +3231,8 @@ img {
 .popup_left_side,
 .popup_right_side,
 .popup_left_side_program-copy,
-.popup_right_side_program {
+.popup_right_side_program,
+.popup_program_page_cards {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -3239,7 +3240,8 @@ img {
 .popup_left_side::-webkit-scrollbar,
 .popup_right_side::-webkit-scrollbar,
 .popup_left_side_program-copy::-webkit-scrollbar,
-.popup_right_side_program::-webkit-scrollbar {
+.popup_right_side_program::-webkit-scrollbar,
+.popup_program_page_cards::-webkit-scrollbar {
   width: 0;
   height: 0;
   display: none;
@@ -3406,7 +3408,11 @@ img {
   padding-top: 7rem;
   padding-left: 2rem;
   padding-right: 2rem;
-  overflow-y: auto;
+  /* Скролл — не здесь, а в .popup_program_page_cards внутри (см. ниже),
+     иначе кнопка "закрыть" (position: absolute относительно этого блока)
+     уезжает вместе со скроллом. overflow: hidden — просто подрезка под
+     скруглённые углы. */
+  overflow: hidden;
   position: relative;
   inset: auto;
 }
@@ -3439,11 +3445,26 @@ img {
   user-select: none;
 }
 
-.btn_next_program.mb-20 {
+/* "дальше" — единственный акцентный (розовый) вариант кнопки; "назад"
+   ходит просто базовым .btn_next_program (тот уже цвета var(--f5f5f5), как
+   .popup_program_close_btn.color-whitesmoke, — см. HTML попапа). Позиция
+   раньше была на этом классе (position: absolute; bottom/left) — теперь на
+   общей обёртке .popup_program_nav ниже, чтобы обе кнопки стояли в ряд. */
+.btn_next_program.is-next {
   background-color: var(--pink);
+}
+
+/* Обёртка кнопок "назад"/"дальше" — раньше "дальше" сама была
+   position: absolute; bottom: 2rem; left: 2rem, теперь то же самое здесь,
+   а кнопки внутри просто в ряд с отступом 5rem. Скрыта на мобилке (кнопки
+   там не нужны — навигация скроллом, см. .popup_program_mob_section). */
+.popup_program_nav {
   position: absolute;
   bottom: 2rem;
   left: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .popup_program_grid {
@@ -3452,23 +3473,39 @@ img {
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
-/* Границы анимации переключения страниц попапа "Программа" (кнопка
-   "дальше", см. initProgramPopup в js/interactions.js). Это НЕ край
-   белого листа — .popup_program_page_left оборачивает только
+/* Границы анимации переключения страниц попапа "Программа" (кнопки
+   "назад"/"дальше", см. initProgramPopup в js/interactions.js). Это НЕ
+   край белого листа — .popup_program_page_left оборачивает только
    бейдж+заголовок+описание, .popup_program_page_cards — только грид
    карточек; сам лист (.popup_left_side_program-copy/.popup_right_side_program)
    в анимации не участвует и не двигается. overflow:hidden — обязателен,
    это и есть "своя граница", в которую подрезается уезжающий/въезжающий
    контент; JS во время анимации временно выставляет высоту в px (чтобы
    плавно анимировать её вместе со сдвигом) и убирает инлайн-стили после. */
-.popup_program_page_left,
-.popup_program_page_cards {
+.popup_program_page_left {
   position: relative;
   overflow: hidden;
 }
 
-/* На мобилке (≤479px) "дальше" скрыта (.btn_next_program.mb-20 display:none
-   чуть ниже по файлу) — вместо смены страницы по кнопке все 7 разделов
+/* .popup_program_page_cards — та же граница анимации, но ещё и сама
+   скроллится (max-height: 100% от родителя — .popup_right_side_program на
+   десктопе, за вычетом его padding-top под кнопку "закрыть" считается
+   автоматически, т.к. проценты у детей считаются от content-box родителя).
+   Раньше скроллился весь .popup_right_side_program целиком, и кнопка
+   "закрыть" (position: absolute внутри него же) уезжала вместе с контентом
+   при скролле — теперь скроллится только этот блок, кнопка остаётся на
+   месте. Скроллбар скрыт тем же способом, что и везде на сайте (см.
+   .popup_program_page_cards::-webkit-scrollbar ниже). */
+.popup_program_page_cards {
+  position: relative;
+  max-height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* На мобилке (≤479px) кнопки "назад"/"дальше" скрыты (.popup_program_nav
+   display:none чуть ниже по файлу) — вместо смены страницы по кнопкам все
+   7 разделов
    рендерятся подряд одним списком внутри .popup_program_page_left_inner
    (см. buildProgramFeedHTML в js/interactions.js) и скроллятся вместе с
    уже существующим overflow-y:auto листа. .popup_program_mob_section —
@@ -5994,12 +6031,9 @@ img {
     margin-left: .5rem;
   }
 
-  .btn_next_program {
-    height: auto;
-    padding: .38rem .75rem;
-  }
-
-  .btn_next_program.mb-20 {
+  /* Кнопки не рендерятся на мобилке вообще (см. .popup_program_nav ниже) —
+     навигация там скроллом (buildProgramFeedHTML в js/interactions.js). */
+  .popup_program_nav {
     display: none;
   }
 
