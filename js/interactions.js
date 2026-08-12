@@ -188,7 +188,8 @@
     // поэтому "клик снаружи" неотличим от клика по контенту. Закрытие — по
     // кнопке "закрыть"/"закрываем" (data-popup-close) и по Escape.
     //
-    // Исключение — popup-program и popup-testimonial: лист(-ы) в них прижаты
+    // Исключение — попапы .popup / .popup_program (например popup-testimonial,
+    // popup-program и все popup-program-*): лист(-ы) в них прижаты
     // к низу (.popup_content_wrapper — align-items: flex-end), а сам wrapper
     // растянут на всю высоту попапа, поэтому над листом всегда остаётся
     // пустая зона — клик по ней бьёт именно в .popup_content_wrapper, а не в
@@ -196,12 +197,15 @@
     // мобилке (≤479px) правая панель (.popup_right_side_program /
     // .popup_right_side) вдобавок скрыта (см. CSS), так что пустая зона
     // расширяется ещё и вправо от листа — работает тем же обработчиком.
-    ['popup-program', 'popup-testimonial'].forEach(function (id) {
-      var wrapper = document.querySelector('#' + id + ' .popup_content_wrapper');
+    // Селектор по классам (.popup, .popup_program), а не по конкретным id —
+    // так это подхватывает и все попапы программы (popup-program,
+    // popup-program-research и т.д.), не только шаблонный.
+    document.querySelectorAll('.popup, .popup_program').forEach(function (popup) {
+      var wrapper = popup.querySelector('.popup_content_wrapper');
       if (!wrapper) return;
       wrapper.addEventListener('click', function (event) {
         if (event.target !== wrapper) return;
-        closePopup(document.getElementById(id));
+        closePopup(popup);
       });
     });
 
