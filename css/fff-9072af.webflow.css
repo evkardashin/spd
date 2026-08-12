@@ -3432,6 +3432,11 @@ img {
   height: 2.5rem;
   padding: .5rem .88rem;
   display: inline-flex;
+  /* Без user-select наведение на сам текст "дальше" переключает курсор на
+     I-образный (текстовый), даже когда родитель кликабелен и с cursor:
+     pointer, — браузер приоритизирует курсор текстового узла. */
+  cursor: pointer;
+  user-select: none;
 }
 
 .btn_next_program.mb-20 {
@@ -3445,6 +3450,46 @@ img {
   grid-column-gap: 1rem;
   grid-row-gap: 1rem;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+/* Границы анимации переключения страниц попапа "Программа" (кнопка
+   "дальше", см. initProgramPopup в js/interactions.js). Это НЕ край
+   белого листа — .popup_program_page_left оборачивает только
+   бейдж+заголовок+описание, .popup_program_page_cards — только грид
+   карточек; сам лист (.popup_left_side_program-copy/.popup_right_side_program)
+   в анимации не участвует и не двигается. overflow:hidden — обязателен,
+   это и есть "своя граница", в которую подрезается уезжающий/въезжающий
+   контент; JS во время анимации временно выставляет высоту в px (чтобы
+   плавно анимировать её вместе со сдвигом) и убирает инлайн-стили после. */
+.popup_program_page_left,
+.popup_program_page_cards {
+  position: relative;
+  overflow: hidden;
+}
+
+/* На мобилке (≤479px) "дальше" скрыта (.btn_next_program.mb-20 display:none
+   чуть ниже по файлу) — вместо смены страницы по кнопке все 7 разделов
+   рендерятся подряд одним списком внутри .popup_program_page_left_inner
+   (см. buildProgramFeedHTML в js/interactions.js) и скроллятся вместе с
+   уже существующим overflow-y:auto листа. .popup_program_mob_section —
+   один такой раздел (бейдж+заголовок+описание+грид карточек); граница
+   между разделами — просто тонкая линия, без анимации. */
+.popup_program_mob_section {
+  padding-top: 2rem;
+  border-top: 1px solid var(--f5f5f5);
+}
+
+.popup_program_mob_section:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+/* Заголовок "2 модуль" в мобильной ленте (см. buildProgramFeedHTML) — тот
+   же шрифт/начертание, что у заголовков разделов попапа (.text_30_px —
+   Onweer, uppercase, bold), просто мельче их 48px, чтобы читаться как
+   категория, а не как ещё один заголовок раздела. */
+.popup_program_mob_module_label {
+  margin-bottom: 1.5rem;
 }
 
 .popup_program_cart_wrapper {

@@ -197,9 +197,8 @@
     // мобилке (≤479px) правая панель (.popup_right_side_program /
     // .popup_right_side) вдобавок скрыта (см. CSS), так что пустая зона
     // расширяется ещё и вправо от листа — работает тем же обработчиком.
-    // Селектор по классам (.popup, .popup_program), а не по конкретным id —
-    // так это подхватывает и все попапы программы (popup-program,
-    // popup-program-research и т.д.), не только шаблонный.
+    // Селектор по классам (.popup, .popup_program), а не по конкретному id —
+    // так это универсально для любых текущих/будущих попапов такого вида.
     document.querySelectorAll('.popup, .popup_program').forEach(function (popup) {
       var wrapper = popup.querySelector('.popup_content_wrapper');
       if (!wrapper) return;
@@ -318,6 +317,239 @@
     document.documentElement.style.overflow = '';
   }
 
+  /* ---------- 3. Попап "Программа": кнопка "дальше" листает страницы ----------
+   *
+   * #popup-program — один и тот же DOM-элемент всегда (белые листы
+   * .popup_left_side_program-copy/.popup_right_side_program никогда не
+   * пересоздаются). "Дальше" не открывает другой попап, а подменяет
+   * контент внутри: бейдж-дату/заголовок/описание слева и грид карточек
+   * справа (и в мобильном гриде) — с анимацией "старое улетает вверх,
+   * новое въезжает снизу", подрезанной по границе .popup_program_page_left /
+   * .popup_program_page_cards (см. CSS), а не по краю листа.
+   *
+   * Контент каждой страницы живёт в <template data-program-page="…"> в
+   * HTML — редактировать текст/картинки нужно там, этот код только читает
+   * их и рендерит. Порядок круга — PROGRAM_PAGE_ORDER ниже, должен
+   * совпадать с порядком <template> в HTML (там это тоже прокомментировано).
+   */
+
+  var PROGRAM_PAGE_ORDER = [
+    'product-metrics', 'research', 'scenarios', 'ui-gaps',
+    'screens', 'applications', 'interview'
+  ];
+  var PROGRAM_ANIM_DURATION = 0.5; // сек
+  // Границы модулей в мобильной ленте (см. buildProgramFeedHTML) — первые 5
+  // страниц по PROGRAM_PAGE_ORDER относятся к 1 модулю, "Подача и отклики"
+  // и "Пройти проверку" — ко 2-му.
+  var PROGRAM_MOB_MODULE_1_START = 'product-metrics';
+  var PROGRAM_MOB_MODULE_2_START = 'applications';
+
+  function initProgramPopup() {
+    var popup = document.getElementById('popup-program');
+    if (!popup) return;
+
+    // Стартовая страница — сразу, без анимации (попап ещё не показан).
+    setProgramPage(popup, popup.getAttribute('data-program-page') || PROGRAM_PAGE_ORDER[0], false);
+
+    // Карточки на главной странице открывают popup-program через обычный
+    // data-popup-open (см. initPopups); здесь только подставляем нужную
+    // страницу ДО открытия, чтобы попап не мигал контентом другой карточки.
+    document.querySelectorAll('[data-popup-open="popup-program"][data-program-page]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        setProgramPage(popup, btn.getAttribute('data-program-page'), false);
+      });
+    });
+
+    popup.querySelectorAll('[data-program-next]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var current = popup.getAttribute('data-program-page') || PROGRAM_PAGE_ORDER[0];
+        var next = PROGRAM_PAGE_ORDER[(PROGRAM_PAGE_ORDER.indexOf(current) + 1) % PROGRAM_PAGE_ORDER.length];
+        setProgramPage(popup, next, true);
+      });
+    });
+  }
+
+  function getProgramPageData(pageKey) {
+    var tpl = document.querySelector('template[data-program-page="' + pageKey + '"]');
+    if (!tpl) return null;
+    var frag = tpl.content;
+    return {
+      badge: (frag.querySelector('[data-role="badge"]').textContent || '').trim(),
+      title: (frag.querySelector('[data-role="title"]').textContent || '').trim(),
+      desc: (frag.querySelector('[data-role="desc"]').textContent || '').trim(),
+      cardsHTML: frag.querySelector('[data-role="cards"]').innerHTML
+    };
+  }
+
+  function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function isProgramMobLayout() {
+    return window.matchMedia('(max-width: 479px)').matches;
+  }
+
+  // На мобилке (≤479px) "дальше" скрыта (см. CSS), навигация — скроллом: все
+  // 7 страниц рендерятся подряд ОДНИМ фиксированным порядком (PROGRAM_PAGE_ORDER,
+  // без круговых сдвигов — так карточка, на которую нажали, всегда стоит на
+  // своём настоящем месте в потоке, а не "прыгает" наверх). Какая именно
+  // страница открыта — не влияет на HTML, только на то, до какого раздела
+  // проскроллит setProgramPage сразу после рендера (см. ниже, по
+  // data-program-page на каждом .popup_program_mob_section).
+  function buildProgramFeedHTML() {
+    var html = '';
+    for (var i = 0; i < PROGRAM_PAGE_ORDER.length; i++) {
+      var pageKey = PROGRAM_PAGE_ORDER[i];
+      var pageData = getProgramPageData(pageKey);
+      if (!pageData) continue;
+      var moduleLabel = '';
+      if (pageKey === PROGRAM_MOB_MODULE_1_START) {
+        moduleLabel = '<div class="text_30_px black popup_program_mob_module_label">1 модуль</div>';
+      } else if (pageKey === PROGRAM_MOB_MODULE_2_START) {
+        moduleLabel = '<div class="text_30_px black popup_program_mob_module_label">2 модуль</div>';
+      }
+      html +=
+        '<div class="popup_program_mob_section" data-program-page="' + pageKey + '">' +
+        moduleLabel +
+        '<div class="program_week_wrapper-2 mb-20 ml-8"><div class="text_week size-12">' + escapeHtml(pageData.badge) + '</div></div>' +
+        '<div class="popup_text_program_wrapper mb-847 ml-8"><div class="text_48_px color-black">' + escapeHtml(pageData.title) + '</div><div class="text_small text_aligh-left width-445">' + escapeHtml(pageData.desc) + '</div></div>' +
+        '<div class="w-layout-grid popup_program_grid_mob">' + pageData.cardsHTML + '</div>' +
+        '</div>';
+    }
+    return html;
+  }
+
+  function setProgramPage(popup, pageKey, animate) {
+    var data = getProgramPageData(pageKey);
+    if (!data) return;
+
+    var leftBoundary = popup.querySelector('.popup_program_page_left');
+    var cardsMobBoundary = popup.querySelector('.popup_left_side_program-copy .popup_program_page_cards');
+    var cardsDesktopBoundary = popup.querySelector('.popup_right_side_program .popup_program_page_cards');
+
+    if (isProgramMobLayout()) {
+      // Лента, не одна страница — карточная сетка внутри .popup_program_page_cards
+      // (общий "одна страница" грид) тут не используется, у каждого раздела
+      // ленты свой собственный грид (см. buildProgramFeedHTML), поэтому этот
+      // контейнер оставляем пустым — сворачивается в 0 высоты, места не занимает.
+      // .popup_program_grid (десктопный) заполняем на случай ресайза в десктоп.
+      popup.setAttribute('data-program-page', pageKey);
+      var leftInner = leftBoundary.querySelector('.popup_program_page_left_inner');
+      leftInner.innerHTML = buildProgramFeedHTML();
+      cardsMobBoundary.querySelector('.popup_program_grid_mob').innerHTML = '';
+      cardsDesktopBoundary.querySelector('.popup_program_grid').innerHTML = data.cardsHTML;
+
+      // Порядок в ленте всегда фиксированный (карточка стоит на своём
+      // настоящем месте, не наверху) — вместо этого сразу после рендера
+      // доскролливаем лист до раздела нажатой карточки, дальше
+      // пользователь листает сам.
+      var targetSection = leftInner.querySelector('.popup_program_mob_section[data-program-page="' + pageKey + '"]');
+      if (targetSection) targetSection.scrollIntoView({ block: 'start', behavior: 'auto' });
+      return;
+    }
+
+    var buildLeftHTML = function () {
+      return '<div class="program_week_wrapper-2 mb-20 ml-8"><div class="text_week size-12">' + escapeHtml(data.badge) + '</div></div>' +
+        '<div class="popup_text_program_wrapper mb-847 ml-8"><div class="text_48_px color-black">' + escapeHtml(data.title) + '</div><div class="text_small text_aligh-left width-445">' + escapeHtml(data.desc) + '</div></div>';
+    };
+    var buildCardsHTML = function () {
+      return data.cardsHTML;
+    };
+
+    if (!animate) {
+      popup.setAttribute('data-program-page', pageKey);
+      leftBoundary.querySelector('.popup_program_page_left_inner').innerHTML = buildLeftHTML();
+      cardsMobBoundary.querySelector('.popup_program_grid_mob').innerHTML = data.cardsHTML;
+      cardsDesktopBoundary.querySelector('.popup_program_grid').innerHTML = data.cardsHTML;
+      return;
+    }
+
+    // Защита от повторного клика по "дальше", пока текущая анимация не
+    // доиграла — иначе клоны для снимка "старого" контента могут
+    // накопиться друг на друге.
+    if (popup.dataset.programBusy === '1') return;
+
+    if (typeof window.gsap === 'undefined') {
+      // Без GSAP анимации на сайте нет нигде (см. playSlideAnimation
+      // выше) — тот же принцип: страница просто меняется мгновенно.
+      popup.setAttribute('data-program-page', pageKey);
+      leftBoundary.querySelector('.popup_program_page_left_inner').innerHTML = buildLeftHTML();
+      cardsMobBoundary.querySelector('.popup_program_grid_mob').innerHTML = data.cardsHTML;
+      cardsDesktopBoundary.querySelector('.popup_program_grid').innerHTML = data.cardsHTML;
+      return;
+    }
+
+    popup.dataset.programBusy = '1';
+    popup.setAttribute('data-program-page', pageKey);
+
+    var cleanups = [];
+    var master = window.gsap.timeline({
+      defaults: { duration: PROGRAM_ANIM_DURATION, ease: 'power2.inOut' },
+      onComplete: function () {
+        cleanups.forEach(function (fn) { fn(); });
+        popup.dataset.programBusy = '';
+      }
+    });
+
+    queueProgramSwap(master, cleanups, leftBoundary, '.popup_program_page_left_inner', buildLeftHTML);
+    queueProgramSwap(master, cleanups, cardsMobBoundary, '.popup_program_grid_mob', buildCardsHTML);
+    queueProgramSwap(master, cleanups, cardsDesktopBoundary, '.popup_program_grid', buildCardsHTML);
+  }
+
+  // Добавляет в общий timeline анимацию одного блока: снимок текущего
+  // содержимого (oldClone) уезжает вверх, новое содержимое (уже
+  // отрендеренное в inner) въезжает снизу, а граница (boundaryEl,
+  // overflow:hidden) параллельно тянет высоту от старой к новой — так
+  // содержимое всегда подрезано по своей рамке, а не по краю листа.
+  //
+  // У старой и новой страницы почти всегда разная высота (заголовок и
+  // описание — разной длины), поэтому пока оба слоя едут, они на
+  // мгновение перекрываются по вертикали — это нормально для "конвейера".
+  // Проблема была в том, что у текста (бейдж/заголовок/описание) нет
+  // непрозрачного фона, и в зоне перекрытия старый и новый текст
+  // просвечивали друг сквозь друга. Красим оба слоя в цвет листа
+  // (var(--white)) на время анимации и кладём старый слой ВЫШЕ нового
+  // (z-index) — тогда в зоне перекрытия виден только один слой, без
+  // наложения, а не полупрозрачная "двойная экспозиция". У карточек то
+  // же самое перекрытие есть, но не было заметно — у каждой карточки уже
+  // был свой непрозрачный фон; красим и их для единообразия и на случай
+  // будущих карточек без фонового изображения.
+  function queueProgramSwap(master, cleanups, boundaryEl, innerSelector, buildInnerHTML) {
+    var gsap = window.gsap;
+    var inner = boundaryEl.querySelector(innerSelector);
+    if (!inner) return;
+
+    var oldHeight = inner.offsetHeight;
+    var oldClone = inner.cloneNode(true);
+    boundaryEl.appendChild(oldClone);
+
+    inner.innerHTML = buildInnerHTML();
+    var newHeight = inner.scrollHeight;
+
+    gsap.set(boundaryEl, { height: oldHeight });
+    gsap.set(oldClone, {
+      position: 'absolute', top: 0, left: 0, right: 0, zIndex: 2,
+      backgroundColor: 'var(--white)'
+    });
+    gsap.set(inner, {
+      position: 'absolute', top: 0, left: 0, right: 0, zIndex: 1, yPercent: 100,
+      backgroundColor: 'var(--white)'
+    });
+
+    master.to(boundaryEl, { height: newHeight }, 0);
+    master.to(oldClone, { yPercent: -100 }, 0);
+    master.to(inner, { yPercent: 0 }, 0);
+
+    cleanups.push(function () {
+      oldClone.remove();
+      gsap.set(boundaryEl, { clearProps: 'height' });
+      gsap.set(inner, { clearProps: 'position,top,left,right,yPercent,zIndex,backgroundColor' });
+    });
+  }
+
   initDropdowns();
   initPopups();
+  initProgramPopup();
 })();
