@@ -85,14 +85,16 @@
           if (!entry.isIntersecting) return;
           o.disconnect();
           var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-          tl.to(group.heading, { opacity: 1, y: 0, duration: 0.7, stagger: 0.08 });
+          tl.to(group.heading, { opacity: 1, y: 0, duration: 0.5, stagger: 0.05 });
           icons.forEach(function (c, i) {
             tl.to(c.el, {
-              opacity: 1, scale: 1, rotate: c.finalRotate, duration: 0.8, ease: 'back.out(2.4)'
-            }, i === 0 ? '-=0.45' : '<0.1');
+              opacity: 1, scale: 1, rotate: c.finalRotate, duration: 0.55, ease: 'back.out(2.4)'
+            }, i === 0 ? '-=0.3' : '<0.06');
           });
         });
-      }, { threshold: 0 });
+        // rootMargin: анимация стартует на 350px раньше, чем группа реально
+        // войдёт в вьюпорт — меньше шанс увидеть белый экран при быстром скролле.
+      }, { threshold: 0, rootMargin: '0px 0px 350px 0px' });
       obs.observe(trigger);
     });
 
@@ -414,16 +416,16 @@
           var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
           rows3.forEach(function (row, ri) {
             row.forEach(function (c, ci) {
-              var position = ri === 0 && ci === 0 ? 0 : (ci === 0 ? '-=0.6' : '<0.1');
+              var position = ri === 0 && ci === 0 ? 0 : (ci === 0 ? '-=0.38' : '<0.06');
               tl.to(c.el, {
-                opacity: 1, y: 0, scale: 1, rotate: c.finalRotate, duration: 0.85, ease: 'back.out(1.7)'
+                opacity: 1, y: 0, scale: 1, rotate: c.finalRotate, duration: 0.55, ease: 'back.out(1.7)'
               }, position);
               var img = c.el.querySelector('img');
-              if (img) tl.to(img, { borderRadius: '0px', duration: 0.85, ease: 'power2.out' }, '<');
+              if (img) tl.to(img, { borderRadius: '0px', duration: 0.55, ease: 'power2.out' }, '<');
             });
           });
         });
-      }, { threshold: 0 });
+      }, { threshold: 0, rootMargin: '0px 0px 350px 0px' });
       obs3.observe(cards3Config[0].el);
     }
 
@@ -447,17 +449,17 @@
           var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
           if (cards4.length) {
             tl.to(cards4, {
-              opacity: 1, y: 0, scale: 1, duration: 0.9, stagger: 0.12, ease: 'back.out(1.7)',
+              opacity: 1, y: 0, scale: 1, duration: 0.6, stagger: 0.08, ease: 'back.out(1.7)',
               clearProps: 'transform'
             });
           }
           if (cta4) {
             tl.to(cta4, {
-              opacity: 1, y: 0, scale: 1, rotate: 0, duration: 0.75, ease: 'back.out(2.2)'
-            }, cards4.length ? '-=0.4' : 0);
+              opacity: 1, y: 0, scale: 1, rotate: 0, duration: 0.5, ease: 'back.out(2.2)'
+            }, cards4.length ? '-=0.26' : 0);
           }
         });
-      }, { threshold: 0 });
+      }, { threshold: 0, rootMargin: '0px 0px 350px 0px' });
       obs4.observe(cards4[0] || cta4);
     }
 

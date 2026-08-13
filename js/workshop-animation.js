@@ -68,14 +68,16 @@
         if (!entry.isIntersecting) return;
         obs.disconnect();
         var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-        tl.to(heading, { opacity: 1, y: 0, duration: 0.7, stagger: 0.08 });
+        tl.to(heading, { opacity: 1, y: 0, duration: 0.5, stagger: 0.05 });
         iconConfigs.forEach(function (c, i) {
           tl.to(c.el, {
-            opacity: 1, scale: 1, rotate: c.finalRotate, duration: 0.8, ease: 'back.out(2.4)'
-          }, i === 0 ? '-=0.45' : '<0.1');
+            opacity: 1, scale: 1, rotate: c.finalRotate, duration: 0.55, ease: 'back.out(2.4)'
+          }, i === 0 ? '-=0.3' : '<0.06');
         });
       });
-    }, { threshold: 0 });
+      // rootMargin: анимация заголовка стартует на 350px раньше, чем секция
+      // реально войдёт в вьюпорт.
+    }, { threshold: 0, rootMargin: '0px 0px 350px 0px' });
     headingObserver.observe(section.querySelector('.workshop_heading_wrapper') || section);
 
     var cardObserver = new IntersectionObserver(function (entries, obs) {
@@ -87,7 +89,7 @@
         var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
         tl.to(card, {
           opacity: 1, x: 0, y: 0, scale: 1, rotate: 0,
-          duration: 0.95, ease: 'back.out(1.5)'
+          duration: 0.6, ease: 'back.out(1.5)'
         });
 
         var photo = card.querySelector('.workshop_bg_wrapper > img');
@@ -95,10 +97,13 @@
           // Плавный ease без баунса: у back.out есть перелёт значения — на пике он
           // утянул бы border-radius ниже 0 (браузер обрежет до квадрата) и вернул
           // обратно, что выглядело бы как случайный "мигающий" угол.
-          tl.to(photo, { borderRadius: '0px', duration: 0.9, ease: 'power2.out' }, '<');
+          tl.to(photo, { borderRadius: '0px', duration: 0.55, ease: 'power2.out' }, '<');
         }
       });
-    }, { threshold: 0 });
+      // Карточки — большие полноэкранные баннеры друг под другом: без хорошего
+      // запаса (500px) при быстрой прокрутке следующая ещё не успевала бы начать
+      // анимацию к моменту, когда до неё долистали.
+    }, { threshold: 0, rootMargin: '0px 0px 500px 0px' });
     cards.forEach(function (card) { cardObserver.observe(card); });
   } catch (err) {
     revealAllNow();

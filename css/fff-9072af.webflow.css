@@ -1265,7 +1265,13 @@ img {
 }
 
 .consultation_carts_wrapper {
-  justify-content: space-between;
+  /* Раньше зазор между карточками держался на justify-content:space-between +
+     ручных margin-right только у _1/_2 (webflow-артефакт) — при почти нулевом
+     остатке свободного места внутри wrapper это давало нормальный зазор
+     только между 1-2 и 2-3, а 3-4/4-5 стояли вплотную. Явный gap работает
+     одинаково для всех пар независимо от того, сколько места осталось. */
+  gap: .63rem;
+  justify-content: flex-start;
   align-items: center;
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
@@ -1291,12 +1297,10 @@ img {
 }
 
 .consultation_cart_wrapper._1 {
-  margin-right: .63rem;
   transform: rotate(-5deg);
 }
 
 .consultation_cart_wrapper._2 {
-  margin-right: .38rem;
   transform: rotate(1.99deg);
 }
 
@@ -2367,7 +2371,7 @@ img {
 }
 
 .program_cart_img_wrapper {
-  border-radius: 20px;
+  border-radius: 24px;
   flex: none;
   justify-content: center;
   align-items: center;
@@ -2379,7 +2383,7 @@ img {
 
 .program_cart_info_wrapper {
   background-color: var(--white-opacity-40);
-  border-radius: 20px;
+  border-radius: 24px;
   flex: none;
   width: 45.24rem;
   height: 10.63rem;
@@ -2415,8 +2419,10 @@ img {
   pointer-events: none;
 }
 
+/* Пауза между модулями: карточки 1-го модуля должны успеть уехать вверх,
+   прежде чем в кадр войдёт первая карточка 2-го. */
 .program_intro_stack.has-offer-phase .program_carts_wrapper.mb-527 {
-  margin-bottom: 32.94rem;
+  margin-bottom: calc(100vh + 40px);
 }
 
 .program_intro_stack.has-offer-phase .program_carts_wrapper-2.mb-220 {
@@ -2476,7 +2482,7 @@ img {
   z-index: var(--program-card-z, 2);
   transform: translateY(var(--program-card-offset-y, 0px)) scale(var(--program-card-scale, 1));
   transform-origin: 50% 0%;
-  border-radius: 20px;
+  border-radius: 24px;
   position: relative;
   overflow: hidden;
   will-change: transform;
@@ -2648,7 +2654,7 @@ img {
 
 .program_cart_info_wrapper-2 {
   background-color: var(--white);
-  border-radius: 22.463px;
+  border-radius: 24px;
   flex: none;
   width: 45.31rem;
   height: 10.63rem;
@@ -2840,10 +2846,29 @@ img {
 }
 
 .btn_program_cart_wrapper-1 {
-  justify-content: space-between;
+  grid-column-gap: .5rem;
+  grid-row-gap: .5rem;
+  justify-content: flex-end;
   align-items: center;
-  width: 7.75rem;
+  width: auto;
   display: flex;
+}
+
+/* Стрелка появляется с "пружинным" поп-эффектом только у активной карточки
+   скролл-стека (класс is-active навешивается program-animation.js). */
+.arrow_wrapper-1,
+.arrow_wrapper-2 {
+  opacity: 0;
+  transform: scale(.5);
+  pointer-events: none;
+  transition: opacity .3s ease, transform .45s cubic-bezier(.34, 1.56, .64, 1);
+}
+
+.program_scroll_card.is-active .arrow_wrapper-1,
+.program_scroll_card.is-active .arrow_wrapper-2 {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
 }
 
 .arrow_wrapper-1 {
@@ -5247,7 +5272,7 @@ img {
   }
 
   .program_intro_stack.has-offer-phase .program_carts_wrapper.mb-527 {
-    margin-bottom: 8.75rem;
+    margin-bottom: calc(100vh + 40px);
   }
 
   .program_intro_stack.has-offer-phase .program_heading_wrapper.mb-40 {
@@ -5535,9 +5560,9 @@ img {
   }
 
   .btn_program_cart_wrapper-1 {
-    grid-column-gap: .13rem;
-    grid-row-gap: .13rem;
-    width: 3.94rem;
+    grid-column-gap: .25rem;
+    grid-row-gap: .25rem;
+    width: auto;
   }
 
   .arrow_wrapper-1 {

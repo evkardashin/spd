@@ -44,9 +44,11 @@
         entries.forEach(function (entry) {
           if (!entry.isIntersecting) return;
           obs.disconnect();
-          gsap.to(heading, { opacity: 1, y: 0, duration: 0.7, stagger: 0.08, ease: 'power3.out' });
+          gsap.to(heading, { opacity: 1, y: 0, duration: 0.5, stagger: 0.05, ease: 'power3.out' });
         });
-      }, { threshold: 0 });
+        // rootMargin: анимация стартует на 350px раньше, чем заголовок реально
+        // войдёт в вьюпорт.
+      }, { threshold: 0, rootMargin: '0px 0px 350px 0px' });
       headingObserver.observe(heading[0]);
     }
 
@@ -62,18 +64,20 @@
         if (!entry.isIntersecting) return;
         var card = entry.target;
         obs.unobserve(card);
-        var delay = playOrder * 0.12;
+        var delay = playOrder * 0.08;
         playOrder += 1;
         var tl = gsap.timeline({ defaults: { ease: 'power3.out' }, delay: delay });
         tl.to(card, {
           opacity: 1, x: 0, y: 0, scale: 1, rotate: 0,
-          duration: 0.8, ease: 'power3.out'
+          duration: 0.55, ease: 'power3.out'
         });
         // Плавный ease без баунса — иначе перелёт back.out утянет радиус за 0
         // (видимый "квадратный" мигающий угол на пике пружины).
-        tl.to(card, { borderRadius: '36px', duration: 0.85, ease: 'power2.out' }, '<');
+        tl.to(card, { borderRadius: '36px', duration: 0.55, ease: 'power2.out' }, '<');
       });
-    }, { threshold: 0 });
+      // rootMargin: карточки — короткие текстовые блоки, запас поменьше (300px)
+      // достаточен, чтобы избежать белого экрана при быстрой прокрутке.
+    }, { threshold: 0, rootMargin: '0px 0px 300px 0px' });
     cards.forEach(function (card) { cardObserver.observe(card); });
   } catch (err) {
     revealAllNow();

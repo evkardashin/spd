@@ -50,38 +50,42 @@
     function play() {
       var tl = gsap.timeline({ defaults: { ease: 'power3.out' }, onComplete: done });
 
-      tl.to(heading, { opacity: 1, y: 0, duration: 0.7, stagger: 0.08 });
+      tl.to(heading, { opacity: 1, y: 0, duration: 0.5, stagger: 0.05 });
 
       tl.to(icons, {
-        opacity: 1, scale: 1, rotate: 0, duration: 0.8, stagger: 0.1, ease: 'back.out(2.4)'
-      }, '-=0.45');
+        opacity: 1, scale: 1, rotate: 0, duration: 0.55, stagger: 0.06, ease: 'back.out(2.4)'
+      }, '-=0.3');
 
       // Ряды карточек — группами, с небольшим сдвигом друг за другом. Баунс — на
       // transform/opacity ряда; border-radius карточек отдельным плавным твином
       // (у back.out есть перелёт значения, который утянул бы радиус в 0 — угол на
       // мгновение стал бы острым, см. такой же приём в hero-animation.js).
       rows.forEach(function (row, i) {
-        var position = i === 0 ? '-=0.25' : '-=0.75';
+        var position = i === 0 ? '-=0.16' : '-=0.5';
         tl.to(row, {
-          opacity: 1, x: 0, y: 0, scale: 1, duration: 0.85, ease: 'power3.out'
+          opacity: 1, x: 0, y: 0, scale: 1, duration: 0.55, ease: 'power3.out'
         }, position);
         if (rowImages[i]) {
-          tl.to(rowImages[i], { borderRadius: '0px', duration: 0.8, ease: 'power2.out' }, '<');
+          tl.to(rowImages[i], { borderRadius: '0px', duration: 0.5, ease: 'power2.out' }, '<');
         }
       });
 
       if (cta) {
-        tl.to(cta, { opacity: 1, y: 0, scale: 1, rotate: 0, duration: 0.75, ease: 'back.out(2.2)' }, '-=0.35');
+        tl.to(cta, { opacity: 1, y: 0, scale: 1, rotate: 0, duration: 0.5, ease: 'back.out(2.2)' }, '-=0.22');
       }
     }
 
+    // rootMargin растягивает зону наблюдения на 350px ниже реального вьюпорта:
+    // анимация стартует чуть заранее, пока секция ещё подъезжает снизу, и к
+    // моменту, когда она реально попадёт в кадр, уже не будет "пустого" вида
+    // при быстрой прокрутке.
     var observer = new IntersectionObserver(function (entries, obs) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
         obs.disconnect();
         play();
       });
-    }, { threshold: 0 });
+    }, { threshold: 0, rootMargin: '0px 0px 350px 0px' });
 
     observer.observe(section);
   } catch (err) {

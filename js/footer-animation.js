@@ -66,12 +66,12 @@
           currentObserver.disconnect();
 
           var tl = gsap.timeline({ defaults: { ease: 'power3.out' }, onComplete: done });
-          if (top) tl.to(top, { opacity: 1, y: 0, duration: 0.65 });
+          if (top) tl.to(top, { opacity: 1, y: 0, duration: 0.48 });
           if (title) {
             tl.to(title, {
               opacity: 1, y: 0, scaleX: 1, scaleY: 1,
-              duration: 0.85, ease: 'back.out(1.55)'
-            }, '-=0.28');
+              duration: 0.58, ease: 'back.out(1.55)'
+            }, '-=0.18');
           }
 
           decorConfigs.forEach(function (config, index) {
@@ -81,18 +81,18 @@
               y: 0,
               scale: 1,
               rotate: config.rotate,
-              duration: compact ? 0.68 : 0.82,
+              duration: compact ? 0.48 : 0.58,
               ease: 'back.out(1.8)'
-            }, index === 0 ? '-=0.5' : '<0.09');
+            }, index === 0 ? '-=0.32' : '<0.06');
           });
 
           if (cta && getComputedStyle(cta).display !== 'none') {
             tl.to(cta, {
               opacity: 1, y: 0, scale: 1, rotate: 0,
-              duration: 0.72, ease: 'back.out(2)'
-            }, '-=0.48');
+              duration: 0.5, ease: 'back.out(2)'
+            }, '-=0.3');
           }
-          if (bottom) tl.to(bottom, { opacity: 1, y: 0, duration: 0.58 }, '-=0.34');
+          if (bottom) tl.to(bottom, { opacity: 1, y: 0, duration: 0.42 }, '-=0.22');
         });
       }, { threshold: 0, rootMargin: '0px 0px -8% 0px' });
 

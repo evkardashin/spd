@@ -52,23 +52,26 @@
 
         var tl = gsap.timeline({ defaults: { ease: 'power3.out' }, onComplete: done });
 
-        tl.to(heading, { opacity: 1, y: 0, duration: 0.7, stagger: 0.08 });
+        tl.to(heading, { opacity: 1, y: 0, duration: 0.5, stagger: 0.05 });
         if (visual) {
           tl.to(visual, {
-            opacity: 1, scale: 1, rotate: 0, duration: 1, ease: 'back.out(1.45)'
-          }, '-=0.35');
+            opacity: 1, scale: 1, rotate: 0, duration: 0.65, ease: 'back.out(1.45)'
+          }, '-=0.22');
         }
         if (cta) {
-          tl.to(cta, { opacity: 1, y: 0, scale: 1, rotate: 0, duration: 0.75, ease: 'back.out(2.2)' }, '-=0.65');
+          tl.to(cta, { opacity: 1, y: 0, scale: 1, rotate: 0, duration: 0.5, ease: 'back.out(2.2)' }, '-=0.42');
         }
         cardConfigs.forEach(function (c, i) {
           tl.to(c.el, {
             opacity: 1, x: 0, y: 0, scale: 1, rotate: c.finalRotate,
-            duration: 0.9, ease: 'back.out(1.65)'
-          }, i === 0 ? '-=0.4' : '<0.12');
+            duration: 0.6, ease: 'back.out(1.65)'
+          }, i === 0 ? '-=0.26' : '<0.08');
         });
       });
-    }, { threshold: 0 });
+      // rootMargin даёт анимации фору в 350px до реального попадания секции в
+      // вьюпорт — иначе при быстрой прокрутке видно белый экран, пока триггер
+      // ещё не сработал.
+    }, { threshold: 0, rootMargin: '0px 0px 350px 0px' });
 
     observer.observe(section);
   } catch (err) {

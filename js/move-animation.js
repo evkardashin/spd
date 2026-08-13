@@ -59,10 +59,10 @@
     function play() {
       var tl = gsap.timeline({ defaults: { ease: 'power3.out' }, onComplete: done });
 
-      tl.to(heading, { opacity: 1, y: 0, duration: 0.7, stagger: 0.08 });
+      tl.to(heading, { opacity: 1, y: 0, duration: 0.5, stagger: 0.05 });
       tl.to(icons, {
-        opacity: 1, scale: 1, rotate: 0, duration: 0.8, stagger: 0.1, ease: 'back.out(2.4)'
-      }, '-=0.45');
+        opacity: 1, scale: 1, rotate: 0, duration: 0.55, stagger: 0.06, ease: 'back.out(2.4)'
+      }, '-=0.3');
 
       scatterEls.forEach(function (item, i) {
         tl.to(item.el, {
@@ -71,19 +71,22 @@
           y: 0,
           rotate: item.cfg.finalRotate,
           scale: 1,
-          duration: 1,
+          duration: 0.65,
           ease: 'back.out(1.6)'
-        }, i === 0 ? '-=0.3' : '-=0.75');
+        }, i === 0 ? '-=0.2' : '-=0.48');
       });
     }
 
+    // rootMargin даёт анимации фору в 350px до реального попадания секции в
+    // вьюпорт — иначе при быстрой прокрутке видно белый экран, пока триггер
+    // ещё не сработал.
     var observer = new IntersectionObserver(function (entries, obs) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
         obs.disconnect();
         play();
       });
-    }, { threshold: 0 });
+    }, { threshold: 0, rootMargin: '0px 0px 350px 0px' });
 
     observer.observe(section);
   } catch (err) {

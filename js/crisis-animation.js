@@ -42,21 +42,24 @@
     function play() {
       var tl = gsap.timeline({ defaults: { ease: 'power3.out' }, onComplete: done });
 
-      tl.to(heading, { opacity: 1, y: 0, duration: 0.7 });
+      tl.to(heading, { opacity: 1, y: 0, duration: 0.5 });
       iconConfigs.forEach(function (c, i) {
         tl.to(c.el, {
-          opacity: 1, scale: 1, rotate: c.finalRotate, duration: 0.8, ease: 'back.out(2.4)'
-        }, i === 0 ? '-=0.45' : '<0.1');
+          opacity: 1, scale: 1, rotate: c.finalRotate, duration: 0.55, ease: 'back.out(2.4)'
+        }, i === 0 ? '-=0.3' : '<0.06');
       });
     }
 
+    // rootMargin даёт анимации фору в 350px до реального попадания секции в
+    // вьюпорт — иначе при быстрой прокрутке видно белый экран, пока триггер
+    // ещё не сработал.
     var observer = new IntersectionObserver(function (entries, obs) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
         obs.disconnect();
         play();
       });
-    }, { threshold: 0 });
+    }, { threshold: 0, rootMargin: '0px 0px 350px 0px' });
 
     observer.observe(section);
   } catch (err) {

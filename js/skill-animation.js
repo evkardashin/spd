@@ -62,9 +62,9 @@
 
         var tl = gsap.timeline({ defaults: { ease: 'power3.out' }, onComplete: done });
 
-        tl.to(heading, { opacity: 1, y: 0, duration: 0.7, stagger: 0.08 });
+        tl.to(heading, { opacity: 1, y: 0, duration: 0.5, stagger: 0.05 });
         if (cta) {
-          tl.to(cta, { opacity: 1, y: 0, scale: 1, rotate: 0, duration: 0.75, ease: 'back.out(2.2)' }, '-=0.45');
+          tl.to(cta, { opacity: 1, y: 0, scale: 1, rotate: 0, duration: 0.5, ease: 'back.out(2.2)' }, '-=0.3');
         }
 
         scatterEls.forEach(function (item, i) {
@@ -74,12 +74,15 @@
             y: 0,
             rotate: item.cfg.finalRotate,
             scale: 1,
-            duration: 1,
+            duration: 0.65,
             ease: 'back.out(1.6)'
-          }, i === 0 ? '-=0.2' : '-=0.75');
+          }, i === 0 ? '-=0.13' : '-=0.48');
         });
       });
-    }, { threshold: 0 });
+      // rootMargin даёт анимации фору в 350px до реального попадания секции в
+      // вьюпорт — иначе при быстрой прокрутке видно белый экран, пока триггер
+      // ещё не сработал.
+    }, { threshold: 0, rootMargin: '0px 0px 350px 0px' });
 
     observer.observe(section);
   } catch (err) {
