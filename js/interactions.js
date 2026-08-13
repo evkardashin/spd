@@ -582,7 +582,33 @@
     });
   }
 
+  // Переворот карточек попапа "Программа" (.popup_program_cart_wrapper) на
+  // hover-устройствах — чистый CSS (:hover в fff-9072af.webflow.css). На
+  // устройствах без мыши (hover: none — тачскрины) hover не работает,
+  // поэтому там переворот по тапу: класс .is-flipped переключается кликом
+  // (тот же клик, что браузер генерирует по тапу). Первый тап — на
+  // обратную сторону, второй — обратно. Слушатель — на document с
+  // делегированием, а не на самих карточках: они перерисовываются заново
+  // при каждой смене страницы попапа (setProgramPage), прямой обработчик
+  // на конкретных узлах пережил бы только до следующего рендера.
+  function initProgramCardFlipTaps() {
+    if (!window.matchMedia('(hover: none)').matches) return;
+    document.addEventListener('click', function (event) {
+      var card = event.target.closest('.popup_program_cart_wrapper');
+      if (!card) return;
+      var wasFlipped = card.classList.contains('is-flipped');
+      // Одновременно на бэк-стороне может быть только одна карточка —
+      // при тапе на любую другую сначала возвращаем на фронт все
+      // остальные перевёрнутые (в любом попапе/гриде на странице).
+      document.querySelectorAll('.popup_program_cart_wrapper.is-flipped').forEach(function (flipped) {
+        if (flipped !== card) flipped.classList.remove('is-flipped');
+      });
+      card.classList.toggle('is-flipped', !wasFlipped);
+    });
+  }
+
   initDropdowns();
   initPopups();
   initProgramPopup();
+  initProgramCardFlipTaps();
 })();

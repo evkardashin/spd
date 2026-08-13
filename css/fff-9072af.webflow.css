@@ -2629,11 +2629,21 @@ img {
 }
 
 .program_cart_wrapper-2 {
-  justify-content: space-between;
+  /* Было justify-content: space-between — картинка (10.63rem) + текстовая
+     панель (45.31rem) = 55.94rem, а сама карточка 56.44rem, т.е. на 0.5rem
+     шире суммы детей. space-between растягивал этот остаток в зазор МЕЖДУ
+     картинкой и панелью — там ничего не перекрывает фон карточки, поэтому
+     градиент активной карточки (.program_scroll_card:before) был виден
+     именно в этом зазоре, заметнее всего у скруглённого угла картинки.
+     flex-start убирает зазор — картинка и панель встык, градиенту негде
+     просвечивать. */
+  justify-content: flex-start;
   align-items: center;
   width: 56.44rem;
   display: flex;
   cursor: pointer;
+  border-radius: 24px;
+  overflow: hidden;
 }
 
 .program_cart_img_wrapper-2 {
@@ -2644,6 +2654,12 @@ img {
   width: 10.63rem;
   height: 10.63rem;
   display: flex;
+  /* Без этого градиентный фон активной карточки (.program_scroll_card:before,
+     см. выше) просвечивал по скруглённым углам картинки — у аналога для
+     карточек 1 модуля (.program_cart_img_wrapper) overflow:hidden уже был,
+     здесь просто не унаследовали. Действует и на мобилке — там этот блок
+     только меняет width/height, overflow не переопределяет. */
+  overflow: hidden;
 }
 
 .program_cart_info_wrapper-2 {
@@ -3509,16 +3525,14 @@ img {
    рендерятся подряд одним списком внутри .popup_program_page_left_inner
    (см. buildProgramFeedHTML в js/interactions.js) и скроллятся вместе с
    уже существующим overflow-y:auto листа. .popup_program_mob_section —
-   один такой раздел (бейдж+заголовок+описание+грид карточек); граница
-   между разделами — просто тонкая линия, без анимации. */
+   один такой раздел (бейдж+заголовок+описание+грид карточек); между
+   разделами только отступ, без разделительной линии. */
 .popup_program_mob_section {
   padding-top: 2rem;
-  border-top: 1px solid var(--f5f5f5);
 }
 
 .popup_program_mob_section:first-child {
   padding-top: 0;
-  border-top: none;
 }
 
 /* Заголовок "2 модуль" в мобильной ленте (см. buildProgramFeedHTML) — тот
@@ -3534,7 +3548,6 @@ img {
   width: 16.69rem;
   height: 19.69rem;
   position: relative;
-  overflow: hidden;
 }
 
 .popup_program_img_wrapper {
@@ -3608,6 +3621,89 @@ img {
 .popup_program_cart_text.width-206 {
   width: 12.88rem;
   bottom: 1.5rem;
+}
+
+/* Ховер-переворот карточек попапа "Программа" (.popup_program_cart_wrapper) —
+   пока только в шаблоне "Продукт и метрики", остальные шаблоны не трогал.
+   Без шарнира сбоку — просто лёгкое приближение (scale) и переворот вокруг
+   собственного центра, как монетка, без эффекта "открывающейся двери".
+   .popup_program_cart_face-front/-back — две стороны, каждая занимает всю
+   площадь (inset: 0) и скрыта, когда повёрнута обратной стороной к зрителю
+   (backface-visibility).
+
+   perspective — как функция ВНУТРИ transform (не свойство на родителе):
+   раньше делали свойством на .popup_program_cart_wrapper, а у него ещё и
+   overflow: hidden (нужен под скруглённые углы) — связка "perspective +
+   overflow:hidden на одном элементе" в Chrome/Safari ломает
+   backface-visibility, карточка при повороте просто пропадает вместо того
+   чтобы показать обратную сторону. perspective() как функция трансформации
+   не создаёт 3D-контекст на родителе, поэтому overflow ему не мешает. */
+.popup_program_cart_flip {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: perspective(1600px) rotateY(0deg);
+  transition: transform .5s ease;
+}
+
+/* :hover — только для настоящих устройств с мышью (@media (hover: hover)).
+   На тачскринах браузеры сами эмулируют :hover по тапу и НЕ снимают его,
+   пока не тапнешь в другое место страницы — если бы это правило работало
+   без ограничения, второй тап по той же карточке снимал бы .is-flipped
+   (JS ниже), но :hover остался бы висеть и держал карточку перевёрнутой
+   всё равно. С этим ограничением на тачскринах :hover вообще не участвует
+   — переворотом там управляет только .is-flipped. */
+@media (hover: hover) {
+  .popup_program_cart_wrapper:hover .popup_program_cart_flip {
+    transform: perspective(1600px) rotateY(180deg);
+  }
+}
+
+/* Устройства без мыши (тачскрины) — переворот по тапу: класс переключается
+   в js/interactions.js (initProgramCardFlipTaps), первый тап
+   переворачивает, второй — обратно. */
+.popup_program_cart_wrapper.is-flipped .popup_program_cart_flip {
+  transform: perspective(1600px) rotateY(180deg);
+}
+
+.popup_program_cart_face {
+  border-radius: 48px;
+  overflow: hidden;
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.popup_program_cart_face-back {
+  background-color: var(--pink);
+  transform: rotateY(180deg);
+}
+
+/* Заголовок на обратной стороне — тот же .popup_program_cart_text, что и
+   спереди (тот же шрифт/позиция), просто белый вместо чёрного на розовом
+   фоне — как в макете 821-369. */
+.popup_program_cart_face-back .popup_program_cart_text {
+  color: var(--white);
+}
+
+/* Новый текст на обратной стороне — там, где на лицевой была картинка.
+   Отдельного стиля описания в макете 821-369 нет (там только заголовок) —
+   берём тот же шрифт проекта (Onweer, обычное начертание), что и у
+   заголовка там же, просто мельче под размер карточки. */
+.popup_program_cart_back_text {
+  color: var(--white);
+  opacity: .85;
+  font-variation-settings: "slnt" 0, "CNTR" 0;
+  letter-spacing: -.01rem;
+  font-size: 1rem;
+  line-height: 130%;
+  font-weight: 400;
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  right: 1.5rem;
 }
 
 .popup_program_close_btn {
@@ -6043,6 +6139,10 @@ img {
     height: 13rem;
   }
 
+  .popup_program_cart_face {
+    border-radius: 24px;
+  }
+
   .popup_program_img_wrapper {
     width: 10.5rem;
     height: 6.75rem;
@@ -6064,6 +6164,13 @@ img {
     bottom: 1rem;
   }
 
+  .popup_program_cart_back_text {
+    font-size: .75rem;
+    top: 1rem;
+    left: 1rem;
+    right: 1rem;
+  }
+
   .popup_left_side_program-copy {
     width: 23.44rem;
     height: 41.13rem;
@@ -6076,8 +6183,17 @@ img {
 
   .popup_program_grid_mob {
     grid-column-gap: .44rem;
+    /* Было grid-template-rows: auto auto auto auto auto auto (6 рядов) —
+       фиксированное число рядов под шаблон popup-program (6 карточек =
+       3 ряда по 2 колонки). В остальных попапах карточек то больше, то
+       меньше (3–9 шт.) — при неполном заполнении лишние явные ряды всё
+       равно оставались частью грида и добавляли grid-row-gap ПОСЛЕ
+       последней реальной карточки перед разделителем (border-top
+       следующего .popup_program_mob_section) — с разным числом карточек
+       получался разный лишний отступ. grid-auto-rows вместо явного списка
+       создаёт ровно столько рядов, сколько нужно карточкам, — без хвоста. */
     grid-row-gap: .44rem;
-    grid-template-rows: auto auto auto auto auto auto;
+    grid-auto-rows: auto;
     grid-template-columns: 1fr 1fr;
     grid-auto-columns: 1fr;
     display: grid;
