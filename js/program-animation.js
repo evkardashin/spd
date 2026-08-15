@@ -3,6 +3,11 @@
 
   function revealAllNow() {
     if (window.__programReveal) window.__programReveal();
+    // Фолбэк-путь (GSAP/IntersectionObserver недоступны, секции нет, ошибка)
+    // — ничего не анимируется, конфликтовать с CSS-hover нечему, флаг можно
+    // ставить сразу. На обычном пути его для program_blank_wrapper ставит
+    // сам твин карточек (см. obs3 ниже) — здесь это просто безопасный сейфти-нет.
+    document.documentElement.classList.add('program-cards-ready');
   }
 
   if (typeof window.gsap === 'undefined' || typeof window.IntersectionObserver === 'undefined') {
@@ -413,12 +418,23 @@
         entries.forEach(function (entry) {
           if (!entry.isIntersecting) return;
           o.disconnect();
-          var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+          // onComplete ставит флаг для CSS-hover карточек (см.
+          // .program_blank_wrapper:hover в fff-9072af.webflow.css) — тем же
+          // способом, что consultation-cards-ready/rate-cards-ready в
+          // соседних *-animation.js: пока эта анимация появления идёт, CSS
+          // transition на transform спорил бы с GSAP, который сам пишет
+          // transform инлайново на каждом кадре.
+          var tl = gsap.timeline({
+            defaults: { ease: 'power3.out' },
+            onComplete: function () { document.documentElement.classList.add('program-cards-ready'); }
+          });
           rows3.forEach(function (row, ri) {
             row.forEach(function (c, ci) {
               var position = ri === 0 && ci === 0 ? 0 : (ci === 0 ? '-=0.38' : '<0.06');
               tl.to(c.el, {
-                opacity: 1, y: 0, scale: 1, rotate: c.finalRotate, duration: 0.55, ease: 'back.out(1.7)'
+                opacity: 1, y: 0, scale: 1, rotate: c.finalRotate, duration: 0.55, ease: 'back.out(1.7)',
+                // Иначе инлайн transform от GSAP навсегда перебивает CSS :hover.
+                clearProps: 'transform'
               }, position);
               var img = c.el.querySelector('img');
               if (img) tl.to(img, { borderRadius: '0px', duration: 0.55, ease: 'power2.out' }, '<');

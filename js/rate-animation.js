@@ -8,6 +8,12 @@
   function done() {
     clearTimeout(safetyTimer);
     if (window.__rateReveal) window.__rateReveal();
+    // Флаг для CSS-hover карточек (.rate_cart_wrapper) — см.
+    // fff-9072af.webflow.css. Та же причина, что у consultation-cards-ready
+    // в consultation-animation.js: пока анимация появления идёт, GSAP
+    // построчно пишет transform инлайново — активный весь это время CSS
+    // transition спорил бы с этим и тормозил вход.
+    document.documentElement.classList.add('rate-cards-ready');
   }
 
   if (typeof window.gsap === 'undefined' || typeof window.IntersectionObserver === 'undefined') {
@@ -64,6 +70,8 @@
             stagger: 0.06,
             ease: 'sine.out'
           }, heading.length ? '-=0.2' : 0);
+          // Иначе инлайн transform от GSAP навсегда перебивает CSS :hover.
+          tl.set(cards, { clearProps: 'transform' });
         }
       });
       // rootMargin даёт анимации фору в 350px до реального попадания секции в

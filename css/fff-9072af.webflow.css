@@ -1316,6 +1316,41 @@ img {
   transform: rotate(-1.12deg);
 }
 
+/* Ховер карточек "стопки фото" — лёгкое приближение + доп. разворот поверх
+   их и так разного базового наклона (._1.._5 выше), в разные стороны, чтобы
+   не выглядело единообразно. Только устройства с мышью (@media hover:hover)
+   — на тачскринах hover не нужен. transition и сам hover-transform завязаны
+   на html.consultation-cards-ready (ставится в consultation-animation.js
+   после того, как анимация появления карточек закончилась — см. комментарий
+   там же): если бы transition висел на элементе всё время, он спорил бы с
+   GSAP, который на каждом кадре пишет transform инлайново во время входа —
+   вход карточек тормозил бы. */
+@media (hover: hover) {
+  html.consultation-cards-ready .consultation_cart_wrapper {
+    transition: transform .3s ease;
+  }
+
+  html.consultation-cards-ready .consultation_cart_wrapper._1:hover {
+    transform: rotate(-9deg) scale(1.06);
+  }
+
+  html.consultation-cards-ready .consultation_cart_wrapper._2:hover {
+    transform: rotate(6deg) scale(1.06);
+  }
+
+  html.consultation-cards-ready .consultation_cart_wrapper._3:hover {
+    transform: rotate(-5deg) scale(1.06);
+  }
+
+  html.consultation-cards-ready .consultation_cart_wrapper._4:hover {
+    transform: rotate(5deg) scale(1.06);
+  }
+
+  html.consultation-cards-ready .consultation_cart_wrapper._5:hover {
+    transform: rotate(-6deg) scale(1.06);
+  }
+}
+
 .cosultation_cart_text_wrapper {
   flex-flow: column;
   justify-content: space-between;
@@ -2070,6 +2105,37 @@ img {
   transform: rotate(-1.164deg);
 }
 
+/* Ховер — тот же приём, что у .consultation_cart_wrapper выше: приближение
+   + доп. разворот поверх базового наклона, в разные стороны, только на
+   устройствах с мышью, transition завязан на html.rate-cards-ready (ставится
+   в rate-animation.js после окончания анимации появления, см. комментарий
+   там же — чтобы transition не спорил с GSAP во время входа). */
+@media (hover: hover) {
+  html.rate-cards-ready .rate_cart_wrapper {
+    transition: transform .3s ease;
+  }
+
+  html.rate-cards-ready .rate_cart_wrapper._1:hover {
+    transform: rotate(-7deg) scale(1.06);
+  }
+
+  html.rate-cards-ready .rate_cart_wrapper._2:hover {
+    transform: rotate(9deg) scale(1.06);
+  }
+
+  html.rate-cards-ready .rate_cart_wrapper._3:hover {
+    transform: rotate(-8deg) scale(1.06);
+  }
+
+  html.rate-cards-ready .rate_cart_wrapper._4:hover {
+    transform: rotate(6deg) scale(1.06);
+  }
+
+  html.rate-cards-ready .rate_cart_wrapper._5:hover {
+    transform: rotate(-7deg) scale(1.06);
+  }
+}
+
 .dead-paper_img_wrapper {
   width: 10.44rem;
   height: 12.44rem;
@@ -2795,6 +2861,42 @@ img {
 
 .program_blank_wrapper._6 {
   transform: rotate(-.893deg);
+}
+
+/* Ховер — тот же приём, что у .consultation_cart_wrapper/.rate_cart_wrapper
+   выше: приближение + доп. разворот поверх базового наклона, в разные
+   стороны, только на устройствах с мышью, transition завязан на
+   html.program-cards-ready (ставится в program-animation.js после
+   окончания анимации появления этой сетки карточек — см. комментарий там
+   же, чтобы transition не спорил с GSAP во время входа). */
+@media (hover: hover) {
+  html.program-cards-ready .program_blank_wrapper {
+    transition: transform .3s ease;
+  }
+
+  html.program-cards-ready .program_blank_wrapper._1:hover {
+    transform: rotate(5deg) scale(1.06);
+  }
+
+  html.program-cards-ready .program_blank_wrapper._2:hover {
+    transform: rotate(-9deg) scale(1.06);
+  }
+
+  html.program-cards-ready .program_blank_wrapper._3:hover {
+    transform: rotate(7deg) scale(1.06);
+  }
+
+  html.program-cards-ready .program_blank_wrapper._4:hover {
+    transform: rotate(-7deg) scale(1.06);
+  }
+
+  html.program-cards-ready .program_blank_wrapper._5:hover {
+    transform: rotate(8deg) scale(1.06);
+  }
+
+  html.program-cards-ready .program_blank_wrapper._6:hover {
+    transform: rotate(-6deg) scale(1.06);
+  }
 }
 
 .program_pdf_wrapper {

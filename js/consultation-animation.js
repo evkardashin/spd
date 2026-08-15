@@ -8,6 +8,15 @@
   function done() {
     clearTimeout(safetyTimer);
     if (window.__consultationReveal) window.__consultationReveal();
+    // Флаг для CSS-hover карточек (.consultation_cart_wrapper) — см.
+    // fff-9072af.webflow.css. Пока эта анимация появления идёт, GSAP на
+    // каждом кадре пишет transform инлайново; если бы CSS transition на
+    // transform был активен всё это время, он пытался бы досогласовывать
+    // каждый такой кадр — вход карточек тормозил бы и дёргался. Класс
+    // добавляется только здесь, когда анимация точно закончилась (или не
+    // запускалась вовсе — done() вызывается и в этих случаях тоже), поэтому
+    // transition для hover в CSS завязан именно на него.
+    document.documentElement.classList.add('consultation-cards-ready');
   }
 
   if (typeof window.gsap === 'undefined' || typeof window.IntersectionObserver === 'undefined') {
@@ -90,6 +99,7 @@
             tl.to(cardsWrapper, {
               opacity: 1, y: 0, scale: 1, duration: 0.6, ease: 'back.out(1.45)'
             }, '-=0.16');
+            tl.set(cardsWrapper, { clearProps: 'transform' });
           }
         } else if (cards.length) {
           tl.to(cards, {
@@ -102,6 +112,10 @@
             stagger: { each: 0.06, from: 'center' },
             ease: 'back.out(1.55)'
           }, '-=0.2');
+          // Иначе инлайн transform от GSAP навсегда перебивает CSS :hover
+          // (см. .consultation_cart_wrapper._1.._5 и hover ниже в CSS) —
+          // тот же приём, что и в program-animation.js для program_blank_wrapper.
+          tl.set(cards, { clearProps: 'transform' });
         }
 
         if (subheading) {
