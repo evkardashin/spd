@@ -617,8 +617,13 @@
   // передачи (closePopup подхватывает textPercent/y с той точки, где палец
   // отпустили — GSAP .to всегда анимирует от текущего значения).
   function initNavMobDrag() {
-    if (typeof window.gsap === 'undefined') return;
-    var gsap = window.gsap;
+    // Внимание: interactions.js подключён в <head>/<body> РАНЬШЕ gsap.min.js
+    // (оба defer, порядок выполнения — по порядку тегов), поэтому в момент
+    // вызова initNavMobDrag() (при выполнении interactions.js) window.gsap
+    // ещё не существует — проверять и кэшировать gsap здесь на верхнем
+    // уровне нельзя, обработчики бы никогда не навесились. Слушатели вешаем
+    // всегда, а наличие window.gsap проверяем лениво внутри onPointerDown —
+    // к моменту реального взаимодействия пользователя gsap уже точно загружен.
     var popup = document.getElementById('popup-nav-mob');
     if (!popup) return;
     var handle = popup.querySelector('.popup_line-copy');
@@ -627,12 +632,15 @@
 
     var DISMISS_RATIO = 0.3; // доля высоты панели — после неё отпускание закрывает попап
 
+    var gsap = null;
     var dragging = false;
     var startY = 0;
     var dy = 0;
     var travel = 0;
 
     function onPointerDown(e) {
+      if (typeof window.gsap === 'undefined') return;
+      gsap = window.gsap;
       if (e.pointerType === 'mouse' && e.button !== 0) return;
       if (!isOpen(popup)) return;
       gsap.killTweensOf([handle, sheet]);
@@ -672,6 +680,14 @@
     // Иначе на тач-устройствах жест по ручке частично перехватывается
     // браузером (pull-to-refresh и т.п.) вместо onPointerMove.
     handle.style.touchAction = 'none';
+
+    // .popup_line-copy лежит вне .popup_mob_bg, поэтому клик по ней сам по
+    // себе подпадает под "клик снаружи листа" (см. navMobWrapper-листенер
+    // выше) и закрывал бы попап мгновенно при ЛЮБОМ тапе/недотянутом
+    // перетаскивании — забивая наш snap-back при недотяге ниже DISMISS_RATIO.
+    // Гасим всплытие клика с ручки, чтобы решение "закрыть или вернуть"
+    // принимал только onPointerUp выше.
+    handle.addEventListener('click', function (e) { e.stopPropagation(); });
   }
 
   initDropdowns();
