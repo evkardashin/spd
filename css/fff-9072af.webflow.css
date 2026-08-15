@@ -4557,7 +4557,7 @@ img {
     margin-bottom: 1.5rem;
     padding-top: 0;
     padding-bottom: 0;
-    padding-left: 1rem;
+    padding-left: 0;
     overflow: hidden;
   }
 
@@ -5151,7 +5151,7 @@ img {
     justify-content: flex-start;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
-    padding-left: 1rem;
+    padding-left: 0;
     overflow: hidden;
   }
 
@@ -5159,6 +5159,10 @@ img {
     flex-shrink: 0;
   }
 
+  /* transform: none — обложечный свайпер (js/rate-cover-swiper.js) сам
+     рулит rotateY/scale через GSAP; десктопный наклон "стопкой" (см. базовые
+     .rate_cart_wrapper._1..._5 выше) на мобилке не нужен, карточки должны
+     стоять ровно. Тот же приём, что у .consultation_cart_wrapper._1..._5. */
   .rate_cart_wrapper._1 {
     background-image: url('../images/container-4.avif');
     background-position: 50%;
@@ -5166,6 +5170,7 @@ img {
     background-size: cover;
     width: 10.5rem;
     height: 13rem;
+    transform: none;
   }
 
   .rate_cart_wrapper._2 {
@@ -5175,6 +5180,7 @@ img {
     background-size: cover;
     width: 10.5rem;
     height: 13rem;
+    transform: none;
   }
 
   .rate_cart_wrapper._3 {
@@ -5185,6 +5191,7 @@ img {
     width: 10.5rem;
     height: 13rem;
     bottom: 0;
+    transform: none;
   }
 
   .rate_cart_wrapper._4 {
@@ -5195,6 +5202,7 @@ img {
     width: 10.5rem;
     height: 13rem;
     bottom: 0;
+    transform: none;
   }
 
   .rate_cart_wrapper._5 {
@@ -5204,6 +5212,7 @@ img {
     background-size: cover;
     width: 10.5rem;
     height: 13rem;
+    transform: none;
   }
 
   .dead-paper_img_wrapper {

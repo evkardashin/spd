@@ -31,26 +31,38 @@
     // вариант просто не даёт визуального эффекта.
     var heading = section.querySelectorAll('[data-rate-el="heading"]');
     var cards = Array.prototype.slice.call(section.querySelectorAll('[data-rate-el="card"]'));
+    var cardsWrapper = section.querySelector('.rate_carts_wrapper');
+    var isMobile = window.matchMedia('(max-width: 479px)').matches;
     if (!heading.length && !cards.length) { done(); return; }
 
     // У каждой карточки в CSS свой угол наклона ("стопка фотографий") — см.
     // .rate_cart_wrapper._1.._5 в css/fff-9072af.webflow.css. Анимируем к нему,
     // а не к 0, иначе GSAP инлайн-стилем перезапишет наклон и карточки на
-    // финале окажутся плоскими.
+    // финале окажутся плоскими. Актуально только для десктопа/планшета — на
+    // мобилке карточками рулит coverflow-свайпер (js/rate-cover-swiper.js),
+    // трогать их transform по отдельности нельзя (см. isMobile ниже).
     var cardFinalRotate = [-1.19, 3.014, -3.366, 0.943, -1.164];
 
     gsap.set(heading, { opacity: 0, y: 26 });
-    cards.forEach(function (card, index) {
-      // Волна: нечётные карточки стартуют ниже, крайние чуть развёрнуты наружу
-      // (доп. разворот поверх собственного финального угла карточки).
-      var centerDistance = index - (cards.length - 1) / 2;
-      gsap.set(card, {
-        opacity: 0,
-        y: index % 2 === 0 ? 32 : 58,
-        scale: 0.9,
-        rotate: (cardFinalRotate[index] || 0) + centerDistance * 1.8
+
+    if (isMobile) {
+      // На мобилке transform карточек уже управляется coverflow-свайпером —
+      // анимируем весь готовый deck целиком, не перезаписывая геометрию
+      // отдельных карточек. Тот же приём, что в consultation-animation.js.
+      if (cardsWrapper) gsap.set(cardsWrapper, { opacity: 0, y: 36, scale: 0.96 });
+    } else {
+      cards.forEach(function (card, index) {
+        // Волна: нечётные карточки стартуют ниже, крайние чуть развёрнуты
+        // наружу (доп. разворот поверх собственного финального угла карточки).
+        var centerDistance = index - (cards.length - 1) / 2;
+        gsap.set(card, {
+          opacity: 0,
+          y: index % 2 === 0 ? 32 : 58,
+          scale: 0.9,
+          rotate: (cardFinalRotate[index] || 0) + centerDistance * 1.8
+        });
       });
-    });
+    }
 
     var observer = new IntersectionObserver(function (entries, obs) {
       entries.forEach(function (entry) {
@@ -60,7 +72,14 @@
         if (heading.length) {
           tl.to(heading, { opacity: 1, y: 0, duration: 0.5, stagger: 0.05 });
         }
-        if (cards.length) {
+        if (isMobile) {
+          if (cardsWrapper) {
+            tl.to(cardsWrapper, {
+              opacity: 1, y: 0, scale: 1, duration: 0.6, ease: 'back.out(1.45)'
+            }, heading.length ? '-=0.16' : 0);
+            tl.set(cardsWrapper, { clearProps: 'transform' });
+          }
+        } else if (cards.length) {
           tl.to(cards, {
             opacity: 1,
             y: 0,

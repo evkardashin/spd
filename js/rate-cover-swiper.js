@@ -1,18 +1,18 @@
 (function () {
   'use strict';
 
-  // "Обложечный" (coverflow-like) свайпер для consultation_carts_wrapper.mb-20 —
-  // только мобилка (≤479px), десктоп не трогаем. Сделан по образцу
-  // js/support-swiper.js (GSAP + Pointer Events, без библиотеки Swiper) —
-  // тот вариант уже проверенно работает на сайте, в отличие от нескольких
-  // попыток сделать то же через Swiper.js (см. комментарий в js/carts-swiper.js).
+  // "Обложечный" (coverflow-like) свайпер для .rate_carts_wrapper — только
+  // мобилка (≤479px), десктоп/планшет не трогаем. Полная копия логики
+  // js/consultation-cover-swiper.js (см. подробные комментарии там) —
+  // заменяет собой старый Swiper.js-свайпер (js/carts-swiper.js, больше не
+  // подключается) той же карусели.
   if (typeof window.gsap === 'undefined') return;
 
   var gsap = window.gsap;
-  var wrapper = document.querySelector('.consultation_carts_wrapper.mb-20');
+  var wrapper = document.querySelector('.rate_carts_wrapper');
   if (!wrapper) return;
 
-  var cards = Array.prototype.slice.call(wrapper.querySelectorAll('.consultation_cart_wrapper'));
+  var cards = Array.prototype.slice.call(wrapper.querySelectorAll('.rate_cart_wrapper'));
   if (cards.length < 3) return;
 
   var mm = gsap.matchMedia();
@@ -36,13 +36,11 @@
     var GAP_REM = 0.5; // зазор между краями соседних карточек (с учётом их scale)
 
     // Все карточки становятся position:absolute и садятся в ОДНУ и ту же точку
-    // — центр .consultation_carts_wrapper.mb-20. Точку отсчёта считаем сами
-    // через getBoundingClientRect (числа в JS), а не через CSS left:50% —
-    // left:50% у position:absolute технически считается от padding box
-    // контейнера, а у него padding-left:1rem при padding-right:0
-    // (несимметричные паддинги), и это давало на глаз чуть больший зазор
-    // с одной стороны. left:0 + xPercent:0 + свой центр в пикселях убирают
-    // эту двусмысленность полностью.
+    // — центр .rate_carts_wrapper. Точку отсчёта считаем сами через
+    // getBoundingClientRect (числа в JS), а не через CSS left:50% — см.
+    // подробности в js/consultation-cover-swiper.js. left:0 + свой центр в
+    // пикселях убирают асимметрию, поэтому padding-left у .rate_carts_wrapper
+    // на мобилке тоже обнулён в CSS (см. fff-9072af.webflow.css).
     var cardWidth = 0;
 
     function ensureMeasured() {
@@ -85,9 +83,8 @@
       var abs = Math.abs(offset);
       if (abs === 0) return { pos: 0, rotate: 0, scale: 1, opacity: 1, z: 3 };
       if (abs === 1) {
-        // Угол слева и справа задан раздельно (не -offset*ROTATE) — по месту
-        // визуально подобрано, что одинаковый по модулю угол для обеих сторон
-        // выглядит несимметрично из-за перспективы; см. ROTATE_LEFT/ROTATE_RIGHT.
+        // Угол слева и справа задан раздельно — одинаковый по модулю угол
+        // для обеих сторон визуально выглядит несимметрично из-за перспективы.
         return { pos: offset > 0 ? stepNear : -stepNear, rotate: offset > 0 ? -ROTATE_RIGHT : ROTATE_LEFT, scale: SCALE_NEAR, opacity: 1, z: 2 };
       }
       // Дальние карточки прячем — при 5 карточках в кольце видимыми должны
@@ -99,9 +96,6 @@
 
     function applyPositions(animate, extraX) {
       ensureMeasured();
-      // Центр контейнера в пикселях, посчитан явно (см. комментарий в
-      // ensureMeasured про left:50%/padding) — левый край карточки должен
-      // встать в center - cardWidth/2, чтобы она сама оказалась по центру.
       var center = wrapper.getBoundingClientRect().width / 2 - cardWidth / 2;
 
       cards.forEach(function (el, i) {
@@ -114,11 +108,8 @@
           zIndex: t.z
         };
         if (animate) {
-          // Без перелёта (back.out): у карточек разная дистанция до цели
-          // (соседняя vs только что была дальней), при overshoot-easing это
-          // на мгновение давало разный по величине "перелёт" в пикселях у
-          // разных карточек — визуально как будто зазор слева/справа не
-          // совпадает, хотя итоговые (settled) координаты симметричны.
+          // Без перелёта (back.out) — см. комментарий в
+          // js/consultation-cover-swiper.js про разный "перелёт" в пикселях.
           gsap.to(el, Object.assign({ duration: 0.4, ease: 'power2.out' }, props));
         } else {
           gsap.set(el, props);
