@@ -690,9 +690,82 @@
     handle.addEventListener('click', function (e) { e.stopPropagation(); });
   }
 
+  // popup-program: та же идея, что и initNavMobDrag выше, но зеркально —
+  // лист(-ы) здесь доковано СНИЗУ (data-popup-slide-from не задан,
+  // playSlideAnimation по умолчанию считает fromTop=false, offscreenYPercent
+  // 100), поэтому закрывающий жест — потянуть ручку .popup_line-program ВНИЗ,
+  // а не вверх. На мобилке .popup_right_side_program скрыт (см. CSS), но он
+  // всё равно участвует в sheets/travel тем же способом, что в
+  // playSlideAnimation — офсетHeight скрытого элемента 0, на расчёт не влияет.
+  // Только мобилка (≤479px) — на десктопе/планшете тот же попап показывает
+  // два широких листа рядом, тянуть их вниз пальцем/мышью не предполагается.
+  function initProgramPopupDrag() {
+    var popup = document.getElementById('popup-program');
+    if (!popup) return;
+    var handle = popup.querySelector('.popup_line-program');
+    var sheets = Array.prototype.slice.call(
+      popup.querySelectorAll('[class*="popup_left_side"], [class*="popup_right_side"]')
+    );
+    if (!handle || !sheets.length) return;
+
+    var DISMISS_RATIO = 0.3; // доля высоты листа — после неё отпускание закрывает попап
+    var mq = '(max-width: 479px)';
+
+    var gsap = null;
+    var dragging = false;
+    var startY = 0;
+    var dy = 0;
+    var travel = 0;
+
+    function onPointerDown(e) {
+      if (typeof window.gsap === 'undefined') return;
+      gsap = window.gsap;
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      if (!window.matchMedia(mq).matches) return;
+      if (!isOpen(popup)) return;
+      gsap.killTweensOf(sheets.concat([handle]));
+      // Тот же расчёт, что в playSlideAnimation — максимум по высоте листов,
+      // с запасным значением 300, если оба листа почему-то нулевые.
+      travel = Math.max.apply(null, sheets.map(function (el) { return el.offsetHeight; }).concat([300]));
+      dragging = true;
+      startY = e.clientY;
+      dy = 0;
+      if (handle.setPointerCapture) {
+        try { handle.setPointerCapture(e.pointerId); } catch (err) {}
+      }
+    }
+
+    function onPointerMove(e) {
+      if (!dragging) return;
+      dy = Math.max(e.clientY - startY, 0); // тянуть можно только вниз — вверх некуда, лист докован к низу
+      var progress = Math.min(dy / travel, 1);
+      gsap.set(sheets, { yPercent: 100 * progress });
+      gsap.set(handle, { y: travel * progress });
+    }
+
+    function onPointerUp() {
+      if (!dragging) return;
+      dragging = false;
+      var progress = Math.min(dy / travel, 1);
+      if (progress > DISMISS_RATIO) {
+        closePopup(popup);
+      } else {
+        gsap.to(sheets, { yPercent: 0, duration: 0.3, ease: 'power2.out' });
+        gsap.to(handle, { y: 0, duration: 0.3, ease: 'power2.out' });
+      }
+    }
+
+    handle.addEventListener('pointerdown', onPointerDown);
+    handle.addEventListener('pointermove', onPointerMove);
+    handle.addEventListener('pointerup', onPointerUp);
+    handle.addEventListener('pointercancel', onPointerUp);
+    handle.style.touchAction = 'none';
+  }
+
   initDropdowns();
   initPopups();
   initProgramPopup();
   initProgramCardFlipTaps();
   initNavMobDrag();
+  initProgramPopupDrag();
 })();
