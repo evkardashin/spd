@@ -607,8 +607,76 @@
     });
   }
 
+  // popup-nav-mob: панель докована сверху и въезжает/уезжает по Y (см.
+  // playSlideAnimation, data-popup-slide-from="top"). Ручка .popup_line-copy
+  // рядом с ней — можно потянуть вверх, чтобы закрыть попап перетаскиванием,
+  // а не только кнопкой "закрываем"/Escape. Работает независимо от
+  // playSlideAnimation (та отвечает только за open/close целиком), но
+  // использует те же yPercent/y и offscreenYPercent=-100, чтобы drag и
+  // авто-анимация закрытия не дёргались друг относительно друга в момент
+  // передачи (closePopup подхватывает textPercent/y с той точки, где палец
+  // отпустили — GSAP .to всегда анимирует от текущего значения).
+  function initNavMobDrag() {
+    if (typeof window.gsap === 'undefined') return;
+    var gsap = window.gsap;
+    var popup = document.getElementById('popup-nav-mob');
+    if (!popup) return;
+    var handle = popup.querySelector('.popup_line-copy');
+    var sheet = popup.querySelector('.popup_mob_bg');
+    if (!handle || !sheet) return;
+
+    var DISMISS_RATIO = 0.3; // доля высоты панели — после неё отпускание закрывает попап
+
+    var dragging = false;
+    var startY = 0;
+    var dy = 0;
+    var travel = 0;
+
+    function onPointerDown(e) {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      if (!isOpen(popup)) return;
+      gsap.killTweensOf([handle, sheet]);
+      travel = sheet.offsetHeight || 300;
+      dragging = true;
+      startY = e.clientY;
+      dy = 0;
+      if (handle.setPointerCapture) {
+        try { handle.setPointerCapture(e.pointerId); } catch (err) {}
+      }
+    }
+
+    function onPointerMove(e) {
+      if (!dragging) return;
+      dy = Math.min(e.clientY - startY, 0); // тянуть можно только вверх — вниз некуда, панель докована к верху
+      var progress = Math.min(-dy / travel, 1);
+      gsap.set(sheet, { yPercent: -100 * progress });
+      gsap.set(handle, { y: -travel * progress });
+    }
+
+    function onPointerUp() {
+      if (!dragging) return;
+      dragging = false;
+      var progress = Math.min(-dy / travel, 1);
+      if (progress > DISMISS_RATIO) {
+        closePopup(popup);
+      } else {
+        gsap.to(sheet, { yPercent: 0, duration: 0.3, ease: 'power2.out' });
+        gsap.to(handle, { y: 0, duration: 0.3, ease: 'power2.out' });
+      }
+    }
+
+    handle.addEventListener('pointerdown', onPointerDown);
+    handle.addEventListener('pointermove', onPointerMove);
+    handle.addEventListener('pointerup', onPointerUp);
+    handle.addEventListener('pointercancel', onPointerUp);
+    // Иначе на тач-устройствах жест по ручке частично перехватывается
+    // браузером (pull-to-refresh и т.п.) вместо onPointerMove.
+    handle.style.touchAction = 'none';
+  }
+
   initDropdowns();
   initPopups();
   initProgramPopup();
   initProgramCardFlipTaps();
+  initNavMobDrag();
 })();
