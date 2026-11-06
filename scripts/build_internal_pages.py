@@ -66,6 +66,7 @@ def page_head(title: str) -> str:
   <link rel="stylesheet" href="../css/webflow.css">
   <link rel="stylesheet" href="../css/fff-9072af.webflow.css">
   <link rel="stylesheet" href="../css/internal-pages.css">
+  <link rel="stylesheet" href="../css/interactions.css">
   <link rel="icon" href="../images/favicon.ico" type="image/x-icon" media="(prefers-color-scheme: light)">
   <link rel="icon" href="../images/favicon-dark.ico" type="image/x-icon" media="(prefers-color-scheme: dark)">
   <link rel="apple-touch-icon" href="../images/webclip.png">

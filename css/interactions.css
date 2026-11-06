@@ -1,0 +1,267 @@
+/* Единая обратная связь у кнопок без конфликта с GSAP-transform. */
+:is(.btn_main, .primary-button, .nav_btn, .nav_btn-copy, .nav_btn_pink,
+    .nav_btn_pink_menu, .nav_btn_pink_close, .pdf_btn, .popup_close_btn,
+    .video_sound_toggle, .program_tab) {
+  transition: background-color 350ms cubic-bezier(.4, 0, .2, 1),
+    color 350ms cubic-bezier(.4, 0, .2, 1),
+    box-shadow 350ms cubic-bezier(.4, 0, .2, 1),
+    filter 350ms cubic-bezier(.4, 0, .2, 1);
+  -webkit-tap-highlight-color: #ff14ff26;
+}
+
+.faq_item {
+  border: 0;
+  box-shadow: none;
+  transition: background-color 350ms cubic-bezier(.4, 0, .2, 1),
+    color 350ms cubic-bezier(.4, 0, .2, 1);
+}
+
+.faq_item .dropdown {
+  cursor: pointer;
+}
+
+.faq_item:has(.dropdown.w--open) {
+  background-color: #000;
+  color: #fff;
+}
+
+.faq_item:has(.dropdown.w--open) :is(.text_32_px, .text_22_px) {
+  color: #fff;
+}
+
+.faq_item:has(.dropdown.w--open) .icon_wrapper img {
+  filter: invert(1);
+}
+
+.faq_item .dropdown-list {
+  background-color: transparent;
+}
+
+:is(.btn_main, .primary-button, .nav_btn, .nav_btn-copy, .nav_btn_pink,
+    .nav_btn_pink_menu, .nav_btn_pink_close, .pdf_btn, .popup_close_btn,
+    .video_sound_toggle, .program_tab):focus-visible,
+.faq_item .dropdown:focus-visible {
+  outline: 3px solid #7055dc;
+  outline-offset: 4px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :is(.btn_main, .primary-button, .nav_btn_pink, .nav_btn_pink_menu, .nav_btn_pink_close):hover {
+    background-color: #ffe600;
+    color: #000;
+    box-shadow: 0 6px 20px #00000014;
+  }
+
+  :is(.nav_btn, .nav_btn-copy, .pdf_btn):hover {
+    background-color: #000;
+    color: #fff;
+    box-shadow: 0 4px 14px #00000014;
+  }
+
+  .popup_close_btn:hover {
+    background-color: #000;
+    color: #fff;
+    box-shadow: 0 4px 14px #0000001a;
+  }
+
+  .video_sound_toggle:hover {
+    background-color: #000;
+  }
+
+  .program_tab[aria-selected="false"]:hover {
+    background-color: #000;
+    color: #fff;
+    box-shadow: none;
+  }
+
+  .program_tab[aria-selected="true"]:hover {
+    filter: brightness(1.12);
+  }
+
+  .faq_item:hover {
+    background-color: #000;
+    color: #fff;
+  }
+
+  .faq_item:hover :is(.text_32_px, .text_22_px) {
+    color: #fff;
+  }
+
+  .faq_item:hover .icon_wrapper img {
+    filter: invert(1);
+  }
+}
+
+:is(.btn_main, .primary-button, .nav_btn_pink, .nav_btn_pink_menu, .nav_btn_pink_close):active {
+  background-color: #e6cf00;
+  color: #000;
+  box-shadow: inset 0 3px 8px #00000026;
+}
+
+:is(.nav_btn, .nav_btn-copy, .pdf_btn):active,
+.program_tab[aria-selected="false"]:active {
+  background-color: #222;
+  color: #fff;
+}
+
+.faq_item:has(.dropdown:active) {
+  background-color: #222;
+  color: #fff;
+}
+
+.faq_item:has(.dropdown:active) :is(.text_32_px, .text_22_px) {
+  color: #fff;
+}
+
+.faq_item:has(.dropdown:active) .icon_wrapper img {
+  filter: invert(1);
+}
+
+:is(.popup_close_btn, .video_sound_toggle):active {
+  background-color: #222;
+}
+
+.text_nav_mob {
+  transition: color 350ms cubic-bezier(.4, 0, .2, 1);
+}
+
+.text_nav_mob:hover,
+.text_nav_mob:focus-visible {
+  color: var(--pink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :is(.btn_main, .primary-button, .nav_btn, .nav_btn-copy, .nav_btn_pink,
+      .nav_btn_pink_menu, .nav_btn_pink_close, .pdf_btn, .popup_close_btn,
+      .video_sound_toggle, .program_tab, .faq_item) {
+    transition: none;
+  }
+}
+
+/* Цвет задаём самой кнопке и наследуем во всех состояниях, чтобы переход
+   не начинался с системного синего цвета ссылки. */
+:is(.nav_btn, .nav_btn-copy, .pdf_btn) {
+  color: var(--black);
+}
+
+:is(.btn_main, .nav_btn_pink, .nav_btn_pink_menu, .nav_btn_pink_close, .popup_close_btn) {
+  color: var(--white);
+}
+
+:is(.btn_main, .nav_btn, .nav_btn-copy, .nav_btn_pink, .nav_btn_pink_menu,
+    .nav_btn_pink_close, .pdf_btn, .popup_close_btn)
+:is(.btn_main_text, .nav_text_btn, .hero_btn, .hero_btn_text, .text_close_btn) {
+  color: inherit;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .skill_section .btn_main:hover {
+    background-color: #000;
+    color: #fff;
+  }
+}
+
+.skill_section .btn_main:active {
+  background-color: #222;
+  color: #fff;
+}
+
+/* Текстовые ссылки: кнопки и логотипы сохраняют собственные состояния. */
+a:where(:not(.btn_main, .primary-button, .nav_btn, .nav_btn-copy, .nav_btn_pink,
+    .nav_btn_pink_menu, .nav_btn_pink_close, .pdf_btn, .popup_close_btn,
+    .logo, .logo-copy, .grade-test-cta a)) {
+  transition: color 350ms cubic-bezier(.4, 0, .2, 1);
+}
+
+a:where(:not(.btn_main, .primary-button, .nav_btn, .nav_btn-copy, .nav_btn_pink,
+    .nav_btn_pink_menu, .nav_btn_pink_close, .pdf_btn, .popup_close_btn,
+    .logo, .logo-copy, .grade-test-cta a)):is(:hover, :focus-visible) {
+  color: var(--pink);
+}
+
+/* На внутренних страницах: оглавление и самостоятельная кнопка теста. */
+.toc-link:focus-visible,
+.grade-test-cta a:focus-visible {
+  outline: 3px solid #7055dc;
+  outline-offset: 4px;
+}
+
+.toc-link:active {
+  background-color: #222;
+  color: #fff;
+}
+
+.grade-test-cta a:active {
+  background-color: #d900cf;
+  color: #fff;
+}
+
+/* Экспорт Tilda задаёт цвета формы локально, поэтому переопределяем их
+   только внутри анкеты, включая инлайновый цвет ссылки согласия. */
+#rec1229576421 .t-btnflex.t-btnflex_type_submit {
+  transition-duration: 350ms;
+  transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+}
+
+#rec1229576421 .t-form__submit .t-submit:focus-visible {
+  outline: 3px solid #ffe600;
+  outline-offset: 4px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #rec1229576421 .t-form__submit .t-submit:hover {
+    background-color: #ffe600;
+    color: #000;
+  }
+}
+
+#rec1229576421 .t-form__submit .t-submit:active {
+  background-color: #e6cf00;
+  color: #000;
+}
+
+#rec1229576421 .t-form__submit .t-submit:is(:hover, :active) .t-btnflex__text {
+  color: inherit;
+}
+
+#rec1229576421 .t678__form-bottom-text a:is(:hover, :focus-visible) {
+  color: #ff14ff !important;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toc-link,
+  .legal-card a,
+  .grade-test-cta a,
+  a:where(:not(.btn_main, .primary-button, .nav_btn, .nav_btn-copy, .nav_btn_pink,
+      .nav_btn_pink_menu, .nav_btn_pink_close, .pdf_btn, .popup_close_btn,
+      .logo, .logo-copy)),
+  #rec1229576421 .t-btnflex.t-btnflex_type_submit {
+    transition: none;
+  }
+}
+
+/* Навигация анкеты использует ту же сетку, что заголовок и поля формы. */
+.t-body {
+  --pink: #ff14ff;
+  --black: #000;
+  --white: #fff;
+}
+
+.anketa_navigation {
+  padding: 24px 0 0;
+  background-color: #000;
+}
+
+.anketa_back {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 24px;
+  border-radius: 100px;
+  background-color: #ff14ff;
+  color: #fff;
+  font: 500 16px/1.2 'TTHovesPro', Arial, sans-serif;
+  text-decoration: none;
+}

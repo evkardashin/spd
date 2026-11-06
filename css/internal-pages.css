@@ -215,7 +215,7 @@ img { display: block; max-width: 100%; }
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
-  transition: color .25s ease;
+  transition: color 350ms cubic-bezier(.4, 0, .2, 1);
 }
 
 .legal-card a:hover { color: var(--pink); }
