@@ -22,21 +22,9 @@
   if ('ResizeObserver' in window) new ResizeObserver(requestProgress).observe(document.body);
   requestProgress();
 
-  var menuButton = document.querySelector('.menu-button');
-  var mobileMenu = document.querySelector('.mobile-menu');
-  if (menuButton && mobileMenu) {
-    menuButton.addEventListener('click', function () {
-      var open = mobileMenu.classList.toggle('is-open');
-      menuButton.setAttribute('aria-expanded', String(open));
-      menuButton.textContent = open ? 'закрыть' : 'менюшка';
-    });
-    mobileMenu.addEventListener('click', function (event) {
-      if (!event.target.closest('a')) return;
-      mobileMenu.classList.remove('is-open');
-      menuButton.setAttribute('aria-expanded', 'false');
-      menuButton.textContent = 'менюшка';
-    });
-  }
+  // Мобильное меню внутренних страниц — это общий с главной попап
+  // #popup-nav-mob, им управляет js/interactions.js через data-popup-*.
+  // Отдельного обработчика здесь не нужно.
 
   var revealItems = document.querySelectorAll('[data-reveal]');
   if (!('IntersectionObserver' in window)) {

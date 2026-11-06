@@ -1,0 +1,510 @@
+/* Независимый слой для параллакса поверх анимаций появления. */
+.pointer_parallax_layer {
+  width: 100%;
+  height: 100%;
+}
+
+/* Держим слои на GPU: большие картинки не перерисовываются на каждом кадре. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [data-parallax-scene],
+  .pointer_parallax_layer {
+    will-change: transform;
+  }
+
+  [data-parallax-self] {
+    will-change: translate;
+  }
+}
+
+/* Управление звуком у видео с автозапуском. */
+.video_player {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.video_player video {
+  display: block;
+}
+
+.video_player video:not([controls]) {
+  cursor: pointer;
+}
+
+.video_sound_toggle {
+  position: absolute;
+  right: 32px;
+  bottom: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 12px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--black-opacity-40);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+
+.video_sound_toggle:hover {
+  background: #0009;
+}
+
+.video_sound_toggle svg {
+  flex-shrink: 0;
+}
+
+.video_sound_toggle[aria-pressed="false"] [data-sound-icon="on"],
+.video_sound_toggle[aria-pressed="true"] [data-sound-icon="off"] {
+  display: none;
+}
+
+.video_sound_toggle:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 4px;
+}
+
+.video_sound_toggle[hidden] {
+  display: none;
+}
+
+.video_section .video_sound_toggle {
+  right: 64px;
+  bottom: 64px;
+}
+
+@media screen and (max-width: 767px) {
+  .video_sound_toggle {
+    right: 12px;
+    bottom: 12px;
+  }
+
+}
+
+/* Программа: темы слева, содержимое выбранной темы справа. */
+#program {
+  scroll-margin-top: 6.25rem;
+}
+
+.program_tabs {
+  display: grid;
+  grid-template-columns: minmax(0, 57.375rem) minmax(0, 58.125rem);
+  gap: 2rem;
+  width: 100%;
+  min-height: min(65rem, calc(100vh - 15.5rem));
+  /* Равен расстоянию от предыдущей секции до заголовка программы. */
+  margin-bottom: 49.63rem;
+  padding: 0 1.25rem;
+  color: var(--black);
+  font-variation-settings: "slnt" 0, "CNTR" 0;
+}
+
+.program_tabs_list {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: start;
+  align-self: start;
+  gap: .5rem;
+}
+
+.program_tab {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: .875rem;
+  min-height: 11.625rem;
+  padding: 1.5rem;
+  border: 0;
+  border-radius: 1.5rem;
+  background-color: var(--f5f5f5);
+  color: var(--black);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 240ms ease;
+}
+
+.program_tab[aria-selected="true"] {
+  background-image: url('../images/active-card-bg.png');
+  background-position: 50% 50%;
+  background-size: cover;
+  color: var(--white);
+}
+
+.program_tab:focus-visible,
+.program_panel:focus-visible {
+  outline: 3px solid var(--black);
+  outline-offset: -3px;
+}
+
+.program_tab_top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: .75rem;
+}
+
+.program_tab_img {
+  flex: none;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: .75rem;
+  object-fit: cover;
+}
+
+.program_tab_meta {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.program_tab_arrow {
+  display: none;
+  flex: none;
+  justify-content: center;
+  align-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background-color: #fff3;
+}
+
+.program_tab_arrow img {
+  width: 1.5rem;
+  height: 1.5rem;
+  filter: invert(1);
+}
+
+.program_tab[aria-selected="true"] .program_tab_arrow {
+  display: flex;
+}
+
+.program_week_pill {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  height: 2.75rem;
+  padding: 0 1rem;
+  border-radius: 100px;
+  background-color: #bfbfbf33;
+  font-size: max(1.25rem, 14px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -.01em;
+  white-space: nowrap;
+}
+
+.program_tab[aria-selected="true"] .program_week_pill {
+  background-color: #fff3;
+}
+
+.program_tab_text {
+  display: flex;
+  flex-direction: column;
+  gap: .375rem;
+  line-height: 1.1;
+  letter-spacing: -.01em;
+}
+
+.program_tab_title {
+  font-size: max(1.375rem, 15px);
+  font-weight: 500;
+}
+
+.program_tab_desc {
+  font-size: max(1.25rem, 14px);
+  opacity: .7;
+}
+
+.program_tabs_content {
+  position: relative;
+  min-width: 0;
+  border-radius: 1.5rem;
+  background-color: var(--f5f5f5);
+  overflow: hidden;
+}
+
+.program_panel {
+  position: absolute;
+  inset: 0;
+  padding: 3rem;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+
+/* Скроллбар виден постоянно: системный на macOS прячется, и панель
+   не выглядит прокручиваемой. Прозрачная рамка отодвигает его от края. */
+.program_panel::-webkit-scrollbar {
+  width: 22px;
+}
+
+.program_panel::-webkit-scrollbar-track {
+  margin: 1.5rem 0;
+  border: 7px solid transparent;
+  border-radius: 100px;
+  background-color: #00000052;
+  background-clip: padding-box;
+}
+
+.program_panel::-webkit-scrollbar-thumb {
+  border: 7px solid transparent;
+  border-radius: 100px;
+  background-color: var(--white);
+  background-clip: padding-box;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  .program_panel {
+    scrollbar-color: var(--white) #00000052;
+  }
+}
+
+.program_panel[hidden] {
+  display: none;
+}
+
+.program_panel_head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.program_panel_title {
+  max-width: 37.875rem;
+  margin: 0;
+  font-size: 5rem;
+  font-variation-settings: "CNTR" 0, "slnt" 0, "wdth" 60;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -.01em;
+  text-transform: uppercase;
+}
+
+.program_panel_lead {
+  max-width: 37.875rem;
+  margin: 0;
+  font-size: max(1.375rem, 15px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -.01em;
+}
+
+.program_panel_cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 23.875rem));
+  gap: 2.5rem 1.5rem;
+}
+
+.program_panel_card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 0;
+}
+
+.program_panel_card_img {
+  width: 14.75rem;
+  max-width: 100%;
+  aspect-ratio: 236 / 143;
+  border-radius: 1.5rem;
+  background-color: #d9d9d9;
+  object-fit: cover;
+}
+
+.program_panel_card_text {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  min-width: 0;
+}
+
+.program_panel_card_title {
+  margin: 0;
+  font-size: max(2rem, 18px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -.01em;
+}
+
+.program_panel_card_desc {
+  margin: 0;
+  font-size: max(1rem, 14px);
+  line-height: 1.2;
+  letter-spacing: -.01em;
+}
+
+@media (hover: hover) {
+  .program_tab[aria-selected="false"]:hover {
+    background-color: #ebebeb;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .program_tabs_list {
+    scroll-behavior: smooth;
+  }
+
+  .program_panel:not([hidden]) {
+    animation: program-panel-in 280ms ease both;
+  }
+}
+
+@keyframes program-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(.75rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Ниже 992px rem сайта становится слишком мелким, поэтому размеры считаем
+   от --program-unit; на телефоне он снова равен rem. */
+@media screen and (max-width: 991px) {
+  .program_tabs {
+    --program-unit: 16px;
+    display: block;
+    min-height: 0;
+    margin-bottom: calc(var(--program-unit) * 18.625);
+    padding: 0;
+  }
+
+  .program_tabs_list {
+    display: flex;
+    gap: calc(var(--program-unit) * .5);
+    padding: 0 calc(var(--program-unit) * 1.25);
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: calc(var(--program-unit) * 1.25);
+    scrollbar-width: none;
+  }
+
+  .program_tabs_list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .program_tab {
+    flex: 0 0 calc(var(--program-unit) * 15);
+    gap: calc(var(--program-unit) * .75);
+    min-height: 0;
+    padding: var(--program-unit);
+    border-radius: calc(var(--program-unit) * 1.25);
+    scroll-snap-align: center;
+  }
+
+  .program_tab_top {
+    gap: calc(var(--program-unit) * .5);
+  }
+
+  .program_tab_img {
+    width: calc(var(--program-unit) * 3.5);
+    height: calc(var(--program-unit) * 3.5);
+    border-radius: calc(var(--program-unit) * .75);
+  }
+
+  .program_tab_meta {
+    gap: calc(var(--program-unit) * .25);
+  }
+
+  .program_tab_arrow {
+    width: calc(var(--program-unit) * 2.25);
+    height: calc(var(--program-unit) * 2.25);
+  }
+
+  .program_tab_arrow img {
+    width: calc(var(--program-unit) * 1.25);
+    height: calc(var(--program-unit) * 1.25);
+  }
+
+  .program_week_pill {
+    height: calc(var(--program-unit) * 2.25);
+    padding: 0 calc(var(--program-unit) * .75);
+    font-size: calc(var(--program-unit) * .875);
+  }
+
+  .program_tab_text {
+    gap: calc(var(--program-unit) * .25);
+  }
+
+  .program_tab_title {
+    font-size: calc(var(--program-unit) * 1.125);
+  }
+
+  .program_tab_desc {
+    font-size: max(calc(var(--program-unit) * .9375), 13px);
+  }
+
+  .program_tabs_content {
+    margin: var(--program-unit) calc(var(--program-unit) * 1.25) 0;
+    border-radius: calc(var(--program-unit) * 1.25);
+    overflow: visible;
+  }
+
+  .program_panel {
+    position: static;
+    padding: calc(var(--program-unit) * 1.5);
+    overflow: visible;
+  }
+
+  .program_panel_head {
+    gap: var(--program-unit);
+    margin-bottom: calc(var(--program-unit) * 1.75);
+  }
+
+  .program_panel_title {
+    max-width: none;
+    font-size: calc(var(--program-unit) * 2.75);
+  }
+
+  .program_panel_lead {
+    max-width: none;
+    font-size: calc(var(--program-unit) * 1.125);
+  }
+
+  .program_panel_cards {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, calc(var(--program-unit) * 20)), 1fr));
+    gap: calc(var(--program-unit) * 1.25);
+  }
+
+  .program_panel_card {
+    flex-direction: row;
+    gap: var(--program-unit);
+  }
+
+  .program_panel_card_img {
+    flex: none;
+    width: calc(var(--program-unit) * 6);
+    height: calc(var(--program-unit) * 6);
+    aspect-ratio: auto;
+    border-radius: var(--program-unit);
+  }
+
+  .program_panel_card_text {
+    gap: calc(var(--program-unit) * .375);
+  }
+
+  .program_panel_card_title {
+    font-size: calc(var(--program-unit) * 1.125);
+  }
+
+  .program_panel_card_desc {
+    font-size: max(calc(var(--program-unit) * .875), 13px);
+  }
+}
+
+@media screen and (max-width: 479px) {
+  .program_tabs {
+    --program-unit: 1rem;
+  }
+}

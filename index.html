@@ -227,7 +227,17 @@ html { font-size: 1rem; }
                 </div>
               </div>
             </div>
-            <div class="hero_img-wrapper" data-hero-el="desktop-img"><img src="images/hero-img.avif" loading="lazy" sizes="(max-width: 2000px) 100vw, 2000px" srcset="images/3bd079077d14152bd0c789f67e9510f3_hero-img-p-500.avif 500w, images/3bd079077d14152bd0c789f67e9510f3_hero-img-p-800.avif 800w, images/3bd079077d14152bd0c789f67e9510f3_hero-img-p-1080.avif 1080w, images/3bd079077d14152bd0c789f67e9510f3_hero-img-p-1600.avif 1600w, images/hero-img.avif 2000w" alt="" class="image-3"></div>
+            <div class="hero_img-wrapper" data-hero-el="desktop-img">
+              <div class="video_player w-embed" data-video-player>
+                <video controls autoplay muted loop playsinline poster="images/hero-img.avif" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                  <source src="https://res.cloudinary.com/ahdvou7p/video/upload/v1783426049/1fff25d8bce494d291fa92ce9a9efd703ef72e35_wdkpwy.mp4" type="video/mp4">
+                </video>
+                <button class="video_sound_toggle" type="button" data-video-sound aria-label="Звук видео на первом экране" aria-pressed="false" hidden>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-sound-icon="on" aria-hidden="true" focusable="false"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.364 18.364a9 9 0 0 0 0-12.728"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-sound-icon="off" aria-hidden="true" focusable="false"><path d="M11 4.702a.7.7 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.7.7 0 0 0 11 19.298z"/><path d="m16.5 14.5 5-5"/><path d="m16.5 9.5 5 5"/></svg>
+                </button>
+              </div>
+            </div>
             <div class="hero_imgs_wrapper">
               <div class="hero_img_mob-1" data-hero-el="mob-img-1"><img src="images/Rectangle-2087329035.avif" loading="lazy" sizes="(max-width: 790px) 100vw, 790px" srcset="images/Rectangle-2087329035-p-500.avif 500w, images/Rectangle-2087329035.avif 790w" alt="" class="image-3"></div>
               <div class="hero_img_mob-2" data-hero-el="mob-img-2">
@@ -253,14 +263,14 @@ html { font-size: 1rem; }
     <div class="stories_section">
       <div class="container">
         <div class="stories_padding">
-          <div class="stories_heading-wrapper mb-40">
+          <div class="stories_heading-wrapper mb-40" data-parallax-scene>
             <h2 id="">
-              <div class="text_like_h1 stories_heading-1" data-stories-el="heading">У нас 120+ </div>
-              <div class="text_like_h1 stories_heading-2" data-stories-el="heading">трудоустройств </div>
-              <div class="text_like_h1 stories_heading-3" data-stories-el="heading">за 2 года </div>
+              <div class="text_like_h1 stories_heading-1" data-stories-el="heading" data-parallax="5" data-parallax-self>У нас 120+ </div>
+              <div class="text_like_h1 stories_heading-2" data-stories-el="heading" data-parallax="5" data-parallax-self>трудоустройств </div>
+              <div class="text_like_h1 stories_heading-3" data-stories-el="heading" data-parallax="5" data-parallax-self>за 2 года </div>
             </h2>
-            <div class="earth_wrapper" data-stories-el="icon"><img src="images/earth.svg" loading="lazy" alt=""></div>
-            <div class="bag_wrapper" data-stories-el="icon"><img src="images/bag.svg" loading="lazy" alt=""></div>
+            <div class="earth_wrapper" data-stories-el="icon" data-parallax="18"><img src="images/earth.svg" loading="lazy" alt=""></div>
+            <div class="bag_wrapper" data-stories-el="icon" data-parallax="-24"><img src="images/bag.svg" loading="lazy" alt=""></div>
           </div>
           <div class="stories_content_wrapper">
             <div class="stories_line-wrapper mb-80">
@@ -377,31 +387,31 @@ html { font-size: 1rem; }
     <div class="plan_section">
       <div class="container">
         <div class="plan_padding">
-          <div class="plan_gradient-bg"><img src="images/plan-gradient-bg.avif" loading="lazy" alt="" class="image-3 display-none">
-            <div class="plan_cart_wrapper _1 rotate-9" data-plan-el="card"><img src="images/plan-cart.avif" loading="lazy" sizes="(max-width: 848px) 100vw, 848px" srcset="images/plan-cart-p-500.avif 500w, images/plan-cart.avif 848w" alt="" class="image-3 display-none">
+          <div class="plan_gradient-bg" data-parallax-scene><img src="images/plan-gradient-bg.avif" loading="lazy" alt="" class="image-3 display-none">
+            <div class="plan_cart_wrapper _1 rotate-9" data-plan-el="card" data-parallax="20" data-parallax-self><img src="images/plan-cart.avif" loading="lazy" sizes="(max-width: 848px) 100vw, 848px" srcset="images/plan-cart-p-500.avif 500w, images/plan-cart.avif 848w" alt="" class="image-3 display-none">
               <div class="plan_cart_text_wrapper width-178">
                 <h3 class="plan_cart_text width-104">Школа<br>маленькая, <br>поток ограничен</h3>
               </div>
             </div>
-            <div class="plan_cart_wrapper _2 rotate-9" data-plan-el="card"><img src="images/plan-cart.avif" loading="lazy" sizes="(max-width: 848px) 100vw, 848px" srcset="images/plan-cart-p-500.avif 500w, images/plan-cart.avif 848w" alt="" class="image-3 display-none">
+            <div class="plan_cart_wrapper _2 rotate-9" data-plan-el="card" data-parallax="-24" data-parallax-self><img src="images/plan-cart.avif" loading="lazy" sizes="(max-width: 848px) 100vw, 848px" srcset="images/plan-cart-p-500.avif 500w, images/plan-cart.avif 848w" alt="" class="image-3 display-none">
               <div class="plan_cart_text_wrapper width-159">
                 <h3 class="plan_cart_text width-104">На ассессмент берём всех, там и решаем, подходим ли<br> друг другу</h3>
               </div>
             </div>
-            <div class="plan_cart_wrapper _3 rotate-9" data-plan-el="card"><img src="images/plan-cart.avif" loading="lazy" sizes="(max-width: 848px) 100vw, 848px" srcset="images/plan-cart-p-500.avif 500w, images/plan-cart.avif 848w" alt="" class="image-3 display-none">
+            <div class="plan_cart_wrapper _3 rotate-9" data-plan-el="card" data-parallax="20" data-parallax-self><img src="images/plan-cart.avif" loading="lazy" sizes="(max-width: 848px) 100vw, 848px" srcset="images/plan-cart-p-500.avif 500w, images/plan-cart.avif 848w" alt="" class="image-3 display-none">
               <div class="plan_cart_text_wrapper width-159">
                 <h3 class="plan_cart_text width-104">Уйдёте с письменным планом на 3–6 месяцев</h3>
               </div>
             </div>
-            <div class="plan_test_wrapper" data-plan-el="visual"><img src="images/plan-test.avif" loading="lazy" sizes="(max-width: 2912px) 100vw, 2912px" srcset="images/plan-test-p-500.avif 500w, images/plan-test-p-800.avif 800w, images/plan-test-p-1080.avif 1080w, images/plan-test-p-1600.avif 1600w, images/plan-test-p-2000.avif 2000w, images/plan-test.avif 2912w" alt="" class="image-3 display-none"><img src="images/test.avif" loading="lazy" sizes="100vw" srcset="images/test-p-500.avif 500w, images/test-p-800.avif 800w, images/test-p-1080.avif 1080w, images/test-p-1600.avif 1600w, images/test.avif 2008w" alt="" class="plan_test_img_mob"></div>
-            <div class="plan_heading_wrapper">
+            <div class="plan_test_wrapper" data-plan-el="visual" data-parallax="-10" data-parallax-self><img src="images/plan-test.avif" loading="lazy" sizes="(max-width: 2912px) 100vw, 2912px" srcset="images/plan-test-p-500.avif 500w, images/plan-test-p-800.avif 800w, images/plan-test-p-1080.avif 1080w, images/plan-test-p-1600.avif 1600w, images/plan-test-p-2000.avif 2000w, images/plan-test.avif 2912w" alt="" class="image-3 display-none"><img src="images/test.avif" loading="lazy" sizes="100vw" srcset="images/test-p-500.avif 500w, images/test-p-800.avif 800w, images/test-p-1080.avif 1080w, images/test-p-1600.avif 1600w, images/test.avif 2008w" alt="" class="plan_test_img_mob"></div>
+            <div class="plan_heading_wrapper" data-parallax="5" data-parallax-self>
               <h2 class="plan_heading white" data-plan-el="heading">Хотите получить персональный план?</h2>
               <div class="text_small white" data-plan-el="heading">40 минут с экспертом<br>из бигтеха бесплатно</div>
             </div>
-            <a href="anketa/Анкета.html" class="btn_main width-612 height-194 absolute w-inline-block" data-plan-el="cta">
+            <a href="anketa/Анкета.html" class="btn_main width-612 height-194 absolute w-inline-block" data-plan-el="cta" data-parallax="5" data-parallax-self>
               <div class="btn_main_text">Записаться на разбор навыков</div>
             </a>
-            <div class="plan_description_wrapper">
+            <div class="plan_description_wrapper" data-parallax="6" data-parallax-self>
               <div class="text_30_px" data-plan-el="heading">Уйдёте с письменным<br>планом на 3–6 месяцев</div>
             </div>
           </div>
@@ -411,10 +421,10 @@ html { font-size: 1rem; }
     <div class="crisis_section">
       <div class="container">
         <div class="crisis_padding">
-          <div class="crisis_content_wrapper">
-            <h2 class="text_large width-1605" data-crisis-el="heading">мы продолжаем устраивать ребят в крутые компании несмотря на кризис найма</h2>
-            <div class="heart_img_wrapper" data-crisis-el="icon"><img src="images/heart.svg" loading="lazy" alt=""></div>
-            <div class="man_img_wrapper" data-crisis-el="icon"><img src="images/man.svg" loading="lazy" alt=""></div>
+          <div class="crisis_content_wrapper" data-parallax-scene>
+            <h2 class="text_large width-1605" data-crisis-el="heading" data-parallax="5" data-parallax-self>мы продолжаем устраивать ребят в крутые компании несмотря на кризис найма</h2>
+            <div class="heart_img_wrapper" data-crisis-el="icon" data-parallax="16"><img src="images/heart.svg" loading="lazy" alt=""></div>
+            <div class="man_img_wrapper" data-crisis-el="icon" data-parallax="-22"><img src="images/man.svg" loading="lazy" alt=""></div>
           </div>
         </div>
       </div>
@@ -423,15 +433,15 @@ html { font-size: 1rem; }
       <div class="container">
         <div class="mentor_padding">
           <div class="mentor_content_wrapper">
-            <div class="mentor_heading_wrapper">
+            <div class="mentor_heading_wrapper" data-parallax-scene>
               <h2 id="">
-                <div class="text_like_h1 mentor_heading-1" data-mentor-el="heading">наши<br></div>
-                <div class="text_like_h1 mentor_heading-2" data-mentor-el="heading">понтовые</div>
-                <div class="text_like_h1 mentor_heading-3" data-mentor-el="heading">менторы</div>
+                <div class="text_like_h1 mentor_heading-1" data-mentor-el="heading" data-parallax="5" data-parallax-self>наши<br></div>
+                <div class="text_like_h1 mentor_heading-2" data-mentor-el="heading" data-parallax="5" data-parallax-self>понтовые</div>
+                <div class="text_like_h1 mentor_heading-3" data-mentor-el="heading" data-parallax="5" data-parallax-self>менторы</div>
               </h2>
-              <div class="text_small width-491" data-mentor-el="heading">Действующие синьоры. Не выпускники прошлого потока</div>
-              <div class="oscar_img_wrapper" data-mentor-el="icon"><img src="images/oscar.svg" loading="lazy" alt=""></div>
-              <div class="book_img_wrapper" data-mentor-el="icon"><img src="images/book.svg" loading="lazy" alt=""></div>
+              <div class="text_small width-491" data-mentor-el="heading" data-parallax="5" data-parallax-self>Действующие синьоры. Не выпускники прошлого потока</div>
+              <div class="oscar_img_wrapper" data-mentor-el="icon" data-parallax="20"><img src="images/oscar.svg" loading="lazy" alt=""></div>
+              <div class="book_img_wrapper" data-mentor-el="icon" data-parallax="-16"><img src="images/book.svg" loading="lazy" alt=""></div>
             </div>
             <div class="mentor_carts_wrapper mb-32">
               <div class="w-layout-grid mentor_grid">
@@ -577,12 +587,12 @@ html { font-size: 1rem; }
       <div class="container">
         <div class="consultation_padding">
           <div class="consultation_content_wrapper">
-            <div class="consultation_heading_wrapper">
-              <h2 class="text_like_h1" data-consultation-el="heading">консультации<br> 1:1 и в минигруппах <br>2-3 чел</h2>
-              <div class="text_small width-373" data-consultation-el="heading">Никаких лумов и комментариев в фигме, только живая ОС</div>
-              <div class="cheli_img_wrapper" data-consultation-el="icon"><img src="images/cheli.svg" loading="lazy" alt="" class="image-3"></div>
-              <div class="hand_img_wrapper" data-consultation-el="icon"><img src="images/hand.svg" loading="lazy" alt="" class="image-3"></div>
-              <div class="mouth_img_wrapper" data-consultation-el="icon"><img src="images/mouth.svg" loading="lazy" alt="" class="image-3"></div>
+            <div class="consultation_heading_wrapper" data-parallax-scene>
+              <h2 class="text_like_h1" data-consultation-el="heading" data-parallax="5" data-parallax-self>консультации<br> 1:1 и в минигруппах <br>2-3 чел</h2>
+              <div class="text_small width-373" data-consultation-el="heading" data-parallax="5" data-parallax-self>Никаких лумов и комментариев в фигме, только живая ОС</div>
+              <div class="cheli_img_wrapper" data-consultation-el="icon" data-parallax="18"><img src="images/cheli.svg" loading="lazy" alt="" class="image-3"></div>
+              <div class="hand_img_wrapper" data-consultation-el="icon" data-parallax="-24"><img src="images/hand.svg" loading="lazy" alt="" class="image-3"></div>
+              <div class="mouth_img_wrapper" data-consultation-el="icon" data-parallax="14"><img src="images/mouth.svg" loading="lazy" alt="" class="image-3"></div>
             </div>
             <div class="consultation_carts_wrapper mb-20">
               <div class="carts_swiper_track">
@@ -635,15 +645,15 @@ html { font-size: 1rem; }
       <div class="container">
         <div class="case_padding">
           <div class="case_content_wrapper">
-            <div class="case_heading_wrapper mb-80">
+            <div class="case_heading_wrapper mb-80" data-parallax-scene>
               <h2 id="">
-                <div class="text_like_h1 case_heading-1" data-case-el="heading">студенты делают</div>
-                <div class="text_like_h1" data-case-el="heading">уникальные кейсы</div>
+                <div class="text_like_h1 case_heading-1" data-case-el="heading" data-parallax="5" data-parallax-self>студенты делают</div>
+                <div class="text_like_h1" data-case-el="heading" data-parallax="5" data-parallax-self>уникальные кейсы</div>
               </h2>
-              <div class="text_small width-471" data-case-el="heading">У каждого студента свои темы. не одинаковая маслоочистка на 700 человек</div>
-              <div class="scream_img_wrapper" data-case-el="icon"><img src="images/scream.svg" loading="lazy" alt="" class="image-3"></div>
-              <div class="brush_img_wrapper" data-case-el="icon"><img src="images/brush.svg" loading="lazy" alt="" class="image-3"></div>
-              <div class="heart_img_wrapper-2" data-case-el="icon"><img src="images/heart.svg" loading="lazy" alt="" class="image-3"></div>
+              <div class="text_small width-471" data-case-el="heading" data-parallax="5" data-parallax-self>У каждого студента свои темы. не одинаковая маслоочистка на 700 человек</div>
+              <div class="scream_img_wrapper" data-case-el="icon" data-parallax="18"><img src="images/scream.svg" loading="lazy" alt="" class="image-3"></div>
+              <div class="brush_img_wrapper" data-case-el="icon" data-parallax="-22"><img src="images/brush.svg" loading="lazy" alt="" class="image-3"></div>
+              <div class="heart_img_wrapper-2" data-case-el="icon" data-parallax="14"><img src="images/heart.svg" loading="lazy" alt="" class="image-3"></div>
             </div>
             <div class="w-layout-grid case_grid mb-80">
               <div class="case_cart_wrapper" data-case-el="card">
@@ -717,30 +727,29 @@ html { font-size: 1rem; }
     <div class="move_section">
       <div class="container">
         <div class="move_padding">
-          <div class="move_content_wrapper">
+          <div class="move_content_wrapper" data-parallax-scene="7">
             <h2 id="" class="move_heading_wrapper mb-46">
-              <div class="text_like_h1 move_heading-1" data-move-el="heading">Даем много живой </div>
-              <div class="text_like_h1" data-move-el="heading">движухи и обратной связи</div>
-              <div class="ear_img_wrapper" data-move-el="icon"><img src="images/ear.svg" loading="lazy" alt="" class="image-3"></div>
-              <div class="girl_img_wrapper" data-move-el="icon"><img src="images/girl.svg" loading="lazy" alt="" class="image-3"></div>
+              <div class="text_like_h1 move_heading-1" data-move-el="heading" data-parallax="5" data-parallax-self>Даем много живой </div>
+              <div class="text_like_h1" data-move-el="heading" data-parallax="5" data-parallax-self>движухи и обратной связи</div>
+              <div class="ear_img_wrapper" data-move-el="icon" data-parallax="22"><img src="images/ear.svg" loading="lazy" alt="" class="image-3"></div>
+              <div class="girl_img_wrapper" data-move-el="icon" data-parallax="-18"><img src="images/girl.svg" loading="lazy" alt="" class="image-3"></div>
             </h2>
-            <!-- phone_img_wrapper всегда стоит в дефолтной позиции, не анимируется.
-                 Остальные 4 картинки "разлетаются" от неё и собираются в дефолт
-                 при скролле — см. js/move-animation.js -->
+            <!-- Телефон и карточки двигаются отдельными слоями от мыши.
+                 Анимация появления карточек — js/move-animation.js. -->
             <div class="move_img_wrapper">
-              <div class="phone_img_wrapper"><img src="images/phone.avif" loading="lazy" sizes="100vw" srcset="images/phone-p-500.avif 500w, images/phone-p-800.avif 800w, images/phone.avif 975w" alt="" class="image-3"></div>
-              <div class="move_cart_wrapper _1" data-move-el="scatter-1"><img src="images/move-cart.avif" loading="lazy" sizes="(max-width: 848px) 100vw, 848px" srcset="images/move-cart-p-500.avif 500w, images/move-cart.avif 848w" alt="" class="image-3">
+              <div class="phone_img_wrapper" data-parallax="-10" data-parallax-self><img src="images/phone.avif" loading="lazy" sizes="100vw" srcset="images/phone-p-500.avif 500w, images/phone-p-800.avif 800w, images/phone.avif 975w" alt="" class="image-3"></div>
+              <div class="move_cart_wrapper _1" data-move-el="scatter-1" data-parallax="24" data-parallax-self><img src="images/move-cart.avif" loading="lazy" sizes="(max-width: 848px) 100vw, 848px" srcset="images/move-cart-p-500.avif 500w, images/move-cart.avif 848w" alt="" class="image-3">
                 <div class="move_cart_text_wrapper width-182">
                   <h3 class="plan_cart_text color-white">каждые две недели проходят разборы портфолио в зуме</h3>
                 </div>
               </div>
-              <div class="move_cart_wrapper _2" data-move-el="scatter-2"><img src="images/move-cart-2.avif" loading="lazy" sizes="(max-width: 848px) 100vw, 848px" srcset="images/move-cart-2-p-500.avif 500w, images/move-cart-2.avif 848w" alt="" class="image-3">
+              <div class="move_cart_wrapper _2" data-move-el="scatter-2" data-parallax="-22" data-parallax-self><img src="images/move-cart-2.avif" loading="lazy" sizes="(max-width: 848px) 100vw, 848px" srcset="images/move-cart-2-p-500.avif 500w, images/move-cart-2.avif 848w" alt="" class="image-3">
                 <div class="move_cart_text_wrapper width-172">
                   <h3 class="plan_cart_text color-white">в чате отвечают дизайнеры из бигтеха</h3>
                 </div>
               </div>
-              <div class="chuvaki_img_wrapper" data-move-el="scatter-3"><img src="images/Group-2136140716.avif" loading="lazy" alt="" class="image-3"></div>
-              <div class="move_author_wrapper" data-move-el="scatter-4"><img src="images/ane4ka.avif" loading="lazy" alt="">
+              <div class="chuvaki_img_wrapper" data-move-el="scatter-3" data-parallax="-18" data-parallax-self><img src="images/Group-2136140716.avif" loading="lazy" alt="" class="image-3"></div>
+              <div class="move_author_wrapper" data-move-el="scatter-4" data-parallax="18" data-parallax-self><img src="images/ane4ka.avif" loading="lazy" alt="">
                 <div class="move_logo_wrapper"><img src="images/belka.svg" loading="lazy" alt="" class="image-3"></div>
                 <div class="name_move_author">
                   <div class="mentor_name">Анечка</div>
@@ -755,10 +764,10 @@ html { font-size: 1rem; }
       <div class="container">
         <div class="workshop_padding">
           <div class="workshop_content_wrapper">
-            <div class="workshop_heading_wrapper mb-80">
-              <h2 class="text_like_h1" data-workshop-el="heading">13 воркшопов<br>с лидерами индустрии<br></h2>
-              <div class="roller_img_wrapper" data-workshop-el="icon"><img src="images/roller.svg" loading="lazy" alt="" class="image-3"></div>
-              <div class="pickaxe_img_wrapper" data-workshop-el="icon"><img src="images/pickaxe.svg" loading="lazy" alt="" class="image-3"></div>
+            <div class="workshop_heading_wrapper mb-80" data-parallax-scene>
+              <h2 class="text_like_h1" data-workshop-el="heading" data-parallax="5" data-parallax-self>13 воркшопов<br>с лидерами индустрии<br></h2>
+              <div class="roller_img_wrapper" data-workshop-el="icon" data-parallax="20"><img src="images/roller.svg" loading="lazy" alt="" class="image-3"></div>
+              <div class="pickaxe_img_wrapper" data-workshop-el="icon" data-parallax="-24"><img src="images/pickaxe.svg" loading="lazy" alt="" class="image-3"></div>
             </div>
             <div class="w-layout-grid workshop_grid">
               <div class="workshop_cart_wrapper" data-workshop-el="card">
@@ -824,155 +833,440 @@ html { font-size: 1rem; }
       </div>
     </div>
     <div class="gradient_section_wrapper">
-      <div id="program" class="program_section">
+      <div class="program_section">
         <div class="container">
           <div class="program_padding">
             <div class="program_content_wrapper">
-              <div class="program_intro_stack">
-                <div class="program_intro_sticky">
-                <div class="program_heading_wrapper mb-40">
-                  <h2 class="text_large color-white" data-program-el="heading-1">наша программка </h2>
-                  <h3 class="text_like_h1 color-white width-335" data-program-el="heading-1">продуктовый дизайн</h3>
-                </div>
-                <div class="program_img_wrapper mb-24">
-                  <div class="chel_img_wrapper" data-program-el="icon-1"><img src="images/chel.svg" loading="lazy" alt="" class="image-3"></div>
-                  <div class="first_img_wrapper" data-program-el="icon-1"><img src="images/1.svg" loading="lazy" alt="" class="image-3"></div>
-                  <div class="brush-white_img_wrapper" data-program-el="icon-1"><img src="images/brush-white.svg" loading="lazy" alt="" class="image-3"></div>
-                </div>
-                <div class="program_description_wrapper mb-56" data-program-el="heading-1">
-                  <div class="text_like_h1 color-white">модуль</div>
-                  <div class="text_small color-white width-379">за 48 недель вы пройдёте путь, который джун проходит 3-5 лет<br></div>
-                </div>
-                </div>
-                <div class="program_carts_wrapper mb-527">
-                <div class="program_cart_wrapper" data-program-el="cards-1" data-popup-open="popup-program" data-program-page="product-metrics">
-                  <div class="program_cart_img_wrapper _1"><img src="images/img-1.avif" loading="lazy" sizes="100vw" srcset="images/img-1-p-500.avif 500w, images/img-1.avif 679w" alt="" class="image-3 display-none"></div>
-                  <div class="program_cart_info_wrapper">
-                    <div class="cart_info_content_wrapper">
-                      <div class="program_text_2_wrapper">
-                        <div class="program_cart_text-1">Продукт и метрики</div>
-                        <div class="program_cart_text_description-1">Принимайте решения на базе метрик</div>
-                      </div>
-                      <div class="btn_program_cart_wrapper-1">
-                        <div class="arrow_wrapper-1">
-                          <div class="arrow_size_wrapper"><img src="images/arrow-right.svg" loading="lazy" alt="" class="image-3"></div>
-                        </div>
-                        <div class="program_week_wrapper">
-                          <div class="text_week">6-10 нед</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="program_cart_wrapper" data-program-el="cards-1" data-popup-open="popup-program" data-program-page="research">
-                  <div class="program_cart_img_wrapper _2"><img src="images/img-2.avif" loading="lazy" sizes="100vw" srcset="images/img-2-p-500.avif 500w, images/img-2.avif 681w" alt="" class="image-3 display-none"></div>
-                  <div class="program_cart_info_wrapper">
-                    <div class="cart_info_content_wrapper">
-                      <div class="program_text_2_wrapper">
-                        <div class="program_cart_text-1">Исследования</div>
-                        <div class="program_cart_text_description-1">Понимайте систему</div>
-                      </div>
-                      <div class="btn_program_cart_wrapper-1">
-                        <div class="arrow_wrapper-1">
-                          <div class="arrow_size_wrapper"><img src="images/arrow-right.svg" loading="lazy" alt="" class="image-3"></div>
-                        </div>
-                        <div class="program_week_wrapper">
-                          <div class="text_week">11-12 нед</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="program_cart_wrapper" data-program-el="cards-1" data-popup-open="popup-program" data-program-page="scenarios">
-                  <div class="program_cart_img_wrapper _3"><img src="images/img-3.avif" loading="lazy" sizes="100vw" srcset="images/img-3-p-500.avif 500w, images/img-3.avif 677w" alt="" class="image-3 display-none"></div>
-                  <div class="program_cart_info_wrapper">
-                    <div class="cart_info_content_wrapper">
-                      <div class="program_text_2_wrapper">
-                        <div class="program_cart_text-1 width-144">Проектирование сценариев</div>
-                        <div class="program_cart_text_description-1">Научиться проектировать сценарии</div>
-                      </div>
-                      <div class="btn_program_cart_wrapper-1">
-                        <div class="arrow_wrapper-1">
-                          <div class="arrow_size_wrapper"><img src="images/arrow-right.svg" loading="lazy" alt="" class="image-3"></div>
-                        </div>
-                        <div class="program_week_wrapper">
-                          <div class="text_week">13-14 нед</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="program_cart_wrapper" data-program-el="cards-1" data-popup-open="popup-program" data-program-page="ui-gaps">
-                  <div class="program_cart_img_wrapper _4"><img src="images/img-4.avif" loading="lazy" sizes="100vw" srcset="images/img-4-p-500.avif 500w, images/img-4.avif 680w" alt="" class="image-3 display-none"></div>
-                  <div class="program_cart_info_wrapper">
-                    <div class="cart_info_content_wrapper">
-                      <div class="program_text_2_wrapper">
-                        <div class="program_cart_text-1">Закрыть пробелы [ui]</div>
-                        <div class="program_cart_text_description-1">Перестать делать ошибки</div>
-                      </div>
-                      <div class="btn_program_cart_wrapper-1">
-                        <div class="arrow_wrapper-1">
-                          <div class="arrow_size_wrapper"><img src="images/arrow-right.svg" loading="lazy" alt="" class="image-3"></div>
-                        </div>
-                        <div class="program_week_wrapper">
-                          <div class="text_week">15-16 нед</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                </div>
+              <div id="program" class="program_heading_wrapper mb-40">
+                <h2 class="text_large color-white" data-program-el="heading-1">наша программка </h2>
               </div>
-              <div class="offer_heading_wrapper mb-40">
-                <h2 class="text_like_h1 color-white width-452" data-program-el="heading-2">трудоустройство до оффера</h2>
-              </div>
-              <div class="program_img_wrapper mb-24">
-                <div class="folder_img_wrapper" data-program-el="icon-2"><img src="images/folder.svg" loading="lazy" alt="" class="image-3"></div>
-                <div class="second_img_wrapper" data-program-el="icon-2"><img src="images/22.svg" loading="lazy" alt="" class="image-3"></div>
-                <div class="white_bag_img_wrapper" data-program-el="icon-2"><img src="images/bag-white_1.svg" loading="lazy" alt="" class="image-3"></div>
-              </div>
-              <div class="program_description_wrapper mb-56" data-program-el="heading-2">
-                <div class="text_like_h1 color-white">модуль</div>
-                <div class="text_small color-white width-379">6 месяцев учим трудоустройству + поддержка до оффера</div>
-              </div>
-              <div class="program_carts_wrapper-2 mb-220">
-                <div class="program_cart_wrapper-2" data-program-el="cards-2" data-popup-open="popup-program" data-program-page="applications">
-                  <div class="program_cart_img_wrapper-2"><img src="images/img-5.avif" loading="lazy" sizes="100vw" srcset="images/img-5-p-500.avif 500w, images/img-5.avif 680w" alt="" class="image-3 border-24"></div>
-                  <div class="program_cart_info_wrapper-2">
-                    <div class="cart_info_content_wrapper-2">
-                      <div class="program_text_2_wrapper">
-                        <div class="program_cart_text-v2-copy">Подача и отклики</div>
-                        <div class="program_cart_text_description-2">Как оформить портфолио, чтобы получить приглашения</div>
-                      </div>
-                      <div class="btn_program_cart_wrapper-1">
-                        <div class="arrow_wrapper-1">
-                          <div class="arrow_size_wrapper"><img src="images/arrow-right.svg" loading="lazy" alt="" class="image-3"></div>
-                        </div>
-                        <div class="program_week_wrapper-2">
-                          <div class="text_week">6–10 нед</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+              <!-- Программа: темы слева, содержимое выбранной темы справа. Чтобы поменять
+                   тему, правьте её кнопку в .program_tabs_list и блок .program_panel с теми
+                   же именами в id. Переключением управляет js/program-tabs.js. -->
+              <div class="program_tabs" data-program-tabs>
+                <div class="program_tabs_list" role="tablist" aria-label="Темы программы">
+                  <button class="program_tab" type="button" role="tab" id="program-tab-product-metrics" aria-controls="program-panel-product-metrics" aria-selected="true" data-program-el="tabs">
+                    <span class="program_tab_top">
+                      <img src="images/img-1-p-500.avif" loading="lazy" alt="" class="program_tab_img">
+                      <span class="program_tab_meta">
+                        <span class="program_tab_arrow"><img src="images/arrow-right.svg" loading="lazy" alt=""></span>
+                        <span class="program_week_pill">6&ndash;10 нед</span>
+                      </span>
+                    </span>
+                    <span class="program_tab_text">
+                      <span class="program_tab_title">Продукт и метрики</span>
+                      <span class="program_tab_desc">Принимайте решения на базе метрик</span>
+                    </span>
+                  </button>
+                  <button class="program_tab" type="button" role="tab" id="program-tab-research" aria-controls="program-panel-research" aria-selected="false" tabindex="-1" data-program-el="tabs">
+                    <span class="program_tab_top">
+                      <img src="images/img-2-p-500.avif" loading="lazy" alt="" class="program_tab_img">
+                      <span class="program_tab_meta">
+                        <span class="program_tab_arrow"><img src="images/arrow-right.svg" loading="lazy" alt=""></span>
+                        <span class="program_week_pill">11-12 нед</span>
+                      </span>
+                    </span>
+                    <span class="program_tab_text">
+                      <span class="program_tab_title">Исследования</span>
+                      <span class="program_tab_desc">Понимайте систему</span>
+                    </span>
+                  </button>
+                  <button class="program_tab" type="button" role="tab" id="program-tab-scenarios" aria-controls="program-panel-scenarios" aria-selected="false" tabindex="-1" data-program-el="tabs">
+                    <span class="program_tab_top">
+                      <img src="images/img-3-p-500.avif" loading="lazy" alt="" class="program_tab_img">
+                      <span class="program_tab_meta">
+                        <span class="program_tab_arrow"><img src="images/arrow-right.svg" loading="lazy" alt=""></span>
+                        <span class="program_week_pill">13-14 нед</span>
+                      </span>
+                    </span>
+                    <span class="program_tab_text">
+                      <span class="program_tab_title">Проектирование сценариев</span>
+                      <span class="program_tab_desc">Научиться проектировать сценарии</span>
+                    </span>
+                  </button>
+                  <button class="program_tab" type="button" role="tab" id="program-tab-ui-gaps" aria-controls="program-panel-ui-gaps" aria-selected="false" tabindex="-1" data-program-el="tabs">
+                    <span class="program_tab_top">
+                      <img src="images/img-4-p-500.avif" loading="lazy" alt="" class="program_tab_img">
+                      <span class="program_tab_meta">
+                        <span class="program_tab_arrow"><img src="images/arrow-right.svg" loading="lazy" alt=""></span>
+                        <span class="program_week_pill">15-16 нед</span>
+                      </span>
+                    </span>
+                    <span class="program_tab_text">
+                      <span class="program_tab_title">Закрыть пробелы [ui]</span>
+                      <span class="program_tab_desc">Перестать делать ошибки</span>
+                    </span>
+                  </button>
+                  <button class="program_tab" type="button" role="tab" id="program-tab-screens" aria-controls="program-panel-screens" aria-selected="false" tabindex="-1" data-program-el="tabs">
+                    <span class="program_tab_top">
+                      <img src="images/popup-screens-4.png" loading="lazy" alt="" class="program_tab_img">
+                      <span class="program_tab_meta">
+                        <span class="program_tab_arrow"><img src="images/arrow-right.svg" loading="lazy" alt=""></span>
+                        <span class="program_week_pill">6&ndash;10 нед</span>
+                      </span>
+                    </span>
+                    <span class="program_tab_text">
+                      <span class="program_tab_title">Проектирование экранов</span>
+                      <span class="program_tab_desc">Научиться проектировать экраны</span>
+                    </span>
+                  </button>
+                  <button class="program_tab" type="button" role="tab" id="program-tab-applications" aria-controls="program-panel-applications" aria-selected="false" tabindex="-1" data-program-el="tabs">
+                    <span class="program_tab_top">
+                      <img src="images/img-5-p-500.avif" loading="lazy" alt="" class="program_tab_img">
+                      <span class="program_tab_meta">
+                        <span class="program_tab_arrow"><img src="images/arrow-right.svg" loading="lazy" alt=""></span>
+                        <span class="program_week_pill">6&ndash;10 нед</span>
+                      </span>
+                    </span>
+                    <span class="program_tab_text">
+                      <span class="program_tab_title">Подача и отклики</span>
+                      <span class="program_tab_desc">Как оформить портфолио, чтобы получить приглашения</span>
+                    </span>
+                  </button>
+                  <button class="program_tab" type="button" role="tab" id="program-tab-interview" aria-controls="program-panel-interview" aria-selected="false" tabindex="-1" data-program-el="tabs">
+                    <span class="program_tab_top">
+                      <img src="images/img-1-p-500.avif" loading="lazy" alt="" class="program_tab_img">
+                      <span class="program_tab_meta">
+                        <span class="program_tab_arrow"><img src="images/arrow-right.svg" loading="lazy" alt=""></span>
+                        <span class="program_week_pill">11&ndash;12 нед</span>
+                      </span>
+                    </span>
+                    <span class="program_tab_text">
+                      <span class="program_tab_title">Пройти проверку</span>
+                      <span class="program_tab_desc">Тестовое→Собес→Оффер</span>
+                    </span>
+                  </button>
                 </div>
-                <div class="program_cart_wrapper-2" data-program-el="cards-2" data-popup-open="popup-program" data-program-page="interview">
-                  <div class="program_cart_img_wrapper-2"><img src="images/img-1.avif" loading="lazy" sizes="100vw" srcset="images/img-1-p-500.avif 500w, images/img-1.avif 679w" alt="" class="image-3 border-24"></div>
-                  <div class="program_cart_info_wrapper-2">
-                    <div class="cart_info_content_wrapper-2">
-                      <div class="program_text_2_wrapper">
-                        <div class="program_cart_text-v2-copy">Пройти проверку</div>
-                        <div class="program_cart_text_description-2">Тестовое→Собес→Оффер</div>
-                      </div>
-                      <div class="btn_program_cart_wrapper-1">
-                        <div class="arrow_wrapper-1">
-                          <div class="arrow_size_wrapper"><img src="images/arrow-right.svg" loading="lazy" alt="" class="image-3"></div>
-                        </div>
-                        <div class="program_week_wrapper-2">
-                          <div class="text_week">11–12 нед</div>
-                        </div>
-                      </div>
+                <div class="program_tabs_content" data-program-el="tabs">
+                  <section class="program_panel" role="tabpanel" id="program-panel-product-metrics" aria-labelledby="program-tab-product-metrics" tabindex="0">
+                    <div class="program_panel_head">
+                      <h3 class="program_panel_title">Продукт и метрики</h3>
+                      <p class="program_panel_lead">Дизайн продукта &mdash; командная игра. освойте discovery процесс, принимайте решения на базе метрик</p>
+                      <div class="program_week_pill">6&ndash;10 нед</div>
                     </div>
-                  </div>
+                    <div class="program_panel_cards">
+                      <article class="program_panel_card">
+                        <img src="images/Rectangle-2087329044.png" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Гибкие (не очень) методологии разработки продуктов</h4>
+                          <p class="program_panel_card_desc">Agile, scrum, kanban, waterfall в реале: каденции, ритуалы, приоретизация, метрики поставки.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/Rectangle-2087329043.png" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Продуктовые команды</h4>
+                          <p class="program_panel_card_desc">Вертикали. Выделенный и шэреный дизайнер. Софты: тимворк, эмпатия, менталка, продуктивность.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/Rectangle-2087329045.png" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Продуктовая аналитика</h4>
+                          <p class="program_panel_card_desc">Must Have метрики. Как влиять на метрики. Особенности работы на разных этапах развития продукта.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/Rectangle-2087329046.png" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Метрики продукта и метрики роста</h4>
+                          <p class="program_panel_card_desc">Фреймворк AARRR. Яндекс Метрика. Как работать с отчётами. Основы юнит-экономики.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/Rectangle-2087329047.png" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Процесс работы с гипотезами</h4>
+                          <p class="program_panel_card_desc">Понятие гипотезы. Где брать идеи. Зачем и каким способом валидировать гипотезы.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/Rectangle-2087329048.png" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Как готовить и анализировать A/B-тесты</h4>
+                          <p class="program_panel_card_desc">Основы статистики. Подготовка и запуск теста. ТЗ для разработчиков. Пост-анализ, принятие решений.</p>
+                        </div>
+                      </article>
+                    </div>
+                  </section>
+                  <section class="program_panel" role="tabpanel" id="program-panel-research" aria-labelledby="program-tab-research" tabindex="0" hidden>
+                    <div class="program_panel_head">
+                      <h3 class="program_panel_title">Исследования</h3>
+                      <p class="program_panel_lead">Понимайте систему</p>
+                      <div class="program_week_pill">11-12 нед</div>
+                    </div>
+                    <div class="program_panel_cards">
+                      <article class="program_panel_card">
+                        <img src="images/popup-research-1.avif" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Выбор метода исследования</h4>
+                          <p class="program_panel_card_desc">Типы: количественные, качественные, смешанные. Формулировка гипотез. Выбор метода под задачу.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/popup-research-2.avif" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Качественные исследования</h4>
+                          <p class="program_panel_card_desc">Как делать: глубинки с юзером, стейкхолдером, JTBD интервью, UX тесты. Разбор примеров.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/popup-research-3.avif" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Количественные исследования</h4>
+                          <p class="program_panel_card_desc">Опросы. Side By Side. First Click. Разбор примеров.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/popup-research-4.avif" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Гайды</h4>
+                          <p class="program_panel_card_desc">Пошаговые инструкции по глубинным интервью и UX тестам.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/popup-research-5.avif" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Оформление результатов</h4>
+                          <p class="program_panel_card_desc">Обработка качественников и количественников. Интерпретация данных. Как описать результат.</p>
+                        </div>
+                      </article>
+                    </div>
+                  </section>
+                  <section class="program_panel" role="tabpanel" id="program-panel-scenarios" aria-labelledby="program-tab-scenarios" tabindex="0" hidden>
+                    <div class="program_panel_head">
+                      <h3 class="program_panel_title">Проектирование сценариев</h3>
+                      <p class="program_panel_lead">Научиться проектировать сценарии</p>
+                      <div class="program_week_pill">13-14 нед</div>
+                    </div>
+                    <div class="program_panel_cards">
+                      <article class="program_panel_card">
+                        <img src="images/popup-scenarios-1.avif" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Сбор требований</h4>
+                          <p class="program_panel_card_desc">Разбор ТЗ от стейкхолдера. User Story и Job Story. Наводящие вопросы. Закрытые понятия.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/popup-scenarios-2.avif" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Информационная архитектура</h4>
+                          <p class="program_panel_card_desc">Штука из мира программистов: объекты, классы, атрибуты и их значения.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/popup-scenarios-3.avif" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Userflow Карта пути клиента</h4>
+                          <p class="program_panel_card_desc">Как превращать результаты интервью в userflow. Развилки, роли, точки входа и выхода.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/popup-scenarios-4.avif" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Screenflow Карта экранов</h4>
+                          <p class="program_panel_card_desc">Как сделать из карты пути карту экранов.</p>
+                        </div>
+                      </article>
+                    </div>
+                  </section>
+                  <section class="program_panel" role="tabpanel" id="program-panel-ui-gaps" aria-labelledby="program-tab-ui-gaps" tabindex="0" hidden>
+                    <div class="program_panel_head">
+                      <h3 class="program_panel_title">Закрыть пробелы [ui]</h3>
+                      <p class="program_panel_lead">Перестать делать ошибки</p>
+                      <div class="program_week_pill">15-16 нед</div>
+                    </div>
+                    <div class="program_panel_cards">
+                      <article class="program_panel_card">
+                        <img src="images/popup-ui-gaps-1.avif" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Figma для продакт дизайнеров</h4>
+                          <p class="program_panel_card_desc">Все функции: от библиотек компонентов и variables до сложных прототипов с анимацией.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/popup-ui-gaps-2.avif" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Образ. Передача эмоций через дизайн</h4>
+                          <p class="program_panel_card_desc">Размеры элементов и воздух. Фирмстиль и брендбук. Плашки бенто. Графика и фотостиль.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/popup-ui-gaps-3.avif" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Управление вниманием юзера</h4>
+                          <p class="program_panel_card_desc">Инструменты визуальной иерархии: цвет, положение, пространство, размер. Близорукий тест.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/popup-ui-gaps-4.png" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Типографика и размеры текста</h4>
+                          <p class="program_panel_card_desc">Настройки текста, стили. Иерархия в тексте. Размерные ряды: мобайл, десктоп.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/popup-ui-gaps-5.avif" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Цвет. Построение палитр</h4>
+                          <p class="program_panel_card_desc">Доступность, wcag/apca. Палитры: для всех оттенков. Гайд по серому цвету. Темная тема.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/popup-ui-gaps-6.avif" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Композиция, отступы, пропорции</h4>
+                          <p class="program_panel_card_desc">Оптическая и метрическая линейки, напряжение, ритм. 5 схем композиции. Выравнивания, компенсации.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/popup-ui-gaps-7.avif" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Сетки, Брейкпоинты, Адаптивность</h4>
+                          <p class="program_panel_card_desc">Сетки для веб и мобилок. Брейкпоинты, резиновая верстка: Autolayout, Constraints.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/popup-ui-gaps-8.avif" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Чистота и консистентность</h4>
+                          <p class="program_panel_card_desc">Иерархия, цвета, графика. Размеры и пропорции. Когнитивная очистка. Модальность и группировка.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/popup-ui-gaps-9.avif" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Рисование по референсу</h4>
+                          <p class="program_panel_card_desc">Где и как искать референсы. Метод анализа референсов. Как создавать свое, а не срисовывать.</p>
+                        </div>
+                      </article>
+                    </div>
+                  </section>
+                  <section class="program_panel" role="tabpanel" id="program-panel-screens" aria-labelledby="program-tab-screens" tabindex="0" hidden>
+                    <div class="program_panel_head">
+                      <h3 class="program_panel_title">Проектирование экранов</h3>
+                      <p class="program_panel_lead">Научиться проектировать экраны</p>
+                      <div class="program_week_pill">6&ndash;10 нед</div>
+                    </div>
+                    <div class="program_panel_cards">
+                      <article class="program_panel_card">
+                        <img src="images/popup-screens-1.avif" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Гайд по текстам в интерфейсе</h4>
+                          <p class="program_panel_card_desc">Заголовки, CTA, аллерты, ошибки, списки. Повторы, невнятный смысл, канцеляризмы.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/popup-screens-2.avif" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Работа с готовой дизайн-системой (ДС)</h4>
+                          <p class="program_panel_card_desc">Выбрать ДС, адаптировать под себя: что можно, а что нельзя менять.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/popup-screens-3.avif" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Проектирование компонентов (атомы)</h4>
+                          <p class="program_panel_card_desc">Кнопки, ячейки, поля, иконки. Гайды IOS/Android. Состояния компонентов. Тач зоны.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/popup-screens-4.png" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Графика в интерфейсе</h4>
+                          <p class="program_panel_card_desc">Где брать современную графику, и как ее сочетать. Верстка изображений.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/Rectangle-2087329044.png" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Создаем элементы экрана (молекулы)</h4>
+                          <p class="program_panel_card_desc">Карточки, формы, фильтры, таблицы, модальные окна. Верстка динамического контента (UGC).</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/popup-screens-6.avif" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Гайды по контролам и навигации</h4>
+                          <p class="program_panel_card_desc">Каталоги Ecom, SaaS. Навигационные контролы. Гайд по нативному использованию контролов.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/popup-screens-7.avif" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Передача в разработку</h4>
+                          <p class="program_panel_card_desc">Гайды по состояниям: элементов, экранов, системы изображений, анимаций.</p>
+                        </div>
+                      </article>
+                    </div>
+                  </section>
+                  <section class="program_panel" role="tabpanel" id="program-panel-applications" aria-labelledby="program-tab-applications" tabindex="0" hidden>
+                    <div class="program_panel_head">
+                      <h3 class="program_panel_title">Подача и отклики</h3>
+                      <p class="program_panel_lead">Как оформить портфолио, чтобы получить приглашения</p>
+                      <div class="program_week_pill">6&ndash;10 нед</div>
+                    </div>
+                    <div class="program_panel_cards">
+                      <article class="program_panel_card">
+                        <img src="images/popup-applications-1.avif" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Резюме и главная страница портфолио</h4>
+                          <p class="program_panel_card_desc">Как составить резюме, чтобы вас звали, даже если нет опыта, пробелы, декреты.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/popup-applications-3.avif" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Как оформить продуктовый кейс в портфолио</h4>
+                          <p class="program_panel_card_desc">Кейс про доработку существующего сервиса или про создание нового.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/Rectangle-2087329044.png" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Как писать отклики, чтобы вас звали на собеседование</h4>
+                          <p class="program_panel_card_desc">Думаете headhunter мертв? Научитесь писать так, чтобы даже там отвечали!</p>
+                        </div>
+                      </article>
+                    </div>
+                  </section>
+                  <section class="program_panel" role="tabpanel" id="program-panel-interview" aria-labelledby="program-tab-interview" tabindex="0" hidden>
+                    <div class="program_panel_head">
+                      <h3 class="program_panel_title">Пройти проверку</h3>
+                      <p class="program_panel_lead">Тестовое→Собес→Оффер</p>
+                      <div class="program_week_pill">11&ndash;12 нед</div>
+                    </div>
+                    <div class="program_panel_cards">
+                      <article class="program_panel_card">
+                        <img src="images/popup-interview-1.avif" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Как решать тестовые задания</h4>
+                          <p class="program_panel_card_desc">Примеры решений тестовых заданий на визуал и редизайн, на гипотезы, на проектирование.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/popup-interview-2.avif" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Whiteboard Challenge</h4>
+                          <p class="program_panel_card_desc">Как проходить вайтборд: основные блоки и тайминг. Записи демо вайтбордов.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/popup-interview-3.avif" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Как отвечать на вопросы</h4>
+                          <p class="program_panel_card_desc">110 готовых ответов на популярные вопросы. Как обсуждать зарплату. Редфлаги и причины отказов.</p>
+                        </div>
+                      </article>
+                      <article class="program_panel_card">
+                        <img src="images/Rectangle-2087329044.png" loading="lazy" alt="" class="program_panel_card_img">
+                        <div class="program_panel_card_text">
+                          <h4 class="program_panel_card_title">Как презентовать кейсы</h4>
+                          <p class="program_panel_card_desc">Шаблон презентации. Сторителлинг. Структура и тайминг. Подборка крутых кейсов.</p>
+                        </div>
+                      </article>
+                    </div>
+                  </section>
                 </div>
               </div>
               <div class="w-layout-grid program_cart_grid mb-246">
@@ -1014,7 +1308,7 @@ html { font-size: 1rem; }
                 </div>
               </div>
               <div class="program_pdf_wrapper mb-932">
-                <h2 id="" class="pdf_heading_wrapper mb-40" data-program-el="heading-3">
+                <h2 id="" class="pdf_heading_wrapper mb-40" data-program-el="heading-3" data-parallax="5" data-parallax-self>
                   <div class="text_like_h1 color-white pdf_heading-1">скачай</div>
                   <div class="text_like_h1 color-white pdf_heading-2">полную</div>
                   <div class="text_like_h1 color-white pdf_heading-3">программу</div>
@@ -1026,13 +1320,13 @@ html { font-size: 1rem; }
                 <a href="#" class="pdf_btn w-inline-block" data-program-el="heading-3">
                   <div class="btn_main_text color_black">скачать пдф</div>
                 </a>
-                <div class="pdf_img_wrapper _1" data-program-el="icon-3"><img src="images/rabbit_img_pdf.avif" loading="lazy" sizes="100vw" srcset="images/rabbit_img_pdf-p-500.avif 500w, images/rabbit_img_pdf-p-800.avif 800w, images/rabbit_img_pdf-p-1080.avif 1080w, images/rabbit_img_pdf.avif 1772w" alt="" class="image-3"></div>
-                <div class="pdf_img_wrapper _2" data-program-el="icon-3"><img src="images/ezh_img_pdf.avif" loading="lazy" sizes="100vw" srcset="images/ezh_img_pdf-p-500.png 500w, images/ezh_img_pdf.avif 2624w" alt="" class="image-3"></div>
+                <div class="pdf_img_wrapper _1" data-program-el="icon-3" data-parallax="16"><img src="images/rabbit_img_pdf.avif" loading="lazy" sizes="100vw" srcset="images/rabbit_img_pdf-p-500.avif 500w, images/rabbit_img_pdf-p-800.avif 800w, images/rabbit_img_pdf-p-1080.avif 1080w, images/rabbit_img_pdf.avif 1772w" alt="" class="image-3"></div>
+                <div class="pdf_img_wrapper _2" data-program-el="icon-3" data-parallax="16"><img src="images/ezh_img_pdf.avif" loading="lazy" sizes="100vw" srcset="images/ezh_img_pdf-p-500.png 500w, images/ezh_img_pdf.avif 2624w" alt="" class="image-3"></div>
               </div>
-              <div class="support_heading_wrapper mb-85">
-                <h2 class="text_like_h1 width-706" data-program-el="heading-4">после окончания курса, мы поддерживаем вас ещё целый год</h2>
-                <div class="diamomd_img_wrapper" data-program-el="icon-4"><img src="images/diamond.svg" loading="lazy" alt="" class="image-3"></div>
-                <div class="fire_img_wrapper" data-program-el="icon-4"><img src="images/fire.svg" loading="lazy" alt="" class="image-3"></div>
+              <div class="support_heading_wrapper mb-85" data-parallax-scene>
+                <h2 class="text_like_h1 width-706" data-program-el="heading-4" data-parallax="5" data-parallax-self>после окончания курса, мы поддерживаем вас ещё целый год</h2>
+                <div class="diamomd_img_wrapper" data-program-el="icon-4" data-parallax="18"><img src="images/diamond.svg" loading="lazy" alt="" class="image-3"></div>
+                <div class="fire_img_wrapper" data-program-el="icon-4" data-parallax="-22"><img src="images/fire.svg" loading="lazy" alt="" class="image-3"></div>
               </div>
               <div class="support_carts_wrapper mb-85">
                 <div class="support_cart_wrapper _3" data-program-el="cards-4">
@@ -1109,10 +1403,15 @@ html { font-size: 1rem; }
         <div class="video_padding">
           <div class="video_content_wrapper">
             <div class="video_wrapper">
-              <div class="w-embed"><video autoplay="" muted="" loop="" playsinline="" style="width: 100%; height: 100%; object-fit: cover; 
- display: block;">
+              <div class="video_player w-embed" data-video-player>
+                <video controls autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover; display: block;">
                   <source src="https://res.cloudinary.com/ahdvou7p/video/upload/v1783426049/1fff25d8bce494d291fa92ce9a9efd703ef72e35_wdkpwy.mp4" type="video/mp4">
-                </video></div>
+                </video>
+                <button class="video_sound_toggle" type="button" data-video-sound aria-label="Звук видео" aria-pressed="false" hidden>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-sound-icon="on" aria-hidden="true" focusable="false"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.364 18.364a9 9 0 0 0 0-12.728"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-sound-icon="off" aria-hidden="true" focusable="false"><path d="M11 4.702a.7.7 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.7.7 0 0 0 11 19.298z"/><path d="m16.5 14.5 5-5"/><path d="m16.5 9.5 5 5"/></svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -1122,11 +1421,11 @@ html { font-size: 1rem; }
       <div class="container">
         <div class="rate_padding">
           <div class="rate_content_wrapper">
-            <h2 id="" class="rate_heading_wrapper mb-86">
-              <div class="text_like_h1 rate_heading-1 display-none" data-rate-el="heading">На ассессменте</div>
-              <div class="text_like_h1 rate_heading-2 display-none" data-rate-el="heading">синьор из топ-10 российского бигтеха</div>
-              <div class="text_like_h1 rate_heading-3 display-none" data-rate-el="heading">посмотрит ваши навыки, и вы увидите</div>
-              <div class="text_like_h1 display-none" data-rate-el="heading">На ассессменте синьор из топ-10 российского бигтеха посмотрит ваши навыки, и вы увидите</div>
+            <h2 id="" class="rate_heading_wrapper mb-86" data-parallax-scene>
+              <div class="text_like_h1 rate_heading-1 display-none" data-rate-el="heading" data-parallax="5" data-parallax-self>На ассессменте</div>
+              <div class="text_like_h1 rate_heading-2 display-none" data-rate-el="heading" data-parallax="5" data-parallax-self>синьор из топ-10 российского бигтеха</div>
+              <div class="text_like_h1 rate_heading-3 display-none" data-rate-el="heading" data-parallax="5" data-parallax-self>посмотрит ваши навыки, и вы увидите</div>
+              <div class="text_like_h1 display-none" data-rate-el="heading" data-parallax="5" data-parallax-self>На ассессменте синьор из топ-10 российского бигтеха посмотрит ваши навыки, и вы увидите</div>
             </h2>
             <div class="rate_carts_wrapper">
               <div class="carts_swiper_track">
@@ -1173,34 +1472,34 @@ html { font-size: 1rem; }
       <div class="container">
         <div class="skill_padding">
           <div class="skill_content_wrapper">
-            <div class="skill_img_wrapper">
+            <div class="skill_img_wrapper" data-parallax-scene>
               <div class="skill_bg_wrapper"><img src="images/skill-bg.avif" loading="lazy" sizes="100vw" srcset="images/skill-bg-p-500.avif 500w, images/skill-bg-p-800.avif 800w, images/skill-bg-p-1080.avif 1080w, images/skill-bg-p-1600.avif 1600w, images/skill-bg.avif 2400w" alt="" class="image-3 display-none">
-                <a href="anketa/Анкета.html" class="btn_main absolute w-inline-block" data-skill-el="cta">
+                <a href="anketa/Анкета.html" class="btn_main absolute w-inline-block" data-skill-el="cta" data-parallax="5" data-parallax-self>
                   <div class="btn_main_text">Записаться на разбор навыков</div>
                 </a>
-                <h2 class="text_like_h1 width-517 absolute" data-skill-el="heading">Ваш результат после разбора навыков</h2>
-                <div class="skill_discription_wrapper" data-skill-el="heading">
+                <h2 class="text_like_h1 width-517 absolute" data-skill-el="heading" data-parallax="5" data-parallax-self>Ваш результат после разбора навыков</h2>
+                <div class="skill_discription_wrapper" data-skill-el="heading" data-parallax="5" data-parallax-self>
                   <div class="clock_img_wrapper"><img src="images/clock.svg" loading="lazy" alt="" class="image-3"></div>
                   <div class="text_30_px black height-28">90 минут - бесплатно</div>
                 </div>
               </div>
-              <div class="skill_design_wrapper"><img src="images/skill-design.avif" loading="lazy" sizes="100vw" srcset="images/skill-design-p-500.avif 500w, images/skill-design-p-800.avif 800w, images/skill-design.avif 1196w" alt="" class="image-3 display-none"></div>
-              <div class="skill_cart_wrapper _1" data-skill-el="scatter-1"><img src="images/skill_img-4.avif" loading="lazy" sizes="(max-width: 848px) 100vw, 848px" srcset="images/skill_img-4-p-500.avif 500w, images/skill_img-4.avif 848w" alt="" class="image-3 display-none">
+              <div class="skill_design_wrapper" data-parallax="-10" data-parallax-self><img src="images/skill-design.avif" loading="lazy" sizes="100vw" srcset="images/skill-design-p-500.avif 500w, images/skill-design-p-800.avif 800w, images/skill-design.avif 1196w" alt="" class="image-3 display-none"></div>
+              <div class="skill_cart_wrapper _1" data-skill-el="scatter-1" data-parallax="22" data-parallax-self><img src="images/skill_img-4.avif" loading="lazy" sizes="(max-width: 848px) 100vw, 848px" srcset="images/skill_img-4-p-500.avif 500w, images/skill_img-4.avif 848w" alt="" class="image-3 display-none">
                 <div class="move_cart_text_wrapper">
                   <h3 class="plan_cart_text color-white">Понимание, нужно ли вам<br>обучение в принципе</h3>
                 </div>
               </div>
-              <div class="skill_cart_wrapper _2" data-skill-el="scatter-2"><img src="images/skill_img.avif" loading="lazy" sizes="(max-width: 848px) 100vw, 848px" srcset="images/skill_img-p-500.avif 500w, images/skill_img.avif 848w" alt="" class="image-3 display-none">
+              <div class="skill_cart_wrapper _2" data-skill-el="scatter-2" data-parallax="-24" data-parallax-self><img src="images/skill_img.avif" loading="lazy" sizes="(max-width: 848px) 100vw, 848px" srcset="images/skill_img-p-500.avif 500w, images/skill_img.avif 848w" alt="" class="image-3 display-none">
                 <div class="move_cart_text_wrapper width-172">
                   <h3 class="plan_cart_text color-white">Персональный план роста на 3–6 месяцев</h3>
                 </div>
               </div>
-              <div class="skill_cart_wrapper _3" data-skill-el="scatter-3"><img src="images/skill_img-3.avif" loading="lazy" sizes="(max-width: 848px) 100vw, 848px" srcset="images/skill_img-3-p-500.avif 500w, images/skill_img-3.avif 848w" alt="" class="image-3 display-none">
+              <div class="skill_cart_wrapper _3" data-skill-el="scatter-3" data-parallax="24" data-parallax-self><img src="images/skill_img-3.avif" loading="lazy" sizes="(max-width: 848px) 100vw, 848px" srcset="images/skill_img-3-p-500.avif 500w, images/skill_img-3.avif 848w" alt="" class="image-3 display-none">
                 <div class="move_cart_text_wrapper">
                   <h3 class="plan_cart_text color-white">ВАШ зарплатный потенциал</h3>
                 </div>
               </div>
-              <div class="skill_cart_wrapper _4" data-skill-el="scatter-4"><img src="images/skill_img-2.avif" loading="lazy" sizes="(max-width: 848px) 100vw, 848px" srcset="images/skill_img-2-p-500.avif 500w, images/skill_img-2.avif 848w" alt="" class="image-3 display-none">
+              <div class="skill_cart_wrapper _4" data-skill-el="scatter-4" data-parallax="-18" data-parallax-self><img src="images/skill_img-2.avif" loading="lazy" sizes="(max-width: 848px) 100vw, 848px" srcset="images/skill_img-2-p-500.avif 500w, images/skill_img-2.avif 848w" alt="" class="image-3 display-none">
                 <div class="move_cart_text_wrapper">
                   <h3 class="plan_cart_text color-white">Понимание вашего текущего грейда</h3>
                 </div>
@@ -1216,7 +1515,7 @@ html { font-size: 1rem; }
       <div class="container">
         <div class="faq_padding">
           <div class="faq_content_wrapper">
-            <h2 class="text_like_h1 width-308" data-faq-el="heading">а тут ответы на вопросы</h2>
+            <h2 class="text_like_h1 width-308" data-faq-el="heading" data-parallax="5" data-parallax-tilt="5">а тут ответы на вопросы</h2>
             <div class="faq_item_wrapper">
               <div class="faq_item" data-faq-el="card">
                 <div class="dropdown-2 w-dropdown">
@@ -1339,7 +1638,7 @@ html { font-size: 1rem; }
                 <a href="contacts/" class="footer_link">контакты</a>
               </div>
             </div>
-            <div class="school_img_wrapper mb-17" data-footer-el="title"><img src="images/school.svg" loading="lazy" alt=""></div>
+            <div class="school_img_wrapper mb-17" data-footer-el="title" data-parallax="8" data-parallax-tilt="5"><img src="images/school.svg" loading="lazy" alt=""></div>
             <div class="footer_btn_wrapper mb-108" data-footer-el="cta">
               <a href="#" class="btn_main w-inline-block">
                 <div class="btn_main_text">скачать программу</div>
@@ -1349,11 +1648,11 @@ html { font-size: 1rem; }
               <div class="footer_text">обр. лицензия № Л035-01265-18/02025868</div>
               <div class="footer_text">представь, дизайн — это грядка. я прохожу с нею рядом.<br>я поливаю как надо, ты знаешь формулу этого яда</div>
             </div>
-            <div class="nemo_img_wrapper" data-footer-el="decor"><img src="images/nemo.avif" loading="lazy" alt="" class="image-3"></div>
-            <div class="ezh_img_wrapper" data-footer-el="decor"><img src="images/ezh.avif" loading="lazy" sizes="100vw" srcset="images/ezh-p-500.avif 500w, images/ezh-p-800.avif 800w, images/ezh.avif 845w" alt="" class="image-3"></div>
-            <div class="chaynik_img_wrapper" data-footer-el="decor"><img src="images/chaynik.png" loading="lazy" alt="" class="image-3"></div>
-            <div class="rabbit_img_wrapper" data-footer-el="decor"><img src="images/rabbit.avif" loading="lazy" sizes="100vw" srcset="images/rabbit-p-500.avif 500w, images/rabbit.avif 602w" alt="" class="image-3"></div>
-            <div class="stop_img_wrapper" data-footer-el="decor"><img src="images/stop.avif" loading="lazy" alt="" class="image-3"></div>
+            <div class="nemo_img_wrapper" data-footer-el="decor" data-parallax="16"><img src="images/nemo.avif" loading="lazy" alt="" class="image-3"></div>
+            <div class="ezh_img_wrapper" data-footer-el="decor" data-parallax="-20"><img src="images/ezh.avif" loading="lazy" sizes="100vw" srcset="images/ezh-p-500.avif 500w, images/ezh-p-800.avif 800w, images/ezh.avif 845w" alt="" class="image-3"></div>
+            <div class="chaynik_img_wrapper" data-footer-el="decor" data-parallax="14"><img src="images/chaynik.png" loading="lazy" alt="" class="image-3"></div>
+            <div class="rabbit_img_wrapper" data-footer-el="decor" data-parallax="-18"><img src="images/rabbit.avif" loading="lazy" sizes="100vw" srcset="images/rabbit-p-500.avif 500w, images/rabbit.avif 602w" alt="" class="image-3"></div>
+            <div class="stop_img_wrapper" data-footer-el="decor" data-parallax="22"><img src="images/stop.avif" loading="lazy" alt="" class="image-3"></div>
           </div>
         </div>
       </div>
@@ -1388,11 +1687,11 @@ html { font-size: 1rem; }
                 </div>
               </div>
             </div>
-            <div class="nemo_img_wrapper" data-footer-el="decor"><img src="images/nemo.avif" loading="lazy" alt="" class="image-3"></div>
-            <div class="ezh_img_wrapper" data-footer-el="decor"><img src="images/ezh.avif" loading="lazy" sizes="100vw" srcset="images/ezh-p-500.avif 500w, images/ezh-p-800.avif 800w, images/ezh.avif 845w" alt="" class="image-3"></div>
-            <div class="chaynik_img_wrapper" data-footer-el="decor"><img src="images/chaynik.png" loading="lazy" alt="" class="image-3"></div>
-            <div class="stop_img_wrapper" data-footer-el="decor"><img src="images/stop.avif" loading="lazy" alt="" class="image-3"></div>
-            <div class="rabbit_img_wrapper" data-footer-el="decor"><img src="images/rabbit.avif" loading="lazy" sizes="100vw" srcset="images/rabbit-p-500.avif 500w, images/rabbit.avif 602w" alt="" class="image-3"></div>
+            <div class="nemo_img_wrapper" data-footer-el="decor" data-parallax="16"><img src="images/nemo.avif" loading="lazy" alt="" class="image-3"></div>
+            <div class="ezh_img_wrapper" data-footer-el="decor" data-parallax="-20"><img src="images/ezh.avif" loading="lazy" sizes="100vw" srcset="images/ezh-p-500.avif 500w, images/ezh-p-800.avif 800w, images/ezh.avif 845w" alt="" class="image-3"></div>
+            <div class="chaynik_img_wrapper" data-footer-el="decor" data-parallax="14"><img src="images/chaynik.png" loading="lazy" alt="" class="image-3"></div>
+            <div class="stop_img_wrapper" data-footer-el="decor" data-parallax="22"><img src="images/stop.avif" loading="lazy" alt="" class="image-3"></div>
+            <div class="rabbit_img_wrapper" data-footer-el="decor" data-parallax="-18"><img src="images/rabbit.avif" loading="lazy" sizes="100vw" srcset="images/rabbit-p-500.avif 500w, images/rabbit.avif 602w" alt="" class="image-3"></div>
           </div>
         </div>
       </div>
@@ -1420,606 +1719,6 @@ html { font-size: 1rem; }
         </div>
       </div>
     </div>
-    <!-- Попап программы обучения. Открывается ссылкой "программа" в шапке -->
-    <!-- Единый попап "Программа". Белые блоки (.popup_left_side_program-copy /
-         .popup_right_side_program) — один и тот же DOM-элемент всегда; кнопка
-         "дальше" не открывает другой попап, а подменяет содержимое внутри с
-         анимацией (см. initProgramPopup в js/interactions.js).
-
-         РЕДАКТИРОВАНИЕ КОНТЕНТА: сам попап ниже рендерится пустым — его
-         реальное содержимое (бейдж-дата/заголовок/описание/карточки) для
-         каждой "страницы" лежит в блоке <template data-program-page="…">
-         сразу после закрывающего тега попапа. Чтобы поменять текст или
-         картинку — правьте нужный <template>, ничего больше трогать не
-         нужно. Порядок страниц по кругу = порядок этих <template> в HTML
-         (совпадает с PROGRAM_PAGE_ORDER в js/interactions.js — если меняете
-         порядок/добавляете страницу, обновите оба места). -->
-    <div id="popup-program" class="popup_program" data-popup-animate="slide-up" data-program-page="product-metrics">
-      <div class="container">
-        <div class="popup_content_wrapper">
-          <div class="popup_line popup_line-program"></div>
-          <div class="popup_left_side_program-copy">
-            <!-- .popup_program_page_left — граница анимации левого блока
-                 (position:relative; overflow:hidden — своя, не край листа).
-                 .popup_program_page_left_inner — то, что реально уезжает
-                 вверх/появляется снизу при смене страницы. -->
-            <div class="popup_program_page_left">
-              <div class="popup_program_page_left_inner"></div>
-            </div>
-            <div class="popup_program_nav">
-              <div class="btn_next_program" data-program-prev>
-                <div class="text_close_btn color-black">назад</div>
-              </div>
-              <div class="btn_next_program is-next" data-program-next>
-                <div class="text_close_btn">дальше</div>
-              </div>
-            </div>
-            <div class="popup_program_page_cards">
-              <div class="w-layout-grid popup_program_grid_mob"></div>
-            </div>
-          </div>
-          <div class="popup_right_side_program">
-            <div class="popup_program_close_btn color-whitesmoke" data-popup-close>
-              <div class="text_close_btn color-black">закрыть</div>
-            </div>
-            <div class="popup_program_page_cards">
-              <div class="w-layout-grid popup_program_grid"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Страницы попапа "Программа", по кругу в этом порядке. Каждый
-         <template> — один источник контента: badge/title/desc — обычный
-         текст, [data-role="cards"] — карточки один-в-один как раньше
-         (.popup_program_cart_wrapper + .popup_program_img_wrapper +
-         .popup_program_gradient + .popup_program_cart_text), их HTML
-         клонируется JS-ом сразу в оба грида (мобильный и десктопный),
-         поэтому карточки прописаны здесь только один раз, а не дважды. -->
-    <template data-program-page="product-metrics">
-      <span data-role="badge">6&ndash;10 нед</span>
-      <span data-role="title">Продукт и метрики</span>
-      <span data-role="desc">Дизайн продукта &mdash; командная игра. освойте discovery процесс, принимайте решения на базе метрик</span>
-      <div data-role="cards">
-        <div class="popup_program_cart_wrapper">
-          <div class="popup_program_cart_flip">
-            <div class="popup_program_cart_face popup_program_cart_face-front">
-              <div class="popup_program_img_wrapper _1"></div>
-              <div class="popup_program_gradient"></div>
-              <div class="popup_program_cart_text width-206">Гибкие (не очень) методологии разработки продуктов </div>
-            </div>
-            <div class="popup_program_cart_face popup_program_cart_face-back">
-              <div class="popup_program_cart_back_text">Agile, scrum, kanban, waterfall в реале: каденции, ритуалы, приоретизация, метрики поставки.</div>
-              <div class="popup_program_cart_text width-206">Гибкие (не очень) методологии разработки продуктов </div>
-            </div>
-          </div>
-        </div>
-        <div class="popup_program_cart_wrapper">
-          <div class="popup_program_cart_flip">
-            <div class="popup_program_cart_face popup_program_cart_face-front">
-              <div class="popup_program_img_wrapper _2"></div>
-              <div class="popup_program_gradient"></div>
-              <div class="popup_program_cart_text width-127">Продуктовые команды</div>
-            </div>
-            <div class="popup_program_cart_face popup_program_cart_face-back">
-              <div class="popup_program_cart_back_text">Вертикали. Выделенный и шэреный дизайнер. Софты: тимворк, эмпатия, менталка, продуктивность.</div>
-              <div class="popup_program_cart_text width-127">Продуктовые команды</div>
-            </div>
-          </div>
-        </div>
-        <div class="popup_program_cart_wrapper">
-          <div class="popup_program_cart_flip">
-            <div class="popup_program_cart_face popup_program_cart_face-front">
-              <div class="popup_program_img_wrapper _3"></div>
-              <div class="popup_program_gradient"></div>
-              <div class="popup_program_cart_text width-127">Продуктовая аналитика</div>
-            </div>
-            <div class="popup_program_cart_face popup_program_cart_face-back">
-              <div class="popup_program_cart_back_text">Must Have метрики. Как влиять на метрики. Особенности работы на разных этапах развития продукта.</div>
-              <div class="popup_program_cart_text width-127">Продуктовая аналитика</div>
-            </div>
-          </div>
-        </div>
-        <div class="popup_program_cart_wrapper">
-          <div class="popup_program_cart_flip">
-            <div class="popup_program_cart_face popup_program_cart_face-front">
-              <div class="popup_program_img_wrapper _4"></div>
-              <div class="popup_program_gradient"></div>
-              <div class="popup_program_cart_text width-206">Метрики продукта и метрики роста</div>
-            </div>
-            <div class="popup_program_cart_face popup_program_cart_face-back">
-              <div class="popup_program_cart_back_text">Фреймворк AARRR. Яндекс Метрика. Как работать с отчётами. Основы юнит-экономики.</div>
-              <div class="popup_program_cart_text width-206">Метрики продукта и метрики роста</div>
-            </div>
-          </div>
-        </div>
-        <div class="popup_program_cart_wrapper">
-          <div class="popup_program_cart_flip">
-            <div class="popup_program_cart_face popup_program_cart_face-front">
-              <div class="popup_program_img_wrapper _5"></div>
-              <div class="popup_program_gradient"></div>
-              <div class="popup_program_cart_text width-206">Процесс работы с гипотезами</div>
-            </div>
-            <div class="popup_program_cart_face popup_program_cart_face-back">
-              <div class="popup_program_cart_back_text">Понятие гипотезы. Где брать идеи. Зачем и каким способом валидировать гипотезы.</div>
-              <div class="popup_program_cart_text width-206">Процесс работы с гипотезами</div>
-            </div>
-          </div>
-        </div>
-        <div class="popup_program_cart_wrapper">
-          <div class="popup_program_cart_flip">
-            <div class="popup_program_cart_face popup_program_cart_face-front">
-              <div class="popup_program_img_wrapper _6"></div>
-              <div class="popup_program_gradient"></div>
-              <div class="popup_program_cart_text">Как готовить и анализировать A/B-тесты</div>
-            </div>
-            <div class="popup_program_cart_face popup_program_cart_face-back">
-              <div class="popup_program_cart_back_text">Основы статистики. Подготовка и запуск теста. ТЗ для разработчиков. Пост-анализ, принятие решений.</div>
-              <div class="popup_program_cart_text">Как готовить и анализировать A/B-тесты</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </template>
-    <template data-program-page="research">
-      <span data-role="badge">11-12 нед</span>
-      <span data-role="title">Исследования</span>
-      <span data-role="desc"></span>
-      <div data-role="cards">
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper" style="background-image:url('images/popup-research-1.avif')"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Выбор метода исследования</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Типы: количественные, качественные, смешанные. Формулировка гипотез. Выбор метода под задачу.</div>
-                      <div class="popup_program_cart_text width-206">Выбор метода исследования</div>
-                    </div>
-                  </div>
-              </div>
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper" style="background-image:url('images/popup-research-2.avif')"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Качественные исследования</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Как делать: глубинки с юзером, стейкхолдером, JTBD интервью, UX тесты. Разбор примеров.</div>
-                      <div class="popup_program_cart_text width-206">Качественные исследования</div>
-                    </div>
-                  </div>
-              </div>
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper" style="background-image:url('images/popup-research-3.avif')"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Количественные исследования</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Опросы. Side By Side. First Click. Разбор примеров.</div>
-                      <div class="popup_program_cart_text width-206">Количественные исследования</div>
-                    </div>
-                  </div>
-              </div>
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper" style="background-image:url('images/popup-research-4.avif')"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text">Гайды</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Пошаговые инструкции по глубинным интервью и UX тестам.</div>
-                      <div class="popup_program_cart_text">Гайды</div>
-                    </div>
-                  </div>
-              </div>
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper" style="background-image:url('images/popup-research-5.avif')"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Оформление результатов</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Обработка качественников и количественников. Интерпретация данных. Как описать результат.</div>
-                      <div class="popup_program_cart_text width-206">Оформление результатов</div>
-                    </div>
-                  </div>
-              </div>
-      </div>
-    </template>
-    <template data-program-page="scenarios">
-      <span data-role="badge">13-14 нед</span>
-      <span data-role="title">Проектирование сценариев</span>
-      <span data-role="desc"></span>
-      <div data-role="cards">
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper" style="background-image:url('images/popup-scenarios-1.avif')"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-127">Сбор требований</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Разбор ТЗ от стейкхолдера. User Story и Job Story. Наводящие вопросы. Закрытые понятия.</div>
-                      <div class="popup_program_cart_text width-127">Сбор требований</div>
-                    </div>
-                  </div>
-              </div>
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper" style="background-image:url('images/popup-scenarios-2.avif')"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Информационная архитектура</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Штука из мира программистов: объекты, классы, атрибуты и их значения.</div>
-                      <div class="popup_program_cart_text width-206">Информационная архитектура</div>
-                    </div>
-                  </div>
-              </div>
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper" style="background-image:url('images/popup-scenarios-3.avif')"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Userflow Карта пути клиента</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Как превращать результаты интервью в userflow. Развилки, роли, точки входа и выхода.</div>
-                      <div class="popup_program_cart_text width-206">Userflow Карта пути клиента</div>
-                    </div>
-                  </div>
-              </div>
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper" style="background-image:url('images/popup-scenarios-4.avif')"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Screenflow Карта экранов</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Как сделать из карты пути карту экранов.</div>
-                      <div class="popup_program_cart_text width-206">Screenflow Карта экранов</div>
-                    </div>
-                  </div>
-              </div>
-      </div>
-    </template>
-    <template data-program-page="ui-gaps">
-      <span data-role="badge">15-16 нед</span>
-      <span data-role="title">Закрыть пробелы [ui]</span>
-      <span data-role="desc"></span>
-      <div data-role="cards">
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper" style="background-image:url('images/popup-ui-gaps-1.avif')"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Figma для продакт дизайнеров</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Все функции: от библиотек компонентов и variables до сложных прототипов с анимацией.</div>
-                      <div class="popup_program_cart_text width-206">Figma для продакт дизайнеров</div>
-                    </div>
-                  </div>
-              </div>
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper" style="background-image:url('images/popup-ui-gaps-2.avif')"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Образ. Передача эмоций через дизайн</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Размеры элементов и воздух. Фирмстиль и брендбук. Плашки бенто. Графика и фотостиль.</div>
-                      <div class="popup_program_cart_text width-206">Образ. Передача эмоций через дизайн</div>
-                    </div>
-                  </div>
-              </div>
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper" style="background-image:url('images/popup-ui-gaps-3.avif')"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Управление вниманием юзера</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Инструменты визуальной иерархии: цвет, положение, пространство, размер. Близорукий тест.</div>
-                      <div class="popup_program_cart_text width-206">Управление вниманием юзера</div>
-                    </div>
-                  </div>
-              </div>
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Типографика и размеры текста</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Настройки текста, стили. Иерархия в тексте. Размерные ряды: мобайл, десктоп.</div>
-                      <div class="popup_program_cart_text width-206">Типографика и размеры текста</div>
-                    </div>
-                  </div>
-              </div>
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper" style="background-image:url('images/popup-ui-gaps-5.avif')"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Цвет. Построение палитр</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Доступность, wcag/apca. Палитры: для всех оттенков. Гайд по серому цвету. Темная тема.</div>
-                      <div class="popup_program_cart_text width-206">Цвет. Построение палитр</div>
-                    </div>
-                  </div>
-              </div>
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper" style="background-image:url('images/popup-ui-gaps-6.avif')"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Композиция, отступы, пропорции</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Оптическая и метрическая линейки, напряжение, ритм. 5 схем композиции. Выравнивания, компенсации.</div>
-                      <div class="popup_program_cart_text width-206">Композиция, отступы, пропорции</div>
-                    </div>
-                  </div>
-              </div>
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper" style="background-image:url('images/popup-ui-gaps-7.avif')"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Сетки, Брейкпоинты, Адаптивность</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Сетки для веб и мобилок. Брейкпоинты, резиновая верстка: Autolayout, Constraints.</div>
-                      <div class="popup_program_cart_text width-206">Сетки, Брейкпоинты, Адаптивность</div>
-                    </div>
-                  </div>
-              </div>
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper" style="background-image:url('images/popup-ui-gaps-8.avif')"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Чистота и консистентность</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Иерархия, цвета, графика. Размеры и пропорции. Когнитивная очистка. Модальность и группировка.</div>
-                      <div class="popup_program_cart_text width-206">Чистота и консистентность</div>
-                    </div>
-                  </div>
-              </div>
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper" style="background-image:url('images/popup-ui-gaps-9.avif')"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Рисование по референсу</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Где и как искать референсы. Метод анализа референсов. Как создавать свое, а не срисовывать.</div>
-                      <div class="popup_program_cart_text width-206">Рисование по референсу</div>
-                    </div>
-                  </div>
-              </div>
-      </div>
-    </template>
-    <template data-program-page="screens">
-      <span data-role="badge">6&ndash;10 нед</span>
-      <span data-role="title">Проектирование экранов</span>
-      <span data-role="desc"></span>
-      <div data-role="cards">
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper" style="background-image:url('images/popup-screens-1.avif')"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Гайд по текстам в интерфейсе</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Заголовки, CTA, аллерты, ошибки, списки. Повторы, невнятный смысл, канцеляризмы.</div>
-                      <div class="popup_program_cart_text width-206">Гайд по текстам в интерфейсе</div>
-                    </div>
-                  </div>
-              </div>
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper" style="background-image:url('images/popup-screens-2.avif')"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Работа с готовой дизайн-системой (ДС)</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Выбрать ДС, адаптировать под себя: что можно, а что нельзя менять.</div>
-                      <div class="popup_program_cart_text width-206">Работа с готовой дизайн-системой (ДС)</div>
-                    </div>
-                  </div>
-              </div>
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper" style="background-image:url('images/popup-screens-3.avif')"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Проектирование компонентов (атомы)</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Кнопки, ячейки, поля, иконки. Гайды IOS/Android. Состояния компонентов. Тач зоны.</div>
-                      <div class="popup_program_cart_text width-206">Проектирование компонентов (атомы)</div>
-                    </div>
-                  </div>
-              </div>
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-127">Графика в интерфейсе</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Где брать современную графику, и как ее сочетать. Верстка изображений.</div>
-                      <div class="popup_program_cart_text width-127">Графика в интерфейсе</div>
-                    </div>
-                  </div>
-              </div>
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Создаем элементы экрана (молекулы)</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Карточки, формы, фильтры, таблицы, модальные окна. Верстка динамического контента (UGC).</div>
-                      <div class="popup_program_cart_text width-206">Создаем элементы экрана (молекулы)</div>
-                    </div>
-                  </div>
-              </div>
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper" style="background-image:url('images/popup-screens-6.avif')"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Гайды по контролам и навигации</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Каталоги Ecom, SaaS. Навигационные контролы. Гайд по нативному использованию контролов.</div>
-                      <div class="popup_program_cart_text width-206">Гайды по контролам и навигации</div>
-                    </div>
-                  </div>
-              </div>
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper" style="background-image:url('images/popup-screens-7.avif')"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Передача в разработку</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Гайды по состояниям: элементов, экранов, системы изображений, анимаций.</div>
-                      <div class="popup_program_cart_text width-206">Передача в разработку</div>
-                    </div>
-                  </div>
-              </div>
-      </div>
-    </template>
-    <template data-program-page="applications">
-      <span data-role="badge">6&ndash;10 нед</span>
-      <span data-role="title">Подача и отклики</span>
-      <span data-role="desc"></span>
-      <div data-role="cards">
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper" style="background-image:url('images/popup-applications-1.avif')"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Резюме и главная страница портфолио</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Как составить резюме, чтобы вас звали, даже если нет опыта, пробелы, декреты.</div>
-                      <div class="popup_program_cart_text width-206">Резюме и главная страница портфолио</div>
-                    </div>
-                  </div>
-              </div>
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper" style="background-image:url('images/popup-applications-3.avif')"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Как оформить продуктовый кейс в портфолио</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Кейс про доработку существующего сервиса или про создание нового.</div>
-                      <div class="popup_program_cart_text width-206">Как оформить продуктовый кейс в портфолио</div>
-                    </div>
-                  </div>
-              </div>
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Как писать отклики, чтобы вас звали на собеседование</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Думаете headhunter мертв? Научитесь писать так, чтобы даже там отвечали!</div>
-                      <div class="popup_program_cart_text width-206">Как писать отклики, чтобы вас звали на собеседование</div>
-                    </div>
-                  </div>
-              </div>
-      </div>
-    </template>
-    <template data-program-page="interview">
-      <span data-role="badge">11&ndash;12 нед</span>
-      <span data-role="title">Пройти проверку</span>
-      <span data-role="desc"></span>
-      <div data-role="cards">
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper" style="background-image:url('images/popup-interview-1.avif')"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Как решать тестовые задания</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Примеры решений тестовых заданий на визуал и редизайн, на гипотезы, на проектирование.</div>
-                      <div class="popup_program_cart_text width-206">Как решать тестовые задания</div>
-                    </div>
-                  </div>
-              </div>
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper" style="background-image:url('images/popup-interview-2.avif')"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-127">Whiteboard Challenge</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Как проходить вайтборд: основные блоки и тайминг. Записи демо вайтбордов.</div>
-                      <div class="popup_program_cart_text width-127">Whiteboard Challenge</div>
-                    </div>
-                  </div>
-              </div>
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper" style="background-image:url('images/popup-interview-3.avif')"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Как отвечать на вопросы</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">110 готовых ответов на популярные вопросы. Как обсуждать зарплату. Редфлаги и причины отказов.</div>
-                      <div class="popup_program_cart_text width-206">Как отвечать на вопросы</div>
-                    </div>
-                  </div>
-              </div>
-        <div class="popup_program_cart_wrapper">
-                  <div class="popup_program_cart_flip">
-                    <div class="popup_program_cart_face popup_program_cart_face-front">
-                      <div class="popup_program_img_wrapper"></div>
-                      <div class="popup_program_gradient"></div>
-                      <div class="popup_program_cart_text width-206">Как презентовать кейсы</div>
-                    </div>
-                    <div class="popup_program_cart_face popup_program_cart_face-back">
-                      <div class="popup_program_cart_back_text">Шаблон презентации. Сторителлинг. Структура и тайминг. Подборка крутых кейсов.</div>
-                      <div class="popup_program_cart_text width-206">Как презентовать кейсы</div>
-                    </div>
-                  </div>
-              </div>
-      </div>
-    </template>
     <!-- Мобильное меню (открывается кнопкой "менюшка" в шапке) -->
     <div id="popup-nav-mob" class="popup_nav_mob" data-popup-animate="slide-up" data-popup-slide-from="top">
       <div class="container">
@@ -2076,6 +1775,7 @@ html { font-size: 1rem; }
        переписана на чистый JS в js/interactions.js -->
   <script src="js/scroll-progress.js" defer></script>
   <script src="js/interactions.js" defer></script>
+  <script src="js/video-player.js" defer></script>
   <script src="js/partners-marquee.js" defer></script>
   <script src="js/gsap.min.js" defer onerror="window.__heroReveal && window.__heroReveal(); window.__storiesReveal && window.__storiesReveal(); window.__mentorReveal && window.__mentorReveal(); window.__caseReveal && window.__caseReveal(); window.__moveReveal && window.__moveReveal(); window.__workshopReveal && window.__workshopReveal(); window.__programReveal && window.__programReveal(); window.__skillReveal && window.__skillReveal(); window.__faqReveal && window.__faqReveal(); window.__rateReveal && window.__rateReveal(); window.__consultationReveal && window.__consultationReveal(); window.__footerReveal && window.__footerReveal()"></script>
   <script src="js/hero-animation.js" defer onerror="window.__heroReveal && window.__heroReveal()"></script>
@@ -2086,6 +1786,7 @@ html { font-size: 1rem; }
   <script src="js/plan-animation.js" defer onerror="window.__planReveal && window.__planReveal()"></script>
   <script src="js/move-animation.js" defer onerror="window.__moveReveal && window.__moveReveal()"></script>
   <script src="js/workshop-animation.js" defer onerror="window.__workshopReveal && window.__workshopReveal()"></script>
+  <script src="js/program-tabs.js" defer></script>
   <script src="js/program-animation.js" defer onerror="window.__programReveal && window.__programReveal()"></script>
   <script src="js/support-swiper.js" defer></script>
   <script src="js/consultation-cover-swiper.js" defer></script>
@@ -2095,5 +1796,6 @@ html { font-size: 1rem; }
   <script src="js/rate-animation.js" defer onerror="window.__rateReveal && window.__rateReveal()"></script>
   <script src="js/consultation-animation.js" defer onerror="window.__consultationReveal && window.__consultationReveal()"></script>
   <script src="js/footer-animation.js" defer onerror="window.__footerReveal && window.__footerReveal()"></script>
+  <script src="js/pointer-parallax.js" defer></script>
 </body>
 </html>

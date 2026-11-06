@@ -330,18 +330,6 @@ img {
   color: var(--white);
 }
 
-.text_small.color-white.width-379 {
-  width: 23.69rem;
-}
-
-.text_small.text_aligh-left {
-  text-align: left;
-}
-
-.text_small.text_aligh-left.width-445 {
-  width: 27.81rem;
-}
-
 .btn_main {
   background-color: var(--pink);
   border-radius: 100px;
@@ -752,17 +740,8 @@ img {
   display: block;
 }
 
-.text_like_h1.width-335 {
-  width: 20.94rem;
-}
-
-.text_like_h1.width-335.color-white,
 .text_like_h1.color-white {
   color: var(--white);
-}
-
-.text_like_h1.color-white.width-452 {
-  width: 28.25rem;
 }
 
 .text_like_h1.color-white.pdf_heading-1 {
@@ -1017,10 +996,6 @@ img {
 
 .image-3.border-36 {
   border-radius: 36px;
-}
-
-.image-3.border-24 {
-  border-radius: 24px;
 }
 
 .image-3.display-none {
@@ -2364,17 +2339,6 @@ img {
   margin-bottom: 2.5rem;
 }
 
-.program_img_wrapper {
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  position: relative;
-}
-
-.program_img_wrapper.mb-24 {
-  margin-bottom: 1.5rem;
-}
-
 .chel_img_wrapper {
   width: 12.38rem;
   height: 14.56rem;
@@ -2383,261 +2347,11 @@ img {
   transform: rotate(-19.174deg);
 }
 
-.first_img_wrapper {
-  width: 6rem;
-  height: 18.19rem;
-  position: relative;
-  left: -.7rem;
-  right: auto;
-}
-
-.brush-white_img_wrapper {
-  width: 6.94rem;
-  height: 12.31rem;
-  position: absolute;
-  inset: 1.4rem -15.1rem auto auto;
-  transform: rotate(-12.395deg);
-}
-
-.program_description_wrapper {
-  grid-column-gap: 2rem;
-  grid-row-gap: 2rem;
-  flex-flow: column;
-  justify-content: flex-start;
-  align-items: center;
-  display: flex;
-}
-
-.program_description_wrapper.mb-56 {
-  margin-bottom: 3.5rem;
-}
-
-.program_carts_wrapper {
-  grid-column-gap: 1rem;
-  grid-row-gap: 1rem;
-  flex-flow: column;
-  justify-content: flex-start;
-  align-items: center;
-  max-width: 56.4rem;
-  display: flex;
-}
-
-.program_carts_wrapper.mb-527 {
-  margin-bottom: 32.94rem;
-}
-
-.program_cart_wrapper {
-  grid-column-gap: .56rem;
-  grid-row-gap: .56rem;
-  justify-content: center;
-  align-items: center;
-  width: 56.44rem;
-  display: flex;
-  cursor: pointer;
-}
-
-.program_cart_img_wrapper {
-  border-radius: 24px;
-  flex: none;
-  justify-content: center;
-  align-items: center;
-  width: 10.6rem;
-  height: 10.6rem;
-  display: flex;
-  overflow: hidden;
-}
-
-.program_cart_info_wrapper {
-  background-color: var(--white-opacity-40);
-  border-radius: 24px;
-  flex: none;
-  width: 45.24rem;
-  height: 10.63rem;
-  padding-top: 3.79rem;
-  padding-left: 2.25rem;
-  padding-right: 2.25rem;
-}
-
-/* Scroll stack: the complete intro stops 100px from the viewport top,
-   then the cards pass over it and become active one by one. */
-.program_intro_stack {
-  flex-flow: column;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 32.94rem;
-  display: flex;
-  position: relative;
-}
-
-.program_intro_stack .program_carts_wrapper.mb-527 {
-  margin-bottom: 0;
-}
-
-.program_intro_stack.has-offer-phase {
-  margin-bottom: 13.75rem;
-  padding-bottom: 0;
-}
-
-.program_offer_runway {
-  flex: none;
-  width: 1px;
-  height: var(--program-offer-runway, calc(100vh - 100px));
-  pointer-events: none;
-}
-
-/* Пауза между модулями: карточки 1-го модуля должны успеть уехать вверх,
-   прежде чем в кадр войдёт первая карточка 2-го. */
-.program_intro_stack.has-offer-phase .program_carts_wrapper.mb-527 {
-  margin-bottom: calc(100vh + 40px);
-}
-
-.program_intro_stack.has-offer-phase .program_carts_wrapper-2.mb-220 {
-  margin-bottom: 0;
-}
-
-.program_intro_sticky {
-  z-index: 1;
-  flex-flow: column;
-  align-items: center;
-  width: 100%;
-  display: flex;
-  position: sticky;
-  top: 100px;
-}
-
-.program_intro_sticky.is-released {
-  position: absolute;
-}
-
-.program_intro_stack.has-offer-phase .program_heading_wrapper.mb-40 {
-  margin-bottom: 2rem;
-}
-
-.program_phase_stage {
-  width: 100%;
-  position: relative;
-}
-
-.program_phase {
-  flex-flow: column;
-  align-items: center;
-  width: 100%;
-  display: flex;
-  will-change: opacity, transform;
-}
-
-.program_phase_design > .text_like_h1 {
-  margin-bottom: 2.5rem;
-}
-
-.program_phase_offer {
-  opacity: 0;
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  transform: translateY(24px);
-}
-
-.program_carts_wrapper.mb-527 {
-  z-index: 2;
-  position: relative;
-}
-
-.program_carts_wrapper.mb-527 .program_cart_wrapper,
-.program_scroll_card {
-  z-index: var(--program-card-z, 2);
-  transform: translateY(var(--program-card-offset-y, 0px)) scale(var(--program-card-scale, 1));
-  transform-origin: 50% 0%;
-  border-radius: 24px;
-  position: relative;
-  overflow: hidden;
-  will-change: transform;
-}
-
-.program_carts_wrapper.mb-527 .program_cart_wrapper:before,
-.program_scroll_card:before {
-  content: "";
-  z-index: 0;
-  background-image: url('../images/active-card-bg.png');
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  opacity: 0;
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  transition: opacity 240ms ease;
-}
-
-.program_carts_wrapper.mb-527 .program_cart_wrapper.is-active:before,
-.program_scroll_card.is-active:before {
-  opacity: 1;
-}
-
-.program_carts_wrapper.mb-527 .program_cart_wrapper > *,
-.program_scroll_card > * {
-  z-index: 1;
-  position: relative;
-}
-
-.program_carts_wrapper.mb-527 .program_cart_info_wrapper,
-.program_scroll_info {
-  background-color: var(--white-opacity-40);
-  opacity: 1;
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
-}
-
-.program_carts_wrapper.mb-527 .program_cart_wrapper.is-active .program_cart_info_wrapper,
-.program_scroll_card.is-active .program_scroll_info {
-  background-color: transparent;
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-}
-
-.program_cart_text-v2-copy,
-.program_cart_text_description-2 {
-  transition: color 240ms ease;
-}
-
-.program_scroll_card.is-active .program_cart_text-v2-copy {
-  color: var(--white);
-}
-
-.program_scroll_card.is-active .program_cart_text_description-2 {
-  color: #ffffffb3;
-}
-
 .suitcase_img_wrapper {
   border-radius: 1.38em;
   width: 10.63rem;
   height: 10.63rem;
   overflow: hidden;
-}
-
-.program_week_wrapper {
-  background-color: var(--white);
-  border-radius: 73px;
-  justify-content: center;
-  align-items: center;
-  height: 2.5rem;
-  padding: .5rem .88rem;
-  display: flex;
-}
-
-.text_week {
-  color: var(--black);
-  font-variation-settings: "slnt" 0, "CNTR" 0;
-  letter-spacing: -.01rem;
-  flex: none;
-  font-weight: 500;
-  line-height: 110%;
-}
-
-.cart_info_content_wrapper {
-  justify-content: space-between;
-  align-items: center;
-  display: flex;
 }
 
 .program_cart_text-v1 {
@@ -2652,117 +2366,6 @@ img {
   letter-spacing: -.02rem;
   width: 15.81rem;
   line-height: 110%;
-}
-
-.program_cart_text-1 {
-  color: var(--white);
-  font-variation-settings: "slnt" 0, "CNTR" 0;
-  letter-spacing: -.01rem;
-  font-size: 1.88rem;
-  font-weight: 500;
-  line-height: 110%;
-}
-
-.program_text_2_wrapper {
-  grid-column-gap: .5rem;
-  grid-row-gap: .5rem;
-  flex-flow: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  display: flex;
-}
-
-.program_cart_text_description-2 {
-  color: #000000b3;
-  font-variation-settings: "slnt" 0, "CNTR" 0;
-  letter-spacing: -.01rem;
-  line-height: 110%;
-}
-
-.folder_img_wrapper {
-  width: 19.5rem;
-  height: 16.19rem;
-  position: absolute;
-  inset: -1.5rem auto auto -29.1rem;
-  transform: rotate(28.9deg);
-}
-
-.second_img_wrapper {
-  width: 9.56rem;
-  height: 18.19rem;
-}
-
-.white_bag_img_wrapper {
-  width: 11.44rem;
-  height: 10.06rem;
-  position: absolute;
-  inset: .3rem -19.6rem auto auto;
-  transform: rotate(-19.74deg);
-}
-
-.program_cart_wrapper-2 {
-  /* Было justify-content: space-between — картинка (10.63rem) + текстовая
-     панель (45.31rem) = 55.94rem, а сама карточка 56.44rem, т.е. на 0.5rem
-     шире суммы детей. space-between растягивал этот остаток в зазор МЕЖДУ
-     картинкой и панелью — там ничего не перекрывает фон карточки, поэтому
-     градиент активной карточки (.program_scroll_card:before) был виден
-     именно в этом зазоре, заметнее всего у скруглённого угла картинки.
-     flex-start убирает зазор — картинка и панель встык, градиенту негде
-     просвечивать. */
-  justify-content: flex-start;
-  align-items: center;
-  width: 56.44rem;
-  display: flex;
-  cursor: pointer;
-  border-radius: 24px;
-  overflow: hidden;
-}
-
-.program_cart_img_wrapper-2 {
-  border-radius: 24px;
-  flex: none;
-  justify-content: center;
-  align-items: center;
-  width: 10.63rem;
-  height: 10.63rem;
-  display: flex;
-  /* Без этого градиентный фон активной карточки (.program_scroll_card:before,
-     см. выше) просвечивал по скруглённым углам картинки — у аналога для
-     карточек 1 модуля (.program_cart_img_wrapper) overflow:hidden уже был,
-     здесь просто не унаследовали. Действует и на мобилке — там этот блок
-     только меняет width/height, overflow не переопределяет. */
-  overflow: hidden;
-}
-
-.program_cart_info_wrapper-2 {
-  background-color: var(--white);
-  border-radius: 24px;
-  flex: none;
-  width: 45.31rem;
-  height: 10.63rem;
-  padding-top: 3.44rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
-}
-
-.cart_info_content_wrapper-2 {
-  justify-content: space-between;
-  align-items: center;
-  display: flex;
-}
-
-.program_week_wrapper-2 {
-  background-color: var(--f5f5f5);
-  border-radius: 100px;
-  justify-content: center;
-  align-items: center;
-  height: 2.5rem;
-  padding: .5rem .88rem;
-  display: inline-flex;
-}
-
-.program_week_wrapper-2.mb-20 {
-  margin-bottom: 1.25rem;
 }
 
 .btn_program_cart_wrapper {
@@ -2784,40 +2387,6 @@ img {
   width: 2.5rem;
   height: 2.5rem;
   display: flex;
-}
-
-.arrow_size_wrapper {
-  flex: none;
-  justify-content: center;
-  align-items: center;
-  width: 1.29rem;
-  height: 1.29rem;
-  display: flex;
-}
-
-.program_carts_wrapper-2.mb-220 {
-  grid-column-gap: 1rem;
-  grid-row-gap: 1rem;
-  flex-flow: column;
-  justify-content: flex-start;
-  align-items: center;
-  margin-bottom: 13.75rem;
-  display: flex;
-}
-
-.program_cart_text_description-1 {
-  color: #ffffffb3;
-  letter-spacing: -.01rem;
-  line-height: 110%;
-}
-
-.program_cart_text-v2-copy {
-  color: var(--black);
-  font-variation-settings: "slnt" 0, "CNTR" 0;
-  letter-spacing: -.02rem;
-  font-size: 1.88rem;
-  font-weight: 500;
-  line-height: 110%;
 }
 
 .program_cart_grid {
@@ -2960,44 +2529,13 @@ img {
   transform: rotate(23.454deg);
 }
 
-.offer_heading_wrapper.mb-40 {
-  margin-bottom: 2.5rem;
-}
-
-.btn_program_cart_wrapper-1 {
-  grid-column-gap: .5rem;
-  grid-row-gap: .5rem;
-  justify-content: flex-end;
-  align-items: center;
-  width: auto;
-  display: flex;
-}
-
 /* Стрелка появляется с "пружинным" поп-эффектом только у активной карточки
    скролл-стека (класс is-active навешивается program-animation.js). */
-.arrow_wrapper-1,
 .arrow_wrapper-2 {
   opacity: 0;
   transform: scale(.5);
   pointer-events: none;
   transition: opacity .3s ease, transform .45s cubic-bezier(.34, 1.56, .64, 1);
-}
-
-.program_scroll_card.is-active .arrow_wrapper-1,
-.program_scroll_card.is-active .arrow_wrapper-2 {
-  opacity: 1;
-  transform: scale(1);
-  pointer-events: auto;
-}
-
-.arrow_wrapper-1 {
-  background-color: var(--white);
-  border-radius: 999px;
-  justify-content: center;
-  align-items: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  display: flex;
 }
 
 .support_carts_wrapper {
@@ -3373,19 +2911,13 @@ img {
    ограниченную по высоте окна область, см. .popup_left_side и т.д. выше) —
    полоса скрыта тем же способом, что у html/body в начале файла. */
 .popup_left_side,
-.popup_right_side,
-.popup_left_side_program-copy,
-.popup_right_side_program,
-.popup_program_page_cards {
+.popup_right_side {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
 
 .popup_left_side::-webkit-scrollbar,
-.popup_right_side::-webkit-scrollbar,
-.popup_left_side_program-copy::-webkit-scrollbar,
-.popup_right_side_program::-webkit-scrollbar,
-.popup_program_page_cards::-webkit-scrollbar {
+.popup_right_side::-webkit-scrollbar {
   width: 0;
   height: 0;
   display: none;
@@ -3406,10 +2938,6 @@ img {
   display: flex;
   position: absolute;
   inset: 2rem 2rem auto auto;
-}
-
-.popup_close_btn.color-whitesmoke {
-  background-color: var(--f5f5f5);
 }
 
 .text_close_btn {
@@ -3519,8 +3047,7 @@ img {
   display: flex;
 }
 
-.popup-copy,
-.popup_program {
+.popup-copy {
   z-index: 99999999;
   background-color: #000000e3;
   display: none;
@@ -3542,339 +3069,10 @@ img {
   inset: auto;
 }
 
-.popup_right_side_program {
-  background-color: var(--white);
-  border-top-left-radius: 48px;
-  border-top-right-radius: 48px;
-  width: 73.75rem;
-  height: 57.94rem;
-  max-height: calc(100% - 9.5625rem);
-  padding-top: 7rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
-  /* Скролл — не здесь, а в .popup_program_page_cards внутри (см. ниже),
-     иначе кнопка "закрыть" (position: absolute относительно этого блока)
-     уезжает вместе со скроллом. overflow: hidden — просто подрезка под
-     скруглённые углы. */
-  overflow: hidden;
-  position: relative;
-  inset: auto;
-}
-
-.popup_text_program_wrapper {
-  grid-column-gap: 1rem;
-  grid-row-gap: 1rem;
-  flex-flow: column;
-  justify-content: center;
-  align-items: flex-start;
-  display: flex;
-}
-
-.popup_text_program_wrapper.mb-847 {
-  margin-bottom: 0;
-}
-
-.btn_next_program {
-  background-color: var(--f5f5f5);
-  border-radius: 100px;
-  justify-content: center;
-  align-items: center;
-  height: 2.5rem;
-  padding: .5rem .88rem;
-  display: inline-flex;
-  /* Без user-select наведение на сам текст "дальше" переключает курсор на
-     I-образный (текстовый), даже когда родитель кликабелен и с cursor:
-     pointer, — браузер приоритизирует курсор текстового узла. */
-  cursor: pointer;
-  user-select: none;
-}
-
-/* "дальше" — единственный акцентный (розовый) вариант кнопки; "назад"
-   ходит просто базовым .btn_next_program (тот уже цвета var(--f5f5f5), как
-   .popup_program_close_btn.color-whitesmoke, — см. HTML попапа). Позиция
-   раньше была на этом классе (position: absolute; bottom/left) — теперь на
-   общей обёртке .popup_program_nav ниже, чтобы обе кнопки стояли в ряд. */
-.btn_next_program.is-next {
-  background-color: var(--pink);
-}
-
-/* Обёртка кнопок "назад"/"дальше" — раньше "дальше" сама была
-   position: absolute; bottom: 2rem; left: 2rem, теперь то же самое здесь,
-   а кнопки внутри просто в ряд с отступом 5rem. Скрыта на мобилке (кнопки
-   там не нужны — навигация скроллом, см. .popup_program_mob_section). */
-.popup_program_nav {
-  position: absolute;
-  bottom: 2rem;
-  left: 2rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.popup_program_grid {
-  grid-column-gap: 1rem;
-  grid-row-gap: 1rem;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-}
-
-/* Границы анимации переключения страниц попапа "Программа" (кнопки
-   "назад"/"дальше", см. initProgramPopup в js/interactions.js). Это НЕ
-   край белого листа — .popup_program_page_left оборачивает только
-   бейдж+заголовок+описание, .popup_program_page_cards — только грид
-   карточек; сам лист (.popup_left_side_program-copy/.popup_right_side_program)
-   в анимации не участвует и не двигается. overflow:hidden — обязателен,
-   это и есть "своя граница", в которую подрезается уезжающий/въезжающий
-   контент; JS во время анимации временно выставляет высоту в px (чтобы
-   плавно анимировать её вместе со сдвигом) и убирает инлайн-стили после. */
-.popup_program_page_left {
-  position: relative;
-  overflow: hidden;
-}
-
-/* .popup_program_page_cards — та же граница анимации, но ещё и сама
-   скроллится (max-height: 100% от родителя — .popup_right_side_program на
-   десктопе, за вычетом его padding-top под кнопку "закрыть" считается
-   автоматически, т.к. проценты у детей считаются от content-box родителя).
-   Раньше скроллился весь .popup_right_side_program целиком, и кнопка
-   "закрыть" (position: absolute внутри него же) уезжала вместе с контентом
-   при скролле — теперь скроллится только этот блок, кнопка остаётся на
-   месте. Скроллбар скрыт тем же способом, что и везде на сайте (см.
-   .popup_program_page_cards::-webkit-scrollbar ниже). */
-.popup_program_page_cards {
-  position: relative;
-  max-height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-/* На мобилке (≤479px) кнопки "назад"/"дальше" скрыты (.popup_program_nav
-   display:none чуть ниже по файлу) — вместо смены страницы по кнопкам все
-   7 разделов
-   рендерятся подряд одним списком внутри .popup_program_page_left_inner
-   (см. buildProgramFeedHTML в js/interactions.js) и скроллятся вместе с
-   уже существующим overflow-y:auto листа. .popup_program_mob_section —
-   один такой раздел (бейдж+заголовок+описание+грид карточек); между
-   разделами только отступ, без разделительной линии. */
-.popup_program_mob_section {
-  padding-top: 2rem;
-}
-
-.popup_program_mob_section:first-child {
-  padding-top: 0;
-}
-
-/* Заголовок "2 модуль" в мобильной ленте (см. buildProgramFeedHTML) — тот
-   же шрифт/начертание, что у заголовков разделов попапа (.text_30_px —
-   Onweer, uppercase, bold), просто мельче их 48px, чтобы читаться как
-   категория, а не как ещё один заголовок раздела. */
-.popup_program_mob_module_label {
-  margin-bottom: 1.5rem;
-}
-
-.popup_program_cart_wrapper {
-  border-radius: 48px;
-  width: 16.69rem;
-  height: 19.69rem;
-  position: relative;
-}
-
-.popup_program_img_wrapper {
-  background-image: url('../images/Rectangle-2087329044.png');
-  background-position: 50%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: 16.69rem;
-  height: 12.19rem;
-}
-
-.popup_program_img_wrapper._1 {
-  background-position: 50%;
-}
-
-.popup_program_img_wrapper._2 {
-  background-image: url('../images/Rectangle-2087329043.png');
-  background-position: 50%;
-  background-size: cover;
-}
-
-.popup_program_img_wrapper._3 {
-  background-image: url('../images/Rectangle-2087329045.png');
-  background-position: 50%;
-}
-
-.popup_program_img_wrapper._4 {
-  background-image: url('../images/Rectangle-2087329046.png');
-  background-position: 50%;
-}
-
-.popup_program_img_wrapper._5 {
-  background-image: url('../images/Rectangle-2087329047.png');
-}
-
-.popup_program_img_wrapper._6 {
-  background-image: url('../images/Rectangle-2087329048.png');
-}
-
 .div-block-4 {
   width: 100%;
   height: 100%;
   position: absolute;
-}
-
-.popup_program_gradient {
-  background-image: linear-gradient(180deg, #fff0 43%, var(--f5f5f5) 62%);
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  inset: 0%;
-}
-
-.popup_program_cart_text {
-  color: var(--black);
-  font-variation-settings: "slnt" 0, "CNTR" 0, "wdth" 60;
-  letter-spacing: -.01rem;
-  text-transform: uppercase;
-  font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 100%;
-  position: absolute;
-  bottom: 1.5rem;
-  left: 1.5rem;
-}
-
-.popup_program_cart_text.width-127 {
-  width: 7.94rem;
-}
-
-.popup_program_cart_text.width-206 {
-  width: 12.88rem;
-  bottom: 1.5rem;
-}
-
-/* Ховер-переворот карточек попапа "Программа" (.popup_program_cart_wrapper) —
-   пока только в шаблоне "Продукт и метрики", остальные шаблоны не трогал.
-   Без шарнира сбоку — просто лёгкое приближение (scale) и переворот вокруг
-   собственного центра, как монетка, без эффекта "открывающейся двери".
-   .popup_program_cart_face-front/-back — две стороны, каждая занимает всю
-   площадь (inset: 0) и скрыта, когда повёрнута обратной стороной к зрителю
-   (backface-visibility).
-
-   perspective — как функция ВНУТРИ transform (не свойство на родителе):
-   раньше делали свойством на .popup_program_cart_wrapper, а у него ещё и
-   overflow: hidden (нужен под скруглённые углы) — связка "perspective +
-   overflow:hidden на одном элементе" в Chrome/Safari ломает
-   backface-visibility, карточка при повороте просто пропадает вместо того
-   чтобы показать обратную сторону. perspective() как функция трансформации
-   не создаёт 3D-контекст на родителе, поэтому overflow ему не мешает. */
-.popup_program_cart_flip {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform-style: preserve-3d;
-  transform: perspective(1600px) rotateY(0deg);
-  transition: transform .5s ease;
-}
-
-/* :hover — только для настоящих устройств с мышью (@media (hover: hover)).
-   На тачскринах браузеры сами эмулируют :hover по тапу и НЕ снимают его,
-   пока не тапнешь в другое место страницы — если бы это правило работало
-   без ограничения, второй тап по той же карточке снимал бы .is-flipped
-   (JS ниже), но :hover остался бы висеть и держал карточку перевёрнутой
-   всё равно. С этим ограничением на тачскринах :hover вообще не участвует
-   — переворотом там управляет только .is-flipped. */
-@media (hover: hover) {
-  .popup_program_cart_wrapper:hover .popup_program_cart_flip {
-    transform: perspective(1600px) rotateY(180deg);
-  }
-}
-
-/* Устройства без мыши (тачскрины) — переворот по тапу: класс переключается
-   в js/interactions.js (initProgramCardFlipTaps), первый тап
-   переворачивает, второй — обратно. */
-.popup_program_cart_wrapper.is-flipped .popup_program_cart_flip {
-  transform: perspective(1600px) rotateY(180deg);
-}
-
-.popup_program_cart_face {
-  border-radius: 48px;
-  overflow: hidden;
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-.popup_program_cart_face-back {
-  background-color: var(--pink);
-  transform: rotateY(180deg);
-}
-
-/* Заголовок на обратной стороне — тот же .popup_program_cart_text, что и
-   спереди (тот же шрифт/позиция), просто белый вместо чёрного на розовом
-   фоне — как в макете 821-369. */
-.popup_program_cart_face-back .popup_program_cart_text {
-  color: var(--white);
-}
-
-/* Новый текст на обратной стороне — там, где на лицевой была картинка.
-   Отдельного стиля описания в макете 821-369 нет (там только заголовок) —
-   берём тот же шрифт проекта (Onweer, обычное начертание), что и у
-   заголовка там же, просто мельче под размер карточки. */
-.popup_program_cart_back_text {
-  color: var(--white);
-  opacity: .85;
-  font-variation-settings: "slnt" 0, "CNTR" 0;
-  letter-spacing: -.01rem;
-  font-size: 1rem;
-  line-height: 130%;
-  font-weight: 400;
-  position: absolute;
-  top: 1.5rem;
-  left: 1.5rem;
-  right: 1.5rem;
-}
-
-.popup_program_close_btn {
-  z-index: 5;
-  background-color: var(--white-opacity-40);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  cursor: pointer;
-  border-radius: 100px;
-  justify-content: center;
-  align-items: center;
-  width: 7.13rem;
-  height: 3rem;
-  padding: .75rem 1.5rem;
-  display: flex;
-  position: absolute;
-  inset: 2rem 2rem auto auto;
-}
-
-.popup_program_close_btn.color-whitesmoke {
-  background-color: var(--f5f5f5);
-}
-
-.popup_left_side_program-copy {
-  background-color: var(--white);
-  border-top-left-radius: 48px;
-  border-top-right-radius: 48px;
-  flex: none;
-  width: 45.75rem;
-  height: 57.94rem;
-  max-height: calc(100% - 9.5625rem);
-  padding-top: 2rem;
-  padding-left: 2rem;
-  overflow-y: auto;
-  position: relative;
-  inset: auto;
-}
-
-.popup_program_grid_mob {
-  grid-column-gap: 1rem;
-  grid-row-gap: 1rem;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  display: none;
 }
 
 .popup_transparent_mob {
@@ -3982,15 +3180,6 @@ img {
   .text_small.width-471 {
     width: 16.81rem;
     font-size: .88rem;
-  }
-
-  .text_small.color-white.width-379 {
-    width: 12.94rem;
-    font-size: .88rem;
-  }
-
-  .text_small.text_aligh-left.width-445 {
-    width: 15.19rem;
   }
 
   .btn_main {
@@ -4184,11 +3373,6 @@ img {
   .text_like_h1.rate_heading-2.display-none,
   .text_like_h1.rate_heading-3.display-none {
     display: none;
-  }
-
-  .text_like_h1.color-white.width-335,
-  .text_like_h1.color-white.width-452 {
-    width: 11.94rem;
   }
 
   .text_like_h1.color-white.decor-line {
@@ -5436,10 +4620,6 @@ img {
     margin-bottom: 1.44rem;
   }
 
-  .program_img_wrapper.mb-24 {
-    margin-bottom: 1.44rem;
-  }
-
   .chel_img_wrapper {
     width: 3.62rem;
     height: 4.25rem;
@@ -5447,189 +4627,13 @@ img {
     left: -8.4rem;
   }
 
-  .first_img_wrapper {
-    width: 3.13rem;
-    height: 9.56rem;
-  }
-
-  .brush-white_img_wrapper {
-    width: 2.31rem;
-    height: 4.17rem;
-    top: -5.8rem;
-    right: -8rem;
-  }
-
-  .program_description_wrapper.mb-56 {
-    grid-column-gap: .5rem;
-    grid-row-gap: .5rem;
-    margin-bottom: 3rem;
-  }
-
-  .program_carts_wrapper.mb-527 {
-    max-width: 21.44rem;
-    grid-row-gap: 1rem;
-    margin-bottom: 8.75rem;
-  }
-
-  .program_intro_stack {
-    margin-bottom: 8.75rem;
-  }
-
-  .program_intro_stack.has-offer-phase {
-    margin-bottom: 5.25rem;
-  }
-
-  .program_intro_stack.has-offer-phase .program_carts_wrapper.mb-527 {
-    margin-bottom: calc(100vh + 40px);
-  }
-
-  .program_intro_stack.has-offer-phase .program_heading_wrapper.mb-40 {
-    margin-bottom: 2.5rem;
-  }
-
-  .program_phase_design > .text_like_h1 {
-    margin-bottom: 1.44rem;
-  }
-
-  .program_cart_wrapper {
-    grid-column-gap: .13rem;
-    grid-row-gap: .13rem;
-    width: 21.44rem;
-  }
-
-  .program_cart_img_wrapper {
-    width: 5rem;
-    height: 5rem;
-  }
-
-  .program_cart_img_wrapper._1 {
-    background-image: url('../images/Rectangle-2087329038.avif');
-    background-position: 50%;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-
-  .program_cart_img_wrapper._2 {
-    background-image: url('../images/Rectangle-2087329039.avif');
-    background-position: 50%;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-
-  .program_cart_img_wrapper._3 {
-    background-image: url('../images/Rectangle-2087329040.avif');
-    background-position: 50%;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-
-  .program_cart_img_wrapper._4 {
-    background-color: #0000;
-    background-image: url('../images/Rectangle-2087329041.avif');
-    background-position: 50%;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-
-  .program_cart_info_wrapper {
-    border-radius: 24px;
-    width: 16.31rem;
-    height: 5rem;
-    padding-top: 1.63rem;
-    padding-left: 1.13rem;
-    padding-right: 1.13rem;
-  }
-
   .suitcase_img_wrapper {
     width: 3.38rem;
     height: 2.88rem;
   }
 
-  .program_week_wrapper {
-    justify-content: center;
-    align-items: center;
-    width: auto;
-    height: auto;
-    padding: .38rem .75rem;
-  }
-
-  .text_week {
-    font-size: .38rem;
-  }
-
-  .text_week.size-12 {
-    font-size: .75rem;
-  }
-
-  .program_cart_text-v1.width-253,
-  .program_cart_text-1 {
+  .program_cart_text-v1.width-253 {
     font-size: .88rem;
-  }
-
-  .program_cart_text-1.width-144 {
-    width: 9rem;
-  }
-
-  .program_text_2_wrapper {
-    grid-column-gap: .25rem;
-    grid-row-gap: .25rem;
-  }
-
-  .program_cart_text_description-2 {
-    color: #ffffffb3;
-    font-size: .5rem;
-  }
-
-  .folder_img_wrapper {
-    width: 4.38rem;
-    height: 3.63rem;
-    top: 1.3rem;
-    left: -6.9rem;
-  }
-
-  .second_img_wrapper {
-    width: 5.06rem;
-    height: 9.56rem;
-  }
-
-  .white_bag_img_wrapper {
-    width: 3.53rem;
-    height: 3.1rem;
-    top: 1.6rem;
-    right: -5.8rem;
-  }
-
-  .program_cart_wrapper-2 {
-    width: 100%;
-  }
-
-  .program_cart_img_wrapper-2 {
-    width: 5rem;
-    height: 5rem;
-  }
-
-  .program_cart_info_wrapper-2 {
-    background-color: var(--white-opacity-40);
-    border-radius: 24px;
-    width: 16.31rem;
-    height: 5rem;
-    padding-top: 1.38rem;
-    padding-left: 1.13rem;
-    padding-right: 1.13rem;
-  }
-
-  .program_week_wrapper-2 {
-    height: auto;
-    padding: .38rem .75rem;
-  }
-
-  .program_week_wrapper-2.mb-20 {
-    margin-bottom: 1.5rem;
-  }
-
-  .program_week_wrapper-2.mb-20.ml-8 {
-    margin-top: .5rem;
-    margin-left: .5rem;
   }
 
   .btn_program_cart_wrapper.width-124 {
@@ -5638,27 +4642,6 @@ img {
 
   .arrow_wrapper-2 {
     display: none;
-  }
-
-  .arrow_size_wrapper {
-    width: .61rem;
-    height: .61rem;
-  }
-
-  .program_carts_wrapper-2.mb-220 {
-    grid-column-gap: 1rem;
-    grid-row-gap: 1rem;
-    width: 21.44rem;
-    margin-bottom: 5.25rem;
-  }
-
-  .program_cart_text_description-1 {
-    font-size: .5rem;
-  }
-
-  .program_cart_text-v2-copy {
-    color: var(--white);
-    font-size: .88rem;
   }
 
   .program_cart_grid.mb-246 {
@@ -5761,21 +4744,6 @@ img {
     height: 2.81rem;
     top: 2.9rem;
     right: -2.4rem;
-  }
-
-  .offer_heading_wrapper.mb-40 {
-    margin-bottom: 1.44rem;
-  }
-
-  .btn_program_cart_wrapper-1 {
-    grid-column-gap: .25rem;
-    grid-row-gap: .25rem;
-    width: auto;
-  }
-
-  .arrow_wrapper-1 {
-    width: 1.4rem;
-    height: 1.19rem;
   }
 
   .support_carts_wrapper.mb-85 {
@@ -6138,14 +5106,6 @@ img {
     right: 0%;
   }
 
-  /* popup-program: карточка popup_left_side_program-copy (44.94rem) выше, чем
-     popup_left_side у остальных попапов (41.13rem) — общий bottom из .popup_line
-     утапливал линию под верхний край карточки. Нужный отступ — 1rem от её
-     верха: 44.94rem (высота карточки) + 1rem. */
-  .popup_line.popup_line-program {
-    bottom: min(41.94rem, calc(100% - 5.0025rem));
-  }
-
   .popup_content_mob_wrapper {
     justify-content: center;
     align-items: flex-start;
@@ -6244,98 +5204,6 @@ img {
     padding-left: 1.5rem;
   }
 
-  .popup_right_side_program {
-    display: none;
-  }
-
-  .popup_text_program_wrapper {
-    grid-column-gap: 1.5rem;
-    grid-row-gap: 1.5rem;
-    margin-bottom: 2.31rem;
-  }
-
-  .popup_text_program_wrapper.mb-847 {
-    grid-column-gap: .5rem;
-    grid-row-gap: .5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .popup_text_program_wrapper.mb-847.ml-8 {
-    margin-left: .5rem;
-  }
-
-  /* Кнопки не рендерятся на мобилке вообще (см. .popup_program_nav ниже) —
-     навигация там скроллом (buildProgramFeedHTML в js/interactions.js). */
-  .popup_program_nav {
-    display: none;
-  }
-
-  .popup_program_cart_wrapper {
-    border-radius: 24px;
-    width: 10.5rem;
-    height: 13rem;
-  }
-
-  .popup_program_cart_face {
-    border-radius: 24px;
-  }
-
-  .popup_program_img_wrapper {
-    width: 10.5rem;
-    height: 6.75rem;
-  }
-
-  .popup_program_gradient {
-    background-image: linear-gradient(180deg, #fff0 23%, var(--f5f5f5) 51%);
-  }
-
-  .popup_program_cart_text {
-    font-size: 1.25rem;
-    bottom: 1rem;
-    left: 1rem;
-  }
-
-  .popup_program_cart_text.width-206 {
-    width: 8.88rem;
-    font-size: 1.25rem;
-    bottom: 1rem;
-  }
-
-  .popup_program_cart_back_text {
-    font-size: .75rem;
-    top: 1rem;
-    left: 1rem;
-    right: 1rem;
-  }
-
-  .popup_left_side_program-copy {
-    width: 23.44rem;
-    height: 41.13rem;
-    max-height: calc(100% - 5.8125rem);
-    padding-top: 1rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    overflow-y: auto;
-  }
-
-  .popup_program_grid_mob {
-    grid-column-gap: .44rem;
-    /* Было grid-template-rows: auto auto auto auto auto auto (6 рядов) —
-       фиксированное число рядов под шаблон popup-program (6 карточек =
-       3 ряда по 2 колонки). В остальных попапах карточек то больше, то
-       меньше (3–9 шт.) — при неполном заполнении лишние явные ряды всё
-       равно оставались частью грида и добавляли grid-row-gap ПОСЛЕ
-       последней реальной карточки перед разделителем (border-top
-       следующего .popup_program_mob_section) — с разным числом карточек
-       получался разный лишний отступ. grid-auto-rows вместо явного списка
-       создаёт ровно столько рядов, сколько нужно карточкам, — без хвоста. */
-    grid-row-gap: .44rem;
-    grid-auto-rows: auto;
-    grid-template-columns: 1fr 1fr;
-    grid-auto-columns: 1fr;
-    display: grid;
-  }
-
   .popup_transparent_mob {
     display: none;
     position: fixed;
@@ -6371,7 +5239,6 @@ img {
     display: flex;
   }
 }
-
 
 @font-face {
   font-family: 'Onweer';

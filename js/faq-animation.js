@@ -18,7 +18,7 @@
     var heading = section.querySelectorAll('[data-faq-el="heading"]');
     var cards = Array.prototype.slice.call(section.querySelectorAll('[data-faq-el="card"]'));
 
-    // Как и в program_carts_wrapper: карточки — вертикальный стек, каждая появляется
+    // Карточки — вертикальный стек, каждая появляется
     // сама по себе по мере скролла именно к ней, а не все разом. Поэтому скрытие сразу
     // переводим на инлайн-стили GSAP и снимаем общий html-класс немедленно (см.
     // комментарий в js/workshop-animation.js) — дальше каждая карточка следит за собой
