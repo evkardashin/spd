@@ -383,10 +383,10 @@
   .program_tabs_list {
     display: flex;
     gap: calc(var(--program-unit) * .5);
-    padding: 0 calc(var(--program-unit) * 1.25);
+    /* Боковые отступы дают первой и последней теме встать по центру. */
+    padding: 0 calc(50% - var(--program-unit) * 7.5);
     overflow-x: auto;
-    scroll-snap-type: x proximity;
-    scroll-padding-inline: calc(var(--program-unit) * 1.25);
+    scroll-snap-type: x mandatory;
     scrollbar-width: none;
   }
 
@@ -401,6 +401,7 @@
     padding: var(--program-unit);
     border-radius: calc(var(--program-unit) * 1.25);
     scroll-snap-align: center;
+    scroll-snap-stop: always;
   }
 
   .program_tab_top {
