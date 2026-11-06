@@ -147,7 +147,7 @@ img { display: block; max-width: 100%; }
   font-size: 1.13rem;
   line-height: 110%;
   text-decoration: none;
-  transition: background-color .25s ease, color .25s ease;
+  transition: background-color 350ms cubic-bezier(.4, 0, .2, 1), color 350ms cubic-bezier(.4, 0, .2, 1);
 }
 
 .toc-link:hover,
@@ -395,7 +395,7 @@ img { display: block; max-width: 100%; }
   line-height: 100%;
   text-decoration: none;
   display: flex;
-  transition: background-color .25s ease, color .25s ease;
+  transition: background-color 350ms cubic-bezier(.4, 0, .2, 1), color 350ms cubic-bezier(.4, 0, .2, 1);
 }
 
 .grade-test-cta a:hover { background-color: var(--pink); }
