@@ -1,6 +1,6 @@
 @font-face {
   font-family: Onweer;
-  src: url('../fonts/Onweer-Var_Combined_FuFo_v01.ttf') format("truetype");
+  src: url('../fonts/Onweer-Var_Combined_FuFo_v01.woff2') format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -5242,7 +5242,7 @@ img {
 
 @font-face {
   font-family: 'Onweer';
-  src: url('../fonts/Onweer-Var_Combined_FuFo_v01.ttf') format('truetype');
+  src: url('../fonts/Onweer-Var_Combined_FuFo_v01.woff2') format('woff2');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;

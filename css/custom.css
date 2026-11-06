@@ -131,7 +131,7 @@
 }
 
 .program_tab[aria-selected="true"] {
-  background-image: url('../images/active-card-bg.png');
+  background-image: url('../images/active-card-bg.webp');
   background-position: 50% 50%;
   background-size: cover;
   color: var(--white);

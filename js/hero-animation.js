@@ -46,7 +46,8 @@
         var isMobile = context.conditions.isMobile;
         var tl = gsap.timeline({ defaults: { ease: 'power3.out' }, onComplete: done });
 
-        gsap.set(heading, { opacity: 0, y: 28 });
+        // Keep the heading readable from the first paint.
+        gsap.set(heading, { y: 12 });
         if (cta) gsap.set(cta, { opacity: 0, y: 22, scale: 0.88, rotate: -4 });
         if (caption) gsap.set(caption, { opacity: 0, y: 16 });
         gsap.set(logos, { opacity: 0, y: 14 });

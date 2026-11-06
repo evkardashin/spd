@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <link rel="preload" href="fonts/Onweer-Var_Combined_FuFo_v01.woff2" as="font" type="font/woff2" crossorigin>
   <title>FFF</title>
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
@@ -29,7 +30,6 @@
        js-файле) — дальше показ каждой карточки/подгруппы отдельно управляется её
        собственным IntersectionObserver-триггером. -->
   <style>
-    html.hero-anim [data-hero-el] { opacity: 0; }
     html.stories-anim [data-stories-el] { opacity: 0; }
     html.mentor-anim [data-mentor-el] { opacity: 0; }
     html.case-anim [data-case-el] { opacity: 0; }
@@ -103,7 +103,6 @@
     };
     (function () {
       try {
-        document.documentElement.classList.add('hero-anim');
         document.documentElement.classList.add('stories-anim');
         document.documentElement.classList.add('mentor-anim');
         document.documentElement.classList.add('case-anim');
@@ -229,8 +228,8 @@ html { font-size: 1rem; }
             </div>
             <div class="hero_img-wrapper" data-hero-el="desktop-img">
               <div class="video_player w-embed" data-video-player>
-                <video controls autoplay muted loop playsinline poster="images/hero-video-poster.jpg" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-                  <source src="https://res.cloudinary.com/ahdvou7p/video/upload/v1783426049/1fff25d8bce494d291fa92ce9a9efd703ef72e35_wdkpwy.mp4" type="video/mp4">
+                <video controls muted loop playsinline preload="none" data-lazy-video poster="images/hero-video-poster.jpg" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                  <source data-src="videos/hero-optimized.mp4" type="video/mp4">
                 </video>
                 <button class="video_sound_toggle" type="button" data-video-sound aria-label="Звук видео на первом экране" aria-pressed="false" hidden>
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-sound-icon="on" aria-hidden="true" focusable="false"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.364 18.364a9 9 0 0 0 0-12.728"/></svg>
@@ -239,14 +238,14 @@ html { font-size: 1rem; }
               </div>
             </div>
             <div class="hero_imgs_wrapper">
-              <div class="hero_img_mob-1" data-hero-el="mob-img-1"><img src="images/Rectangle-2087329035.avif" loading="lazy" sizes="(max-width: 790px) 100vw, 790px" srcset="images/Rectangle-2087329035-p-500.avif 500w, images/Rectangle-2087329035.avif 790w" alt="" class="image-3"></div>
+              <div class="hero_img_mob-1" data-hero-el="mob-img-1"><img src="images/Rectangle-2087329035.avif" loading="eager" fetchpriority="high" sizes="(max-width: 790px) 100vw, 790px" srcset="images/Rectangle-2087329035-p-500.avif 500w, images/Rectangle-2087329035.avif 790w" alt="" class="image-3"></div>
               <div class="hero_img_mob-2" data-hero-el="mob-img-2">
-                <div class="embed-vid w-embed"><video autoplay="" muted="" loop="" playsinline="" style="width: 100%; height: 100%; object-fit: cover; border-radius: 24px;
+                <div class="embed-vid w-embed"><video muted="" loop="" playsinline="" preload="none" data-lazy-video poster="images/projectors-poster.jpg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 24px;
  display: block;">
-                    <source src="https://res.cloudinary.com/ahdvou7p/video/upload/v1785091717/Strange_Projectors_118_by_Brandon_Eversole_-__brandoneversole-Showcased_during_DEMO_2025_in_15_xwcugo.mp4" type="video/mp4">
+                    <source data-src="videos/projectors-optimized.mp4" type="video/mp4">
                   </video></div>
               </div>
-              <div class="hero_img_mob-3" data-hero-el="mob-img-3"><img src="images/Rectangle-2087328974.avif" loading="lazy" sizes="(max-width: 597px) 100vw, 597px" srcset="images/Rectangle-2087328974-p-500.avif 500w, images/Rectangle-2087328974.avif 597w" alt="" class="image-3"></div>
+              <div class="hero_img_mob-3" data-hero-el="mob-img-3"><img src="images/Rectangle-2087328974.avif" loading="eager" sizes="(max-width: 597px) 100vw, 597px" srcset="images/Rectangle-2087328974-p-500.avif 500w, images/Rectangle-2087328974.avif 597w" alt="" class="image-3"></div>
               <div class="hero_btn_wrapper" data-hero-el="mob-cta">
                 <a href="anketa/Анкета.html" class="nav_btn-copy backdrop-none w-inline-block">
                   <div class="hero_btn">записаться на ассессмент</div>
@@ -697,7 +696,7 @@ html { font-size: 1rem; }
                 <div class="case_img_wrapper-mob"><img src="images/bg-mob4.avif" loading="lazy" sizes="100vw" srcset="images/bg-mob4-p-500.avif 500w, images/bg-mob4.avif 718w" alt="" class="image-3"></div>
               </div>
               <div class="case_cart_wrapper" data-case-el="card">
-                <div class="case_img_wrapper"><img src="images/3-1.png" loading="lazy" sizes="100vw" srcset="images/3-1-p-500.png 500w, images/3-1-p-800.png 800w, images/3-1-p-1080.png 1080w, images/3-1-p-1600.png 1600w, images/3-1.png 1872w" alt="" class="image-3"></div>
+                <div class="case_img_wrapper"><img src="images/3-1.webp" loading="lazy" sizes="100vw" srcset="images/3-1-p-500.png 500w, images/3-1-p-800.webp 800w, images/3-1-p-1080.webp 1080w, images/3-1-p-1600.webp 1600w, images/3-1.webp 1872w" alt="" class="image-3"></div>
                 <div class="case_author_wrapper"><img src="images/girl.avif" loading="lazy" sizes="100vw" srcset="images/girl-p-500.avif 500w, images/girl.avif 541w" alt="">
                   <div class="case_logo_wrapper"><img src="images/raf_1.svg" loading="lazy" alt="" class="image-3"></div>
                   <div class="name_case_author">
@@ -899,7 +898,7 @@ html { font-size: 1rem; }
                   </button>
                   <button class="program_tab" type="button" role="tab" id="program-tab-screens" aria-controls="program-panel-screens" aria-selected="false" tabindex="-1" data-program-el="tabs">
                     <span class="program_tab_top">
-                      <img src="images/popup-screens-4.png" loading="lazy" alt="" class="program_tab_img">
+                      <img src="images/popup-screens-4.webp" loading="lazy" alt="" class="program_tab_img">
                       <span class="program_tab_meta">
                         <span class="program_tab_arrow"><img src="images/arrow-right.svg" loading="lazy" alt=""></span>
                         <span class="program_week_pill">6&ndash;10 нед</span>
@@ -946,42 +945,42 @@ html { font-size: 1rem; }
                     </div>
                     <div class="program_panel_cards">
                       <article class="program_panel_card">
-                        <img src="images/Rectangle-2087329044.png" loading="lazy" alt="" class="program_panel_card_img">
+                        <img src="images/Rectangle-2087329044.webp" loading="lazy" alt="" class="program_panel_card_img">
                         <div class="program_panel_card_text">
                           <h4 class="program_panel_card_title">Гибкие (не очень) методологии разработки продуктов</h4>
                           <p class="program_panel_card_desc">Agile, scrum, kanban, waterfall в реале: каденции, ритуалы, приоретизация, метрики поставки.</p>
                         </div>
                       </article>
                       <article class="program_panel_card">
-                        <img src="images/Rectangle-2087329043.png" loading="lazy" alt="" class="program_panel_card_img">
+                        <img src="images/Rectangle-2087329043.webp" loading="lazy" alt="" class="program_panel_card_img">
                         <div class="program_panel_card_text">
                           <h4 class="program_panel_card_title">Продуктовые команды</h4>
                           <p class="program_panel_card_desc">Вертикали. Выделенный и шэреный дизайнер. Софты: тимворк, эмпатия, менталка, продуктивность.</p>
                         </div>
                       </article>
                       <article class="program_panel_card">
-                        <img src="images/Rectangle-2087329045.png" loading="lazy" alt="" class="program_panel_card_img">
+                        <img src="images/Rectangle-2087329045.webp" loading="lazy" alt="" class="program_panel_card_img">
                         <div class="program_panel_card_text">
                           <h4 class="program_panel_card_title">Продуктовая аналитика</h4>
                           <p class="program_panel_card_desc">Must Have метрики. Как влиять на метрики. Особенности работы на разных этапах развития продукта.</p>
                         </div>
                       </article>
                       <article class="program_panel_card">
-                        <img src="images/Rectangle-2087329046.png" loading="lazy" alt="" class="program_panel_card_img">
+                        <img src="images/Rectangle-2087329046.webp" loading="lazy" alt="" class="program_panel_card_img">
                         <div class="program_panel_card_text">
                           <h4 class="program_panel_card_title">Метрики продукта и метрики роста</h4>
                           <p class="program_panel_card_desc">Фреймворк AARRR. Яндекс Метрика. Как работать с отчётами. Основы юнит-экономики.</p>
                         </div>
                       </article>
                       <article class="program_panel_card">
-                        <img src="images/Rectangle-2087329047.png" loading="lazy" alt="" class="program_panel_card_img">
+                        <img src="images/Rectangle-2087329047.webp" loading="lazy" alt="" class="program_panel_card_img">
                         <div class="program_panel_card_text">
                           <h4 class="program_panel_card_title">Процесс работы с гипотезами</h4>
                           <p class="program_panel_card_desc">Понятие гипотезы. Где брать идеи. Зачем и каким способом валидировать гипотезы.</p>
                         </div>
                       </article>
                       <article class="program_panel_card">
-                        <img src="images/Rectangle-2087329048.png" loading="lazy" alt="" class="program_panel_card_img">
+                        <img src="images/Rectangle-2087329048.webp" loading="lazy" alt="" class="program_panel_card_img">
                         <div class="program_panel_card_text">
                           <h4 class="program_panel_card_title">Как готовить и анализировать A/B-тесты</h4>
                           <p class="program_panel_card_desc">Основы статистики. Подготовка и запуск теста. ТЗ для разработчиков. Пост-анализ, принятие решений.</p>
@@ -1099,7 +1098,7 @@ html { font-size: 1rem; }
                         </div>
                       </article>
                       <article class="program_panel_card">
-                        <img src="images/popup-ui-gaps-4.png" loading="lazy" alt="" class="program_panel_card_img">
+                        <img src="images/popup-ui-gaps-4.webp" loading="lazy" alt="" class="program_panel_card_img">
                         <div class="program_panel_card_text">
                           <h4 class="program_panel_card_title">Типографика и размеры текста</h4>
                           <p class="program_panel_card_desc">Настройки текста, стили. Иерархия в тексте. Размерные ряды: мобайл, десктоп.</p>
@@ -1171,14 +1170,14 @@ html { font-size: 1rem; }
                         </div>
                       </article>
                       <article class="program_panel_card">
-                        <img src="images/popup-screens-4.png" loading="lazy" alt="" class="program_panel_card_img">
+                        <img src="images/popup-screens-4.webp" loading="lazy" alt="" class="program_panel_card_img">
                         <div class="program_panel_card_text">
                           <h4 class="program_panel_card_title">Графика в интерфейсе</h4>
                           <p class="program_panel_card_desc">Где брать современную графику, и как ее сочетать. Верстка изображений.</p>
                         </div>
                       </article>
                       <article class="program_panel_card">
-                        <img src="images/Rectangle-2087329044.png" loading="lazy" alt="" class="program_panel_card_img">
+                        <img src="images/Rectangle-2087329044.webp" loading="lazy" alt="" class="program_panel_card_img">
                         <div class="program_panel_card_text">
                           <h4 class="program_panel_card_title">Создаем элементы экрана (молекулы)</h4>
                           <p class="program_panel_card_desc">Карточки, формы, фильтры, таблицы, модальные окна. Верстка динамического контента (UGC).</p>
@@ -1222,7 +1221,7 @@ html { font-size: 1rem; }
                         </div>
                       </article>
                       <article class="program_panel_card">
-                        <img src="images/Rectangle-2087329044.png" loading="lazy" alt="" class="program_panel_card_img">
+                        <img src="images/Rectangle-2087329044.webp" loading="lazy" alt="" class="program_panel_card_img">
                         <div class="program_panel_card_text">
                           <h4 class="program_panel_card_title">Как писать отклики, чтобы вас звали на собеседование</h4>
                           <p class="program_panel_card_desc">Думаете headhunter мертв? Научитесь писать так, чтобы даже там отвечали!</p>
@@ -1259,7 +1258,7 @@ html { font-size: 1rem; }
                         </div>
                       </article>
                       <article class="program_panel_card">
-                        <img src="images/Rectangle-2087329044.png" loading="lazy" alt="" class="program_panel_card_img">
+                        <img src="images/Rectangle-2087329044.webp" loading="lazy" alt="" class="program_panel_card_img">
                         <div class="program_panel_card_text">
                           <h4 class="program_panel_card_title">Как презентовать кейсы</h4>
                           <p class="program_panel_card_desc">Шаблон презентации. Сторителлинг. Структура и тайминг. Подборка крутых кейсов.</p>
@@ -1404,8 +1403,8 @@ html { font-size: 1rem; }
           <div class="video_content_wrapper">
             <div class="video_wrapper">
               <div class="video_player w-embed" data-video-player>
-                <video controls autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover; display: block;">
-                  <source src="https://res.cloudinary.com/ahdvou7p/video/upload/v1783426049/1fff25d8bce494d291fa92ce9a9efd703ef72e35_wdkpwy.mp4" type="video/mp4">
+                <video controls muted loop playsinline preload="none" data-lazy-video poster="images/hero-video-poster.jpg" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                  <source data-src="videos/hero-optimized.mp4" type="video/mp4">
                 </video>
                 <button class="video_sound_toggle" type="button" data-video-sound aria-label="Звук видео" aria-pressed="false" hidden>
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-sound-icon="on" aria-hidden="true" focusable="false"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/><path d="M16 9a5 5 0 0 1 0 6"/><path d="M19.364 18.364a9 9 0 0 0 0-12.728"/></svg>
@@ -1650,7 +1649,7 @@ html { font-size: 1rem; }
             </div>
             <div class="nemo_img_wrapper" data-footer-el="decor" data-parallax="16"><img src="images/nemo.avif" loading="lazy" alt="" class="image-3"></div>
             <div class="ezh_img_wrapper" data-footer-el="decor" data-parallax="-20"><img src="images/ezh.avif" loading="lazy" sizes="100vw" srcset="images/ezh-p-500.avif 500w, images/ezh-p-800.avif 800w, images/ezh.avif 845w" alt="" class="image-3"></div>
-            <div class="chaynik_img_wrapper" data-footer-el="decor" data-parallax="14"><img src="images/chaynik.png" loading="lazy" alt="" class="image-3"></div>
+            <div class="chaynik_img_wrapper" data-footer-el="decor" data-parallax="14"><img src="images/chaynik.webp" loading="lazy" alt="" class="image-3"></div>
             <div class="rabbit_img_wrapper" data-footer-el="decor" data-parallax="-18"><img src="images/rabbit.avif" loading="lazy" sizes="100vw" srcset="images/rabbit-p-500.avif 500w, images/rabbit.avif 602w" alt="" class="image-3"></div>
             <div class="stop_img_wrapper" data-footer-el="decor" data-parallax="22"><img src="images/stop.avif" loading="lazy" alt="" class="image-3"></div>
           </div>
@@ -1689,7 +1688,7 @@ html { font-size: 1rem; }
             </div>
             <div class="nemo_img_wrapper" data-footer-el="decor" data-parallax="16"><img src="images/nemo.avif" loading="lazy" alt="" class="image-3"></div>
             <div class="ezh_img_wrapper" data-footer-el="decor" data-parallax="-20"><img src="images/ezh.avif" loading="lazy" sizes="100vw" srcset="images/ezh-p-500.avif 500w, images/ezh-p-800.avif 800w, images/ezh.avif 845w" alt="" class="image-3"></div>
-            <div class="chaynik_img_wrapper" data-footer-el="decor" data-parallax="14"><img src="images/chaynik.png" loading="lazy" alt="" class="image-3"></div>
+            <div class="chaynik_img_wrapper" data-footer-el="decor" data-parallax="14"><img src="images/chaynik.webp" loading="lazy" alt="" class="image-3"></div>
             <div class="stop_img_wrapper" data-footer-el="decor" data-parallax="22"><img src="images/stop.avif" loading="lazy" alt="" class="image-3"></div>
             <div class="rabbit_img_wrapper" data-footer-el="decor" data-parallax="-18"><img src="images/rabbit.avif" loading="lazy" sizes="100vw" srcset="images/rabbit-p-500.avif 500w, images/rabbit.avif 602w" alt="" class="image-3"></div>
           </div>

@@ -1,6 +1,45 @@
 (function () {
   'use strict';
 
+  // Attach sources only when a visible video approaches the viewport. CSS-hidden
+  // desktop/mobile variants must not compete with the page for bandwidth.
+  var lazyVideos = document.querySelectorAll('[data-lazy-video]');
+  function startVideo(video) {
+    if (!video.dataset.loaded) {
+      video.querySelectorAll('source[data-src]').forEach(function (source) {
+        source.src = source.dataset.src;
+        source.removeAttribute('data-src');
+      });
+      video.dataset.loaded = 'true';
+      video.load();
+    }
+    if (document.hidden) return;
+    var playback = video.play();
+    if (playback && playback.catch) playback.catch(function () {});
+  }
+
+  function updateVideos() {
+    lazyVideos.forEach(function (video) {
+      var rect = video.getBoundingClientRect();
+      var visible = video.getClientRects().length && rect.width > 0 && rect.height > 0;
+      if (visible && rect.bottom > -200 && rect.top < window.innerHeight + 200 && !document.hidden) {
+        startVideo(video);
+      } else {
+        video.pause();
+      }
+    });
+  }
+
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(updateVideos, { rootMargin: '200px' });
+    lazyVideos.forEach(function (video) { observer.observe(video); });
+  } else {
+    window.addEventListener('scroll', updateVideos, { passive: true });
+  }
+  window.addEventListener('resize', updateVideos);
+  document.addEventListener('visibilitychange', updateVideos);
+  updateVideos();
+
   document.querySelectorAll('[data-video-player]').forEach(function (player) {
     var video = player.querySelector('video');
     var button = player.querySelector('[data-video-sound]');
