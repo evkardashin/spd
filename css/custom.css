@@ -248,20 +248,24 @@
   margin: 1.5rem 0;
   border: 7px solid transparent;
   border-radius: 100px;
-  background-color: #00000052;
+  background-color: #0000000d;
   background-clip: padding-box;
 }
 
 .program_panel::-webkit-scrollbar-thumb {
   border: 7px solid transparent;
   border-radius: 100px;
-  background-color: var(--white);
+  background-color: #00000040;
   background-clip: padding-box;
+}
+
+.program_panel::-webkit-scrollbar-thumb:hover {
+  background-color: #00000059;
 }
 
 @supports not selector(::-webkit-scrollbar) {
   .program_panel {
-    scrollbar-color: var(--white) #00000052;
+    scrollbar-color: #00000040 #0000000d;
   }
 }
 
